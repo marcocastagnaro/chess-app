@@ -3,34 +3,24 @@
  */
 package edu.austral.dissis.chess
 
-import edu.austral.dissis.chess.gui.CachedImageResolver
-import edu.austral.dissis.chess.gui.DefaultImageResolver
-import edu.austral.dissis.chess.gui.GameView
-import edu.austral.dissis.chess.gui.SimpleGameEngine
+import Chess.Game
+import Chess.Piece
+import Chess.Piecies
+import Chess.*
+import edu.austral.dissis.chess.gui.*
 import javafx.application.Application
 import javafx.application.Application.launch
 import javafx.scene.Scene
 import javafx.stage.Stage
 
 
+
 fun main() {
-    launch(ChessGameApplication::class.java)
+    Application.launch(MyChessGameApplication::class.java)
 }
 
-class ChessGameApplication : Application() {
-    private val gameEngine = SimpleGameEngine()
-    private val imageResolver = CachedImageResolver(DefaultImageResolver())
+class MyChessGameApplication : AbstractChessGameApplication() {
 
-    companion object {
-        const val GameTitle = "Chess"
-    }
-
-    override fun start(primaryStage: Stage) {
-        primaryStage.title = GameTitle
-
-        val root = GameView(gameEngine, imageResolver)
-        primaryStage.scene = Scene(root)
-
-        primaryStage.show()
-    }
+    override val gameEngine: GameEngine = MyChess();
+    override val imageResolver: ImageResolver = CachedImageResolver(DefaultImageResolver())
 }
