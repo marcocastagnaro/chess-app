@@ -1,7 +1,7 @@
 package Chess;
 
 import java.util.List;
-import Movements.movementValidator;
+import Interfaces.movementValidator;
 
 
 public class GameVersion {

@@ -1,6 +1,7 @@
 package Chess;
 
-import javafx.geometry.Pos;
+import Enums.Color;
+import Enums.Piecies;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,6 +127,17 @@ public class Board {
             }
         }
         return false;
+    }
+    public List <Piece> getPiecies(){
+        List <Piece> pieces = new ArrayList<>();
+        for (int x =0; x<row; x++){
+            for (int y =0; y< column; y++){
+                if (tablero[x][y].hasPiece()){
+                    pieces.add(tablero[x][y].getPiece());
+                }
+            }
+        }
+        return pieces;
     }
 }
 

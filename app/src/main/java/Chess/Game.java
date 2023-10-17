@@ -1,9 +1,11 @@
 package Chess;
 
+import Interfaces.gameInterface;
+
 import java.util.List;
 import java.util.Objects;
 
-public class Game {
+public class Game implements gameInterface {
     private List <ChessPlayer> chessPlayers;
     Board board;
     GameVersion gameVersion;
@@ -31,9 +33,15 @@ public class Game {
         return this;
     }
 
+    @Override
+    public List<Piece> getPiecies() {
+        return board.getPiecies();
+    }
+
     public Board getBoard() {
         return board;
     }
+
 
     private void nextTurn() {
         for (int i = 0; i <= chessPlayers.toArray().length - 1; i++){

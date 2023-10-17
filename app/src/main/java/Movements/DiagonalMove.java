@@ -2,6 +2,7 @@ package Movements;
 
 import Chess.Board;
 import Chess.Position;
+import Interfaces.movementValidator;
 
 public class DiagonalMove implements movementValidator {
 

@@ -1,11 +1,10 @@
 package Chess;
 
-import Movements.movementValidator;
+import Enums.Color;
+import Enums.Piecies;
+import Interfaces.movementValidator;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import static Chess.Piecies.KING;
 
 public class Piece {
     private Piecies name;

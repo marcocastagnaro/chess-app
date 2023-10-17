@@ -1,4 +1,4 @@
-package Movements;
+package Interfaces;
 import Chess.Board;
 import Chess.Position;
 public interface movementValidator {

@@ -2,6 +2,8 @@ package tests;
 
 import Chess.*;
 
+import Enums.Color;
+import Enums.Piecies;
 import Movements.DiagonalMove;
 import Movements.straightMove;
 import org.junit.jupiter.api.BeforeEach;

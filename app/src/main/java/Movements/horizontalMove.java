@@ -2,8 +2,9 @@ package Movements;
 
 import Chess.Board;
 import Chess.Piece;
-import Chess.Piecies;
+import Enums.Piecies;
 import Chess.Position;
+import Interfaces.movementValidator;
 
 import java.util.Objects;
 

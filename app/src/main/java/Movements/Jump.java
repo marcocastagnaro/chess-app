@@ -2,8 +2,9 @@ package Movements;
 
 import Chess.Board;
 import Chess.Position;
+import Interfaces.movementValidator;
 
-public class Jump implements movementValidator{
+public class Jump implements movementValidator {
     int xmov;
     int ymov; //cuantos movimientos se puede mover en x y cuantos se puede mover en y
   //  int dif;

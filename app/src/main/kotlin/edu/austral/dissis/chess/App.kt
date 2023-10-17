@@ -3,16 +3,8 @@
  */
 package edu.austral.dissis.chess
 
-import Chess.Game
-import Chess.Piece
-import Chess.Piecies
-import Chess.*
 import edu.austral.dissis.chess.gui.*
 import javafx.application.Application
-import javafx.application.Application.launch
-import javafx.scene.Scene
-import javafx.stage.Stage
-
 
 
 fun main() {

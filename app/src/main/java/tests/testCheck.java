@@ -1,6 +1,8 @@
 package tests;
 
 import Chess.*;
+import Enums.Color;
+import Enums.Piecies;
 import Movements.DiagonalMove;
 import Movements.horizontalMove;
 import Movements.straightMove;
