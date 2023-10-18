@@ -6,6 +6,7 @@ import Enums.Color;
 import Enums.Piecies;
 import Movements.DiagonalMove;
 import Movements.straightMove;
+import victory.checkMateValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +29,7 @@ public class testBishoplMove {
         List<Position> posiciones = List.of(
                 position1
         );
-        game = tests.gameInicializer(8, 8, chessPlayers, posiciones);
+        game = tests.gameInicializer(8, 8, chessPlayers, posiciones, new checkMateValidator(Piecies.KING), null);
     }
     @Test
     public void testbishopvalidmove() {

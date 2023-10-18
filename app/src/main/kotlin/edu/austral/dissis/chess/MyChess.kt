@@ -6,7 +6,7 @@ import edu.austral.dissis.chess.gui.*
 import edu.austral.dissis.chess.gui.PlayerColor.BLACK
 import edu.austral.dissis.chess.gui.PlayerColor.WHITE
 
-public class MyChess: GameEngine {
+ class MyChess: GameEngine {
     private var myGame: gameInterface = MyGame()
     private var currentPlayer = WHITE
 
@@ -18,21 +18,25 @@ public class MyChess: GameEngine {
         return if (fromPiece == null)
             InvalidMove("No piece in (${move.from.row}, ${move.from.column})")
         else if (Connector.adaptColour(fromPiece.color) != currentPlayer)
-            InvalidMove("Piece does not belong to current player")
+            InvalidMove("Piece does not belong to the current player")
         else if (toPiece != null && Connector.adaptColour(toPiece.color) == currentPlayer)
             InvalidMove("There is a piece in (${move.to.row}, ${move.to.column})")
-        else{
+        else {
             val myNewGame = myGame
             myGame = myGame.move(movement.newPos, movement.oldPos)
             if (myGame.board == myNewGame.board) {
-                InvalidMove("Invalid move")
+                return InvalidMove("Invalid move")
+            }
+            if (myGame.validateVictory(myGame.chessPlayers, myGame.board)) {
+                return GameOver(currentPlayer)
             }
             else{
-            currentPlayer = if (currentPlayer == WHITE) BLACK else WHITE
-            NewGameState(Connector.getPieces(myGame.board), currentPlayer)
+                currentPlayer = if (currentPlayer == WHITE) BLACK else WHITE
+                NewGameState(Connector.getPieces(myGame.board), currentPlayer)
             }
         }
     }
+
 
     override fun init(): InitialState {
         return InitialState(Connector.adaptBoard(myGame.board),(Connector.getPieces(myGame.board)),WHITE)

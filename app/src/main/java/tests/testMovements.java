@@ -1,6 +1,8 @@
 package tests;
 
 import Chess.*;
+import Interfaces.victoryValidator;
+import victory.checkValidator;
 
 
 import java.util.ArrayList;
@@ -11,12 +13,14 @@ import static org.junit.jupiter.api.Assertions.*;
 public class testMovements {
 
     //crear clase piecefactory --> crear piezas
-    public Game gameInicializer(int row, int column, List<ChessPlayer> chessPlayers, List<Position> posiciones) {
+    public Game gameInicializer(int row, int column, List<ChessPlayer> chessPlayers, List<Position> posiciones, victoryValidator vic, checkValidator check) {
         Board board = new Board(row, column);
         for (Position posicion : posiciones) {
             board.getBoard()[posicion.getX()][posicion.getY()] = posicion;
         }
-        return new Game(chessPlayers, board);
+        GameVersion gameVersion = new GameVersion("1", vic);
+        gameVersion.setCheckval(check);
+        return new Game(chessPlayers, board, gameVersion);
     }
 
     static Position getPositionfromGame(int row, int column, Game game) {

@@ -3,10 +3,11 @@ package Chess;
 import Enums.Color;
 import Enums.Piecies;
 import Interfaces.movementValidator;
+import Interfaces.pieceInterface;
 
 import java.util.List;
 
-public class Piece {
+public class Piece implements pieceInterface {
     private Piecies name;
     private Color color;
     private List<movementValidator> movements;
@@ -29,18 +30,12 @@ public class Piece {
     public boolean isFirstMove() {
         return firstMove;
     }
-    public boolean moveValidator(Position pos, Position fin){
+    public boolean moveValidator(Position pos, Position fin, Board board){
         for (int i=0; i < movements.toArray().length; i++){
             if (movements.get(i).validateMove(pos, fin)){
-                return true;
-            }
-        }
-        return false;
-    }
-    public boolean obstacle(Position oldPos, Position newPos, Board board){
-        for (int i=0; i< movements.toArray().length; i++){
-            if (movements.get(i).obstacle(oldPos, newPos, board)){
-                return true;
+                if (!movements.get(i).obstacle(pos, fin, board)) {
+                    return true;
+                }
             }
         }
         return false;
@@ -52,20 +47,6 @@ public class Piece {
 
     public List<movementValidator> getMovements() {
         return movements;
-    }
-
-    public boolean pointTo(Position posAct, Board board){ //devuelve true si apunta a un rey de otro color
-        for (int x = 0; x < 8; x++) {
-            for (int y = 0; y < 8; y++) {
-                Position possiblePos = board.getPosition(x,y);
-                if (moveValidator(posAct, possiblePos) && !obstacle(posAct, possiblePos, board) && possiblePos.getPiece() != null){
-                    if (possiblePos.getColor() != color && possiblePos.getPiece().getName() == Piecies.KING){
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
     }
     public void setFirstMove(boolean firstMove) {
         this.firstMove = firstMove;

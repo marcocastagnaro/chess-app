@@ -7,6 +7,7 @@ import Enums.Piecies;
 import Movements.DiagonalMove;
 import Movements.horizontalMove;
 import Movements.straightMove;
+import victory.checkMateValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +30,7 @@ public class testQueenMovement {
             List<Position> posiciones = List.of(
 position            );
 
-            game = tests.gameInicializer(8, 8, chessPlayers, posiciones);
+            game = tests.gameInicializer(8, 8, chessPlayers, posiciones,new checkMateValidator(Piecies.KING), null);
         }
         @Test
         public void testQueenMovement() {

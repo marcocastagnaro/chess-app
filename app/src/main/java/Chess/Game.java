@@ -1,34 +1,54 @@
 package Chess;
 
 import Interfaces.gameInterface;
+import Interfaces.specialMovementValidator;
+import Interfaces.victoryValidator;
+import javafx.geometry.Pos;
+import victory.checkValidator;
 
 import java.util.List;
 import java.util.Objects;
 
 public class Game implements gameInterface {
-    private List <ChessPlayer> chessPlayers;
+    private final List<ChessPlayer> chessPlayers;
     Board board;
     GameVersion gameVersion;
 
-    public Game (List<ChessPlayer> chessPlayers, Board board) {
+    public Game(List<ChessPlayer> chessPlayers, Board board, GameVersion gameVersion) {
         this.chessPlayers = chessPlayers;
         this.board = board;
+        this.gameVersion = gameVersion;
     }
 
-    public Game move (Position newPosition, Position oldPos){
+    public Game move(Position newPosition, Position oldPos) {
         ChessPlayer current = getPlayerForCurrentTurn();
         Piece piece = oldPos.getPiece();
         if (Objects.equals(piece.getColor(), current.getColor())) {
+            if (proveSpecialMove(this, oldPos, newPosition).getBoard() != this.getBoard()) {
+                Game newgame = proveSpecialMove(this, oldPos, newPosition);
+                if (gameVersion.getCheckval() != null) {
+                    if (gameVersion.getCheckval().isInCheck(newgame.getBoard(), current.getColor())) {
+                        return this;
+                    }
+                }
+                nextTurn();
+                return newgame;
+            }
             Board tablero = current.movePiece(piece, newPosition, board);
             if (tablero == board) {
                 return this;
             }
-            if (piece.isFirstMove()){
+            if (piece.isFirstMove()) {
                 piece.setFirstMove(false);
             }
-            check(tablero);
+            if (gameVersion.getCheckval() != null) {
+                if (gameVersion.getCheckval().isInCheck(tablero, current.getColor())) {
+                    return this;
+                }
+            }
+
             nextTurn();
-            return new Game(chessPlayers, tablero);
+            return new Game(chessPlayers, tablero, gameVersion);
         }
         return this;
     }
@@ -44,15 +64,14 @@ public class Game implements gameInterface {
 
 
     private void nextTurn() {
-        for (int i = 0; i <= chessPlayers.toArray().length - 1; i++){
-            if (chessPlayers.get(i).getTurn()){
+        for (int i = 0; i <= chessPlayers.toArray().length - 1; i++) {
+            if (chessPlayers.get(i).getTurn()) {
                 chessPlayers.get(i).changeTurn();
-                if ( i+1 == chessPlayers.toArray().length){
+                if (i + 1 == chessPlayers.toArray().length) {
                     chessPlayers.get(0).changeTurn();
                     break;
-                }
-                else {
-                    chessPlayers.get(i+1).changeTurn();
+                } else {
+                    chessPlayers.get(i + 1).changeTurn();
                     break;
                 }
             }
@@ -62,36 +81,29 @@ public class Game implements gameInterface {
     public ChessPlayer getPlayerForCurrentTurn() {
         return chessPlayers.stream().filter(ChessPlayer::getTurn).findFirst().get();
     }
-    private void check (Board tablero) {
-        for (ChessPlayer chessPlayer : chessPlayers) {
-            chessPlayer.setCheckmate(isInCheckamte(chessPlayer));
-            chessPlayer.setCheck(chessPlayer.isInCheck(tablero));
-            }
-    }
 
-    public boolean isInCheckamte(ChessPlayer chessPlayer){
-        for (int x = 0; x < board.getRow(); x++) {
-            for (int y = 0; y < board.getColumn(); y++) {
-                Position possiblePos = board.getPosition(x,y);
-                //Primero chequiamos si el rey se puede mover a los espacios adyacentes
-                if (board.findKing(chessPlayer.getColor()) != null) {
-                    Board newBoard = chessPlayer.movePiece(board.findKing(chessPlayer.getColor()), possiblePos, board);
-                    if (newBoard != board) {
-                        return false;
-                    }
-                }
-                else { //por ahora devolvemos false si no existe el king para no tener problemas en los tests
-                    return false;
-                }
-            }
-        }
-        if (board.pieceInterceptsCheck(chessPlayer)) {
-            return false;//Chequeamos si alguna pieza puede interceptar el jaque
-        }
-        return true;
-    }
 
     public List<ChessPlayer> getChessPlayers() {
         return chessPlayers;
     }
+
+    @Override
+    public boolean validateVictory(List<ChessPlayer> chessPlayer, Board board) {
+        return gameVersion.getVictoryInt().validateVictory(chessPlayer, board);
+    }
+
+    public checkValidator getCheckval() {
+        return gameVersion.getCheckval();
+    }
+
+    public Game proveSpecialMove(Game game, Position oldPos, Position newPos) {
+        for (specialMovementValidator spec: gameVersion.getSpecialMovementValidators()) {
+                return spec.validateMove(game, oldPos, newPos);
+        }
+        return this;
+    }
+    public GameVersion getGameVersion() {
+        return gameVersion;
+    }
+
 }

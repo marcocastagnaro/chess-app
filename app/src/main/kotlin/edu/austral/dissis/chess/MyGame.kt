@@ -5,10 +5,18 @@ import Enums.Color
 import Enums.Piecies
 import Interfaces.gameInterface
 import Movements.*
+import specialMove.RoqueKing
+import victory.checkMateValidator
+import victory.checkValidator
 
 class MyGame() : gameInterface {
     private var board: Board = Board(8, 8)
     private val playersList: MutableList<ChessPlayer> = ArrayList()
+    private val checkval : checkValidator = checkValidator(Piecies.KING)
+    private val checkmateval : checkMateValidator = checkMateValidator(Piecies.KING)
+    private val gameVersion : GameVersion = GameVersion("Classic", checkmateval)
+    private val roqueKing: RoqueKing = RoqueKing()
+
 
     init {
             val player1 = ChessPlayer("Player 1", Color.WHITE)
@@ -16,8 +24,12 @@ class MyGame() : gameInterface {
             val player2 = ChessPlayer("Player 2", Color.BLACK)
             playersList.add(player2)
             player1.changeTurn()
-        }
-    var game: Game = Game(playersList, board)
+        gameVersion.setCheckval(checkval)
+        gameVersion.addSpecialMovementValidators(roqueKing)
+
+
+    }
+    var game: Game = Game(playersList, board, gameVersion)
 
     init {
         val positions: MutableList<Position> = mutableListOf()
@@ -43,11 +55,15 @@ class MyGame() : gameInterface {
         positions.add(Position(0, 5, Piece(Piecies.BISHOP, Color.BLACK, listOf(DiagonalMove(8)), "B4")))
 
 
-        positions.add(Position(4, 3, Piece(Piecies.QUEEN, Color.WHITE, listOf(straightMove(7, 7), DiagonalMove(7), horizontalMove(7, 7)), "Q1")))
-        positions.add(Position(0, 3, Piece(Piecies.QUEEN, Color.BLACK, listOf(straightMove(7, 7), DiagonalMove(7), horizontalMove(7, 7)), "Q2")))
+        positions.add(Position(7, 4, Piece(Piecies.QUEEN, Color.WHITE, listOf(straightMove(7, 7), DiagonalMove(7), horizontalMove(7, 7)), "Q1")))
+        positions.add(Position(0, 4, Piece(Piecies.QUEEN, Color.BLACK, listOf(straightMove(7, 7), DiagonalMove(7), horizontalMove(7, 7)), "Q2")))
 
-        positions.add(Position(7, 4, Piece(Piecies.KING, Color.WHITE, listOf(straightMove(1, 1), DiagonalMove(1), horizontalMove(1, 1)), "KI1")))
-        positions.add(Position(0, 4, Piece(Piecies.KING, Color.BLACK, listOf(straightMove(1, 1), DiagonalMove(1), horizontalMove(1, 1)), "KI2")))
+        positions.add(Position(7, 3, Piece(Piecies.KING, Color.WHITE, listOf(straightMove(1, 1), DiagonalMove(1), horizontalMove(1, 1)), "KI1")))
+        positions.add(Position(0, 3, Piece(Piecies.KING, Color.BLACK, listOf(straightMove(1, 1), DiagonalMove(1), horizontalMove(1, 1)), "KI2")))
+
+        //extra probando jaque
+//        positions.add(Position(5, 2, Piece(Piecies.QUEEN, Color.WHITE, listOf(straightMove(7, 7), DiagonalMove(7), horizontalMove(7, 7)), "Q1")))
+//        positions.add(Position(4, 5, Piece(Piecies.BISHOP, Color.WHITE, listOf(DiagonalMove(8)), "B1")))
 
 
         for (i in 0 until positions.size) {
@@ -66,5 +82,13 @@ class MyGame() : gameInterface {
 
     override fun move(newPos: Position?, oldPos: Position?): Game {
         return game.move(newPos, oldPos)
+    }
+
+    override fun getChessPlayers(): MutableList<ChessPlayer> {
+        return playersList
+    }
+
+    override fun validateVictory(chessPlayer: MutableList<ChessPlayer>?, board: Board?): Boolean {
+        return game.validateVictory(chessPlayer, board)
     }
 }

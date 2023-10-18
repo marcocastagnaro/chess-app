@@ -5,6 +5,7 @@ import Chess.*;
 import Enums.Color;
 import Enums.Piecies;
 import Movements.straightMove;
+import victory.checkMateValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +28,7 @@ public class testPawnMovement {
         List<Position> posiciones = List.of(
 position        );
 
-        game = tests.gameInicializer(8, 8, chessPlayers, posiciones);
+        game = tests.gameInicializer(8, 8, chessPlayers, posiciones,new checkMateValidator(Piecies.KING), null);
     }
 
     @Test
