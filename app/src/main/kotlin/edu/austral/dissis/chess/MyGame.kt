@@ -6,6 +6,7 @@ import Enums.Piecies
 import Interfaces.gameInterface
 import Movements.*
 import specialMove.RoqueKing
+import specialMove.pawnEatDiagonal
 import victory.checkMateValidator
 import victory.checkValidator
 
@@ -34,8 +35,8 @@ class MyGame() : gameInterface {
     init {
         val positions: MutableList<Position> = mutableListOf()
         for (i in 0 until 8) {
-            positions.add(Position(6, i, Piece(Piecies.PAWN, Color.WHITE, listOf(straightMove(0, 1)), "$i${6}")))
-            positions.add(Position(1, i, Piece(Piecies.PAWN, Color.BLACK, listOf(straightMove(1, 0)), "$i${1}")))
+            positions.add(Position(6, i, Piece(Piecies.PAWN, Color.WHITE, listOf(pawnMovement(0, 1,0,0,2, pawnEatDiagonal())), "$i${6}")))
+            positions.add(Position(1, i, Piece(Piecies.PAWN, Color.BLACK, listOf(pawnMovement(1, 0,0,0,2,pawnEatDiagonal())), "$i${1}")))
         }
 
         positions.add(Position(7, 0, Piece(Piecies.ROOK, Color.WHITE, listOf(straightMove(7, 7), horizontalMove(7, 7)), "R1")))
