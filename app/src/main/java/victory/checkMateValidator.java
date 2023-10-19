@@ -45,19 +45,23 @@ public class checkMateValidator implements Interfaces.victoryValidator {
     public boolean pieceInterceptsCheck (Color color, Board board){
         checkValidator checkval= new checkValidator(name);
             for (int x=0; x < board.getRow(); x++){
-                for (int y=0; y< board.getColumn(); y++){
-                    Piece piece1 = board.getPiece(x,y);
-                    Position possiblePos = board.getBoard()[x][y];
-                    if (piece1!= null) {
+                for (int y=0; y< board.getColumn(); y++) {
+                    Piece piece1 = board.getPiece(x, y);
+                    if (piece1 != null) {
                         if (piece1.getColor() == color) {
-                            Board newBoard = board.movePiece(board.getPositionWithPiece(piece1), possiblePos, piece1);
-                            if (newBoard != board && !checkval.isInCheck(newBoard, piece1.getColor())) {
-                                return true;
+                            for (int x1 = 0; x1 < board.getRow(); x1++) {
+                                for (int y1 = 0; y1 < board.getColumn(); y1++) {
+                                    Position possiblePos = board.getBoard()[x1][y1];
+                                    Board newBoard = board.movePiece(board.getPositionWithPiece(piece1), possiblePos, piece1);
+                                    if (newBoard != board && !checkval.isInCheck(newBoard, piece1.getColor())) {
+                                        return true;
+                                    }
+                                }
                             }
                         }
                     }
+                }
             }
-        }
         return false;
     }
     public Piece findPiece(Color color, Piecies name, Board board) {

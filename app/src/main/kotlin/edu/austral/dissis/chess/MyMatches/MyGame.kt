@@ -53,7 +53,7 @@ class MyGame() : gameInterface {
 
         positions.add(Position(7, 1, Piece(Piecies.KNIGHT, Color.WHITE, listOf(Jump(1, 2), Jump(2, 1)), "K1")))
         positions.add(Position(7, 6, Piece(Piecies.KNIGHT, Color.WHITE, listOf(Jump(1, 2), Jump(2, 1)), "K2")))
-        positions.add(Position(0, 1, Piece(Piecies.KNIGHT, Color.BLACK, listOf(Jump(1, 2), Jump(2, 1)), "K3")))
+//        positions.add(Position(0, 1, Piece(Piecies.KNIGHT, Color.BLACK, listOf(Jump(1, 2), Jump(2, 1)), "K3")))
         positions.add(Position(0, 6, Piece(Piecies.KNIGHT, Color.BLACK, listOf(Jump(1, 2), Jump(2, 1)), "K4")))
 
 
@@ -64,7 +64,7 @@ class MyGame() : gameInterface {
 
 
         positions.add(Position(7, 4, Piece(Piecies.QUEEN, Color.WHITE, listOf(straightMove(7, 7), DiagonalMove(7), horizontalMove(7, 7)), "Q1")))
-        positions.add(Position(0, 4, Piece(Piecies.QUEEN, Color.BLACK, listOf(straightMove(7, 7), DiagonalMove(7), horizontalMove(7, 7)), "Q2")))
+//        positions.add(Position(0, 4, Piece(Piecies.QUEEN, Color.BLACK, listOf(straightMove(7, 7), DiagonalMove(7), horizontalMove(7, 7)), "Q2")))
 
         positions.add(Position(7, 3, Piece(Piecies.KING, Color.WHITE, listOf(straightMove(1, 1), DiagonalMove(1), horizontalMove(1, 1)), "KI1")))
         positions.add(Position(0, 3, Piece(Piecies.KING, Color.BLACK, listOf(straightMove(1, 1), DiagonalMove(1), horizontalMove(1, 1)), "KI2")))
@@ -72,8 +72,11 @@ class MyGame() : gameInterface {
         //extra probando jaque
 //        positions.add(Position(5, 2, Piece(Piecies.QUEEN, Color.WHITE, listOf(straightMove(7, 7), DiagonalMove(7), horizontalMove(7, 7)), "Q1")))
 //        positions.add(Position(4, 5, Piece(Piecies.BISHOP, Color.WHITE, listOf(DiagonalMove(8)), "B1")))
-        positions.add(Position(4, 4, Piece(Piecies.PAWN, Color.WHITE, listOf(pawnMovement(0, 1,0,0,2, pawnEatDiagonal(0, 1, 0, 0))), "x${6}")))
-        positions.add(Position(5,5 , Piece(Piecies.PAWN, Color.BLACK, listOf(pawnMovement(0, 1,0,0,2, pawnEatDiagonal(0, 1, 0, 0))), "X${6}")))
+//        positions.add(Position(4, 4, Piece(Piecies.PAWN, Color.WHITE, listOf(pawnMovement(0, 1,0,0,2, pawnEatDiagonal(0, 1, 0, 0))), "x${6}")))
+//        positions.add(Position(5,5 , Piece(Piecies.PAWN, Color.BLACK, listOf(pawnMovement(0, 1,0,0,2, pawnEatDiagonal(0, 1, 0, 0))), "X${6}")))
+        positions.add(Position(4, 4, Piece(Piecies.KNIGHT, Color.BLACK, listOf(Jump(1, 2), Jump(2, 1)), "K3")))
+        positions.add(Position(2, 3, Piece(Piecies.QUEEN, Color.BLACK, listOf(straightMove(7, 7), DiagonalMove(7), horizontalMove(7, 7)), "Q2")))
+
 
         for (i in 0 until positions.size) {
             val position = positions[i]
