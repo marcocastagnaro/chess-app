@@ -9,7 +9,7 @@ import edu.austral.dissis.chess.gui.PlayerColor.WHITE
 
  class MyChess: GameEngine {
     private var myGame: gameInterface = MyGame()
-    private var currentPlayer = BLACK
+    private var currentPlayer = getCurrentPlayer(myGame)
 
     override fun applyMove(move: Move): MoveResult {
         val movement = Connector.toMovement(move, myGame.board)
@@ -50,4 +50,12 @@ class MovePrinter : PieceMovedListener {
         print(" to ")
         println(to)
     }
+}
+public fun getCurrentPlayer (myGame: gameInterface): PlayerColor{
+    for (i in 0 until myGame.getChessPlayers().size) {
+        if (myGame.getChessPlayers()[i].turn) {
+            return if (myGame.getChessPlayers()[i].color == Enums.Color.WHITE) WHITE else BLACK
+        }
+    }
+    return WHITE
 }

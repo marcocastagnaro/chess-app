@@ -5,6 +5,7 @@ import Chess.Game;
 import Chess.Piece;
 import Chess.Position;
 import Enums.Piecies;
+import Interfaces.movementValidator;
 import Interfaces.specialMovementValidator;
 
 import javax.management.monitor.GaugeMonitor;
@@ -15,7 +16,14 @@ public class RoqueKing implements specialMovementValidator {
         int y = finalPosition.getY() - inicial.getY();
         int x = finalPosition.getX() - inicial.getX();
         Piece king = game.getBoard().getPosition(inicial.getX(), inicial.getY()).getPiece();
-
+        if (game.getGameVersion().getCheckval().isInCheck(game.getBoard(), king.getColor())){
+            return game;
+        }
+        for (movementValidator mov : king.getMovements()){
+            if(mov.obstacle(inicial, finalPosition, game.getBoard())) {
+                return game;
+            }
+        }
         if (x ==0 && king.getName() == Piecies.KING && Math.abs(y) == 2 && king.isFirstMove()){
             Board board1 = game.getBoard().copy();
             if (y > 0) {

@@ -18,12 +18,20 @@ public class coronacion implements specialMovementValidator {
 
     @Override
     public Game validateMove(Game game, Position position, Position newPos) {
-        if (validateCoronation(position, newPos)){
-            Board board = game.getBoard().copy();
-            piece.setId(position.getPiece().getId());
-            board.getPosition(newPos.getX(), newPos.getY()).addPiece(piece);
-            board.getPosition(position.getX(),position.getY()).addPiece(null);
-            return new Game(game.getChessPlayers(), board, game.getGameVersion());
+        Piece piece1 = piece.copy();
+        if (position.getPiece().moveValidator(position,newPos,game.getBoard())) {
+            if (validateCoronation(position, newPos)) {
+                Board board = game.getBoard().copy();
+                piece1.setId(position.getPiece().getId());
+                if (position.getColor() == Color.WHITE) {
+                    piece1.setColor(Color.WHITE);
+                } else {
+                    piece1.setColor(Color.BLACK);
+                }
+                board.getPosition(newPos.getX(), newPos.getY()).addPiece(piece1);
+                board.getPosition(position.getX(), position.getY()).addPiece(null);
+                return new Game(game.getChessPlayers(), board, game.getGameVersion());
+            }
         }
         return game;
     }

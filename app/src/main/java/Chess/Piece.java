@@ -62,4 +62,11 @@ public class Piece implements pieceInterface {
     public void setId(String id) {
         this.id = id;
     }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+    public Piece copy (){
+        return new Piece(name, color, movements);
+    }
 }
