@@ -23,12 +23,6 @@ public class Board implements boardInterface {
         }
     }
 
-    private Board(int row, int column, Position[][] positions) {
-        this.row = row;
-        this.column = column;
-        this.tablero = positions;
-    }
-
     public Position[][] getBoard() {
         return tablero;
     }
@@ -70,20 +64,10 @@ public class Board implements boardInterface {
 
     public Board move(Position oldPosition, Position newPosition, Piece piece) {
         if (piece.moveValidator(oldPosition, newPosition, this)) {
-            Position[][] newTablero = new Position[row][column];
-            for (int x = 0; x < row; x++) {
-                for (int y = 0; y < column; y++) {
-                    Piece currentPiece = tablero[x][y].getPiece();
-                    if (x == oldPosition.getX() && y == oldPosition.getY()) {
-                        newTablero[x][y] = new Position(x, y);
-                    } else if (x == newPosition.getX() && y == newPosition.getY()) {
-                        newTablero[x][y] = new Position(x, y, piece);
-                    } else {
-                        newTablero[x][y] = new Position(x, y, currentPiece);
-                    }
-                }
-            }
-            return new Board(row, column, newTablero);
+            Board newTablero = this.copy();
+            newTablero.getPosition(oldPosition.getX(), oldPosition.getY()).addPiece(null);
+            newTablero.getPosition(newPosition.getX(), newPosition.getY()).addPiece(piece);
+            return newTablero;
         }
         return this;
     }

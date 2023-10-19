@@ -25,7 +25,7 @@ public class testKingMove {
         ChessPlayer chessPlayer1 = new ChessPlayer("Jugador 1", Color.WHITE);
         List<ChessPlayer> chessPlayers = List.of(chessPlayer1);
         chessPlayer1.changeTurn();
-        whiteKing = new Piece(Piecies.KING, Color.WHITE, List.of(new straightMove(1,1), new horizontalMove(1,1), new DiagonalMove(1)),"1");
+        whiteKing = new Piece(Piecies.KING, Color.WHITE, List.of(new straightMove(1,1), new horizontalMove(1,1), new DiagonalMove(1,1,1,1)),"1");
         position = new Position(2, 2, whiteKing);
         List<Position> posiciones = List.of(
                 position

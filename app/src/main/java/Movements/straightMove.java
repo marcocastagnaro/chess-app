@@ -18,7 +18,6 @@ public class straightMove implements movementValidator {
     public boolean validateMove(Position oldPos, Position newPos) {
         int x = oldPos.getX() - newPos.getX();
         int y = oldPos.getY() - newPos.getY();
-
         if (y == 0){
             if (x > 0){
                 return x <= xNeg;

@@ -24,7 +24,7 @@ public class testBishoplMove {
         ChessPlayer chessPlayer1 = new ChessPlayer("Jugador 1", Color.WHITE);
         List<ChessPlayer> chessPlayers = List.of(chessPlayer1);
         chessPlayer1.changeTurn();
-        whiteBishop = new Piece(Piecies.BISHOP, Color.WHITE, List.of(new DiagonalMove(7)),"1");
+        whiteBishop = new Piece(Piecies.BISHOP, Color.WHITE, List.of(new DiagonalMove(7,7,7,7)),"1");
         Position position1 = new Position(2, 2, whiteBishop);
         List<Position> posiciones = List.of(
                 position1

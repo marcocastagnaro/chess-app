@@ -43,6 +43,7 @@ public class Connector {
             case BISHOP -> "bishop";
             case QUEEN -> "queen";
             case KING -> "king";
+            case CHANCELLOR ->  "chancellor";
             default -> "empty";
         };
     }

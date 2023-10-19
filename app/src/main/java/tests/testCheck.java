@@ -26,8 +26,8 @@ public class testCheck {
     Position position2;
     @BeforeEach
     void SetUp (){
-        whiteKing = new Piece(Piecies.KING, Color.WHITE, List.of(new straightMove(1, 1), new horizontalMove(1, 1), new DiagonalMove(1)), "1");
-        blackQueen = new Piece (Piecies.QUEEN, Color.BLACK, List.of(new horizontalMove(7,7), new straightMove(7,7), new DiagonalMove(7)),"2");
+        whiteKing = new Piece(Piecies.KING, Color.WHITE, List.of(new straightMove(1, 1), new horizontalMove(1, 1), new DiagonalMove(1,1,1,1)), "1");
+        blackQueen = new Piece (Piecies.QUEEN, Color.BLACK, List.of(new horizontalMove(7,7), new straightMove(7,7), new DiagonalMove(7,7,7,7)),"2");
         position1 = new Position(0,0, whiteKing);
         position2 = new Position(6,2, blackQueen);
         List<Position> posiciones = List.of(position1, position2);

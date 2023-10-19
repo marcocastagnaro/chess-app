@@ -53,9 +53,7 @@ public class pawnEatDiagonal implements movementValidator { // Convenio: Nombre 
     public boolean validateMove(Position oldPos, Position newPos) {
         if (pawnDiagonalMove(oldPos, newPos)) {
             if (newPos.hasPiece()) {
-                if (!Objects.equals(newPos.getColor(), oldPos.getColor())) {
-                    return true;
-                }
+                return !Objects.equals(newPos.getColor(), oldPos.getColor());
             }
         }
         return false;

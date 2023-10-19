@@ -5,18 +5,23 @@ import Chess.Position;
 import Interfaces.movementValidator;
 
 public class DiagonalMove implements movementValidator {
+    int xPos;
+    int xNeg;
+    int yPos;
+    int yNeg;
 
-    int maxCasillas;
-
-    public DiagonalMove(int maxCasillas) {
-        this.maxCasillas = maxCasillas;
+    public DiagonalMove(int xPos, int xNeg, int yPos, int yNeg) {
+        this.xPos = xPos;
+        this.xNeg = xNeg;
+        this.yPos = yPos;
+        this.yNeg = yNeg;
     }
 
     @Override
     public boolean validateMove(Position oldPos, Position newPos) {
         int x = oldPos.getX() - newPos.getX(); //para la izq = neg para la der = pos
         int y = oldPos.getY() - newPos.getY(); //para abajo = pos para arriba neg
-        if (Math.abs(x) == Math.abs(y) && Math.abs(x) <= maxCasillas && Math.abs(y) <= maxCasillas) {
+        if (Math.abs(x) == Math.abs(y) && x <= xPos && x >= - xNeg && y <= yPos && y >= - yNeg) {
             return true;
         }
         return false;

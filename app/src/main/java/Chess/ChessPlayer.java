@@ -27,19 +27,6 @@ public class ChessPlayer {
     public void changeTurn(){
         turn = !turn;
     }
-    public List<Position> getLivingPiecies (Board board) {
-        List<Position> livingPiecies = new ArrayList<>();
-        for (int x = 0; x < board.getRow(); x++) {
-            for (int y = 0; y < board.getColumn(); y++) {
-                if (board.getPiece(x,y) != null) {
-                    if (Objects.equals(board.getPiece(x,y).getColor(), color)) {
-                        livingPiecies.add(board.getPosition(x,y));
-                    }
-                }
-            }
-        }
-        return livingPiecies;
-    }
     public Color getColor() {
         return color;
     }
@@ -47,7 +34,6 @@ public class ChessPlayer {
 
     public Board movePiece (Piece piece, Position newPosition, Board board) {
         Position oldPosition = board.getPositionWithPiece(piece);
-
         return board.movePiece(oldPosition, newPosition, piece);
     }
 

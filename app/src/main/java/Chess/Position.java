@@ -32,9 +32,6 @@ public class Position {
     public void addPiece (Piece pieza){
         piece = pieza;
     }
-    public Position deletePiece() {
-        return new Position(x, y, null);
-    }
 
     public boolean hasPiece(){
         return piece != null;

@@ -32,10 +32,10 @@ class ProveCheck() : gameInterface {
         positions.add(Position(3, 1, Piece(Piecies.ROOK, Color.WHITE, listOf(straightMove(4, 4), horizontalMove(4, 4)), "R1")))
         positions.add(Position(3, 3, Piece(Piecies.ROOK, Color.WHITE, listOf(straightMove(4, 4), horizontalMove(4, 4)), "R2")))
 
-        positions.add(Position(2, 3, Piece(Piecies.QUEEN, Color.WHITE, listOf(straightMove(4, 4), DiagonalMove(4), horizontalMove(4, 4)), "Q1")))
+        positions.add(Position(2, 3, Piece(Piecies.QUEEN, Color.WHITE, listOf(straightMove(4, 4), DiagonalMove(4,4,4,4), horizontalMove(4, 4)), "Q1")))
 
-        positions.add(Position(1, 3, Piece(Piecies.KING, Color.WHITE, listOf(straightMove(1, 1), DiagonalMove(1), horizontalMove(1, 1)), "KI1")))
-        positions.add(Position(0, 0, Piece(Piecies.KING, Color.BLACK, listOf(straightMove(1, 1), DiagonalMove(1), horizontalMove(1, 1)), "KI2")))
+        positions.add(Position(1, 3, Piece(Piecies.KING, Color.WHITE, listOf(straightMove(1, 1), DiagonalMove(1,1,1,1), horizontalMove(1, 1)), "KI1")))
+        positions.add(Position(0, 0, Piece(Piecies.KING, Color.BLACK, listOf(straightMove(1, 1), DiagonalMove(1,1,1,1), horizontalMove(1, 1)), "KI2")))
 
 
         for (i in 0 until positions.size) {
