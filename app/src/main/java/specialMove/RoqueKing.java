@@ -13,9 +13,10 @@ public class RoqueKing implements specialMovementValidator {
     @Override
     public Game validateMove(Game game, Position inicial, Position finalPosition) {
         int y = finalPosition.getY() - inicial.getY();
+        int x = finalPosition.getX() - inicial.getX();
         Piece king = game.getBoard().getPosition(inicial.getX(), inicial.getY()).getPiece();
 
-        if (king.getName() == Piecies.KING && Math.abs(y) == 2) {
+        if (x ==0 && king.getName() == Piecies.KING && Math.abs(y) == 2 && king.isFirstMove()){
             Board board1 = game.getBoard().copy();
             if (y > 0) {
                 Board board2 = castleKing(board1, inicial, finalPosition, 1);
@@ -36,7 +37,7 @@ public class RoqueKing implements specialMovementValidator {
         Position towerPosition = new Position(inicial.getX(), finalPosition.getY() + direction + 1);
         Piece tower = board.getPosition(towerPosition.getX(), towerPosition.getY()).getPiece();
 
-        if (tower.getName() == Piecies.ROOK) {
+        if (tower.getName() == Piecies.ROOK && tower.isFirstMove()){
             Piece newKing = (board.getPosition(inicial.getX(), inicial.getY()).getPiece());
 
             board.getPosition(inicial.getX(), inicial.getY()).addPiece(null);

@@ -14,10 +14,10 @@ public class pawnMovement implements movementValidator {
     int xNeg;
     int yPos;
     int yNeg;
-    specialMovementValidator specialmov;
+    movementValidator specialmov;
     int firstMove;
 
-    public pawnMovement (int xPos, int xNeg, int yPos, int yNeg, int firstMove, specialMovementValidator specialmov){
+    public pawnMovement (int xPos, int xNeg, int yPos, int yNeg, int firstMove, movementValidator specialmov){
         this.xPos = xPos;
         this.xNeg = xNeg;
         this.yNeg = yNeg;
@@ -31,8 +31,16 @@ public class pawnMovement implements movementValidator {
         int y = oldPos.getY() - newPos.getY();
 
         if (oldPos.getPiece().getName() == Piecies.PAWN) {
-            if (pawnDiagonalMove(oldPos, newPos) || pawnFirstMove(oldPos, newPos)) {
+            if ( pawnFirstMove(oldPos, newPos) ) {
                 return true;
+            }
+            if (newPos.hasPiece()) {
+                if (specialmov.validateMove(oldPos, newPos)) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
             }
         }
         if (y == 0){
@@ -55,21 +63,6 @@ public class pawnMovement implements movementValidator {
         }
         return false;
     }
-    public boolean pawnDiagonalMove (Position oldPos, Position newPos){
-        int x = oldPos.getX() - newPos.getX();
-        int y = oldPos.getY() - newPos.getY();
-        Piece piece = oldPos.getPiece();
-        Piece piece2 = newPos.getPiece();
-        if (piece.getName() == Piecies.PAWN){
-            if (Math.abs(x) == 1 && Math.abs(y) == 1){
-                if (piece2 != null){
-                    return !Objects.equals(piece2.getColor(), piece.getColor());
-                }
-            }
-        }
-        return false;
-    }
-
     @Override
     public boolean obstacle(Position oldPos, Position newPos, Board board) {
         if (oldPos.getX() > newPos.getX()){

@@ -1,4 +1,4 @@
-package edu.austral.dissis.chess
+package edu.austral.dissis.chess.MyMatches
 
 
 import Chess.*
@@ -6,8 +6,6 @@ import Enums.Color
 import Enums.Piecies
 import Interfaces.gameInterface
 import Movements.*
-import victory.checkMateValidator
-import victory.checkValidator
 import victory.eatAllPiecies
 
 class ProveCheck() : gameInterface {

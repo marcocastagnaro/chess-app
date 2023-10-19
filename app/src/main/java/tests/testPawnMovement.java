@@ -17,6 +17,7 @@ public class testPawnMovement {
     Game game;
     Piece pawn;
     Position position;
+
     @BeforeEach
     void setUp() {
         tests = new testMovements();

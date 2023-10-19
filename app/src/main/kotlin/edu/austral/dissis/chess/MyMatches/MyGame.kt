@@ -1,4 +1,4 @@
-package edu.austral.dissis.chess
+package edu.austral.dissis.chess.MyMatches
 
 import Chess.*
 import Enums.Color
@@ -6,7 +6,8 @@ import Enums.Piecies
 import Interfaces.gameInterface
 import Movements.*
 import specialMove.RoqueKing
-import specialMove.pawnEatDiagonal
+import specialMove.coronacion
+import Movements.pawnEatDiagonal
 import victory.checkMateValidator
 import victory.checkValidator
 
@@ -17,16 +18,18 @@ class MyGame() : gameInterface {
     private val checkmateval : checkMateValidator = checkMateValidator(Piecies.KING)
     private val gameVersion : GameVersion = GameVersion("Classic", checkmateval)
     private val roqueKing: RoqueKing = RoqueKing()
+    private val coron: coronacion = coronacion(Piecies.PAWN,Piece(Piecies.QUEEN, Color.WHITE, listOf(straightMove(7, 7), DiagonalMove(7), horizontalMove(7, 7))))
 
 
     init {
-            val player1 = ChessPlayer("Player 1", Color.WHITE)
+        val player1 = ChessPlayer("Player 1", Color.WHITE)
             playersList.add(player1)
             val player2 = ChessPlayer("Player 2", Color.BLACK)
             playersList.add(player2)
-            player1.changeTurn()
+            player2.changeTurn()
         gameVersion.setCheckval(checkval)
         gameVersion.addSpecialMovementValidators(roqueKing)
+        gameVersion.addSpecialMovementValidators(coron)
 
 
     }
@@ -35,8 +38,12 @@ class MyGame() : gameInterface {
     init {
         val positions: MutableList<Position> = mutableListOf()
         for (i in 0 until 8) {
-            positions.add(Position(6, i, Piece(Piecies.PAWN, Color.WHITE, listOf(pawnMovement(0, 1,0,0,2, pawnEatDiagonal())), "$i${6}")))
-            positions.add(Position(1, i, Piece(Piecies.PAWN, Color.BLACK, listOf(pawnMovement(1, 0,0,0,2,pawnEatDiagonal())), "$i${1}")))
+            positions.add(Position(6, i, Piece(Piecies.PAWN, Color.WHITE, listOf(pawnMovement(0, 1,0,0,2,
+                pawnEatDiagonal(0, 1, 0, 0)
+            )), "$i${6}")))
+            positions.add(Position(1, i, Piece(Piecies.PAWN, Color.BLACK, listOf(pawnMovement(1, 0,0,0,2,
+                pawnEatDiagonal(1, 0, 0, 0)
+            )), "$i${1}")))
         }
 
         positions.add(Position(7, 0, Piece(Piecies.ROOK, Color.WHITE, listOf(straightMove(7, 7), horizontalMove(7, 7)), "R1")))
@@ -65,7 +72,8 @@ class MyGame() : gameInterface {
         //extra probando jaque
 //        positions.add(Position(5, 2, Piece(Piecies.QUEEN, Color.WHITE, listOf(straightMove(7, 7), DiagonalMove(7), horizontalMove(7, 7)), "Q1")))
 //        positions.add(Position(4, 5, Piece(Piecies.BISHOP, Color.WHITE, listOf(DiagonalMove(8)), "B1")))
-
+        positions.add(Position(4, 4, Piece(Piecies.PAWN, Color.WHITE, listOf(pawnMovement(0, 1,0,0,2, pawnEatDiagonal(0, 1, 0, 0))), "x${6}")))
+        positions.add(Position(5,5 , Piece(Piecies.PAWN, Color.BLACK, listOf(pawnMovement(0, 1,0,0,2, pawnEatDiagonal(0, 1, 0, 0))), "X${6}")))
 
         for (i in 0 until positions.size) {
             val position = positions[i]

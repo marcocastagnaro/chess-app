@@ -21,6 +21,13 @@ public class Piece implements pieceInterface {
         firstMove= true;
         this.id = id;
     }
+    public Piece(Piecies name, Color color, List<movementValidator> movements) {
+        this.name = name;
+        this.color = color;
+        this.movements = movements;
+        firstMove= true;
+        this.id = String.valueOf(hashCode());
+    }
     public Piecies getName() {
         return name;
     }
@@ -50,5 +57,9 @@ public class Piece implements pieceInterface {
     }
     public void setFirstMove(boolean firstMove) {
         this.firstMove = firstMove;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

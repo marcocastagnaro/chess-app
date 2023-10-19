@@ -2,13 +2,14 @@ package edu.austral.dissis.chess;
 
 import Connector.Connector
 import Interfaces.gameInterface
+import edu.austral.dissis.chess.MyMatches.MyGame
 import edu.austral.dissis.chess.gui.*
 import edu.austral.dissis.chess.gui.PlayerColor.BLACK
 import edu.austral.dissis.chess.gui.PlayerColor.WHITE
 
  class MyChess: GameEngine {
     private var myGame: gameInterface = MyGame()
-    private var currentPlayer = WHITE
+    private var currentPlayer = BLACK
 
     override fun applyMove(move: Move): MoveResult {
         val movement = Connector.toMovement(move, myGame.board)

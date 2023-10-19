@@ -25,14 +25,7 @@ public class Game implements gameInterface {
         Piece piece = oldPos.getPiece();
         if (Objects.equals(piece.getColor(), current.getColor())) {
             if (proveSpecialMove(this, oldPos, newPosition).getBoard() != this.getBoard()) {
-                Game newgame = proveSpecialMove(this, oldPos, newPosition);
-                if (gameVersion.getCheckval() != null) {
-                    if (gameVersion.getCheckval().isInCheck(newgame.getBoard(), current.getColor())) {
-                        return this;
-                    }
-                }
-                nextTurn();
-                return newgame;
+                return checkSpecialCond(oldPos, newPosition, current, piece);
             }
             Board tablero = current.movePiece(piece, newPosition, board);
             if (tablero == board) {
@@ -52,7 +45,19 @@ public class Game implements gameInterface {
         }
         return this;
     }
-
+    public Game checkSpecialCond (Position oldPos, Position newPosition, ChessPlayer current, Piece piece){
+            Game newgame = proveSpecialMove(this, oldPos, newPosition);
+            if (gameVersion.getCheckval() != null) {
+                if (gameVersion.getCheckval().isInCheck(newgame.getBoard(), current.getColor())) {
+                    return this;
+                }
+            }
+            if (piece.isFirstMove()) {
+                piece.setFirstMove(false);
+            }
+            nextTurn();
+            return newgame;
+    }
     @Override
     public List<Piece> getPiecies() {
         return board.getPiecies();
@@ -98,7 +103,10 @@ public class Game implements gameInterface {
 
     public Game proveSpecialMove(Game game, Position oldPos, Position newPos) {
         for (specialMovementValidator spec: gameVersion.getSpecialMovementValidators()) {
-                return spec.validateMove(game, oldPos, newPos);
+                Game newgame = spec.validateMove(game, oldPos, newPos);
+                if (newgame.getBoard() != game.getBoard()) {
+                    return newgame;
+                }
         }
         return this;
     }
