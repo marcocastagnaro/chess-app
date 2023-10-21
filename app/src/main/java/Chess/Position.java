@@ -29,10 +29,6 @@ public class Position {
         return piece;
     }
 
-    public void addPiece (Piece pieza){
-        piece = pieza;
-    }
-
     public boolean hasPiece(){
         return piece != null;
     }

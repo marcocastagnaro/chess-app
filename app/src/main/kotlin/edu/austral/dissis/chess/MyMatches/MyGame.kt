@@ -19,21 +19,21 @@ class MyGame() : gameInterface {
     private val gameVersion : GameVersion = GameVersion("Classic", checkmateval)
     private val roqueKing: RoqueKing = RoqueKing()
     private val coron: coronacion = coronacion(Piecies.PAWN,Piece(Piecies.QUEEN, Color.WHITE, listOf(straightMove(7, 7), DiagonalMove(7,7,7,7), horizontalMove(7, 7))))
+    val player1 = ChessPlayer("Player 1", Color.WHITE)
+    val player2 = ChessPlayer("Player 2", Color.BLACK)
+
 
 
     init {
-        val player1 = ChessPlayer("Player 1", Color.WHITE)
             playersList.add(player1)
-            val player2 = ChessPlayer("Player 2", Color.BLACK)
             playersList.add(player2)
-            player1.changeTurn()
         gameVersion.setCheckval(checkval)
         gameVersion.addSpecialMovementValidators(roqueKing)
         gameVersion.addSpecialMovementValidators(coron)
 
 
     }
-    var game: Game = Game(playersList, board, gameVersion)
+    var game: Game = Game(playersList, board, gameVersion, player1)
 
     init {
         val positions: MutableList<Position> = mutableListOf()

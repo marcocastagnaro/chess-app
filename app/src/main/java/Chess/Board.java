@@ -65,8 +65,8 @@ public class Board implements boardInterface {
     public Board move(Position oldPosition, Position newPosition, Piece piece) {
         if (piece.moveValidator(oldPosition, newPosition, this)) {
             Board newTablero = this.copy();
-            newTablero.getPosition(oldPosition.getX(), oldPosition.getY()).addPiece(null);
-            newTablero.getPosition(newPosition.getX(), newPosition.getY()).addPiece(piece);
+            newTablero.getBoard()[oldPosition.getX()][oldPosition.getY()] = new Position(oldPosition.getX(),oldPosition.getY());
+            newTablero.getBoard()[newPosition.getX()][newPosition.getY()] = new Position(newPosition.getX(),newPosition.getY());
             return newTablero;
         }
         return this;

@@ -14,6 +14,12 @@ public class Game implements gameInterface {
     Board board;
     GameVersion gameVersion;
 
+    public Game(List<ChessPlayer> chessPlayers, Board board, GameVersion gameVersion, ChessPlayer initialPlayer) {
+        this.chessPlayers = chessPlayers;
+        this.board = board;
+        this.gameVersion = gameVersion;
+        initialPlayer.changeTurn();
+    }
     public Game(List<ChessPlayer> chessPlayers, Board board, GameVersion gameVersion) {
         this.chessPlayers = chessPlayers;
         this.board = board;
@@ -32,9 +38,12 @@ public class Game implements gameInterface {
                 return this;
             }
             if (piece.isFirstMove()) {
-                piece.setFirstMove(false);
+                Piece piece1 = new Piece(piece.getName(), piece.getColor(), piece.getMovements(), piece.getId(), false);
+                Position newPos = new Position(newPosition.getX(), newPosition.getY(), piece1);
+                Board table = tablero.move(oldPos, newPos, piece1);
+                return new Game(chessPlayers, table, gameVersion);
             }
-            if (gameVersion.getCheckval() != null) {
+            if (gameVersion.hasCheckValidator()) {
                 if (gameVersion.getCheckval().isInCheck(tablero, current.getColor())) {
                     return this;
                 }
@@ -59,7 +68,10 @@ public class Game implements gameInterface {
                 }
             }
             if (piece.isFirstMove()) {
-                piece.setFirstMove(false);
+                Piece piece1 = new Piece(piece.getName(), piece.getColor(), piece.getMovements(), piece.getId(), false);
+                Position newPos = new Position(newPosition.getX(), newPosition.getY(), piece1);
+                Board table = newgame.getBoard().move(oldPos, newPos, piece1);
+                return new Game(chessPlayers, table, gameVersion);
             }
             nextTurn();
             return newgame;

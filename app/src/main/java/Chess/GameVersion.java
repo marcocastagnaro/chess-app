@@ -30,6 +30,9 @@ public class GameVersion {
     public void addSpecialMovementValidators(specialMovementValidator specialMovementVal){
         this.specialMovementValidators.add(specialMovementVal);
     }
+    public boolean hasCheckValidator(){
+        return checkval != null;
+    }
 
     public checkValidator getCheckval() {
         return checkval;

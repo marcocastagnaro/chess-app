@@ -48,17 +48,17 @@ public class RoqueKing implements specialMovementValidator {
         if (tower.getName() == Piecies.ROOK && tower.isFirstMove()){
             Piece newKing = (board.getPosition(inicial.getX(), inicial.getY()).getPiece());
 
-            board.getPosition(inicial.getX(), inicial.getY()).addPiece(null);
-            board.getPosition(finalPosition.getX(), finalPosition.getY()).addPiece(newKing);
+            board.getBoard()[inicial.getX()][inicial.getY()] = new Position(inicial.getX(), inicial.getY());
+            board.getBoard()[finalPosition.getX()][finalPosition.getY()] = new Position(finalPosition.getX(), finalPosition.getY(), newKing);
             if ( direction > 0){
                 Position position = new Position(inicial.getX(), finalPosition.getY() - 1);
-                board.getPosition(towerPosition.getX(), towerPosition.getY()).addPiece(null);
-                board.getPosition(position.getX(), position.getY()).addPiece(tower);
+                board.getBoard()[towerPosition.getX()][towerPosition.getY()] = new Position(towerPosition.getX(), towerPosition.getY());
+                board.getBoard()[position.getX()][position.getY()] = new Position(position.getX(), position.getY(), tower);
             }
             else {
                 Position position = new Position(inicial.getX(), finalPosition.getY() + 1);
-                board.getPosition(towerPosition.getX(), towerPosition.getY()).addPiece(null);
-                board.getPosition(position.getX(), position.getY()).addPiece(tower);
+                board.getBoard()[towerPosition.getX()][towerPosition.getY()] = new Position(towerPosition.getX(), towerPosition.getY());
+                board.getBoard()[position.getX()][position.getY()] = new Position(position.getX(), position.getY(), tower);
             }
         }
 
