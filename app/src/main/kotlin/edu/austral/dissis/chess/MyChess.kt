@@ -1,14 +1,19 @@
 package edu.austral.dissis.chess;
 
+import Checkers.game.gameCheckers
+import Checkers.game.gameCheckersInterface
+import Chess.Game
+import Classic.Enums.Color
 import Connector.Connector
-import Interfaces.gameInterface
+import Classic.Interfaces.gameInterface
+import edu.austral.dissis.chess.MyMatches.Checkers
 import edu.austral.dissis.chess.MyMatches.MyGame
 import edu.austral.dissis.chess.gui.*
 import edu.austral.dissis.chess.gui.PlayerColor.BLACK
 import edu.austral.dissis.chess.gui.PlayerColor.WHITE
 
  class MyChess: GameEngine {
-    private var myGame: gameInterface = MyGame()
+    private var myGame: gameCheckersInterface = Checkers()
     private var currentPlayer = getCurrentPlayer(myGame)
 
     override fun applyMove(move: Move): MoveResult {
@@ -24,13 +29,13 @@ import edu.austral.dissis.chess.gui.PlayerColor.WHITE
             InvalidMove("There is a piece in (${move.to.row}, ${move.to.column})")
         else {
             val myNewGame = myGame
-            myGame = myGame.move(movement.newPos, movement.oldPos)
+            myGame = myGame.move(movement.oldPos, movement.newPos)
             if (myGame.board == myNewGame.board) {
                 return InvalidMove("Invalid move")
             }
-            if (myGame.validateVictory(myGame.chessPlayers, myGame.board)) {
-                return GameOver(currentPlayer)
-            }
+//            if (myGame.validateVictory(myGame.chessPlayers, myGame.board)) {
+//                return GameOver(currentPlayer)
+//            }
             else{
                 currentPlayer = if (currentPlayer == WHITE) BLACK else WHITE
                 NewGameState(Connector.getPieces(myGame.board), currentPlayer)
@@ -51,10 +56,10 @@ class MovePrinter : PieceMovedListener {
         println(to)
     }
 }
-public fun getCurrentPlayer (myGame: gameInterface): PlayerColor{
+public fun getCurrentPlayer (myGame: gameCheckersInterface): PlayerColor{
     for (i in 0 until myGame.getChessPlayers().size) {
         if (myGame.getChessPlayers()[i].turn) {
-            return if (myGame.getChessPlayers()[i].color == Enums.Color.WHITE) WHITE else BLACK
+            return if (myGame.getChessPlayers()[i].color == Color.WHITE) WHITE else BLACK
         }
     }
     return WHITE

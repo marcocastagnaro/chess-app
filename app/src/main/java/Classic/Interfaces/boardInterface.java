@@ -1,0 +1,16 @@
+package Classic.Interfaces;
+
+import Classic.Board;
+import Classic.Piece;
+import Classic.Position;
+
+import java.util.List;
+
+public interface boardInterface {
+    public Board movePiece(Position oldPosition, Position newPosition, Piece piece);
+    public int getRow();
+
+    public int getColumn();
+    public List<Piece> getPiecies();
+
+}

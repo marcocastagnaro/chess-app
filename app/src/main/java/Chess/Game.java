@@ -1,10 +1,9 @@
 package Chess;
 
-import Interfaces.gameInterface;
-import Interfaces.specialMovementValidator;
-import Interfaces.victoryValidator;
-import javafx.geometry.Pos;
-import victory.checkValidator;
+import Classic.*;
+import Classic.Interfaces.gameInterface;
+import Classic.Interfaces.specialMovementValidator;
+import Classic.victory.checkValidator;
 
 import java.util.List;
 import java.util.Objects;
@@ -31,7 +30,8 @@ public class Game implements gameInterface {
         Piece piece = oldPos.getPiece();
         if (Objects.equals(piece.getColor(), current.getColor())) {
             if (validSpecialMov(newPosition, oldPos)) {
-                return checkSpecialCond(oldPos, newPosition, current, piece);
+                Board newboard = checkSpecialCond(oldPos,newPosition,current,piece);
+                return new Game(chessPlayers, newboard, gameVersion);
             }
             Board tablero = current.movePiece(piece, newPosition, board);
             if (tablero == board) {
@@ -47,7 +47,6 @@ public class Game implements gameInterface {
                 if (gameVersion.getCheckval().isInCheck(tablero, current.getColor())) {
                     return this;
                 }
-
             }
 
             nextTurn();
@@ -57,24 +56,24 @@ public class Game implements gameInterface {
     }
 
     private boolean validSpecialMov(Position newPosition, Position oldPos) {
-        return proveSpecialMove(this, oldPos, newPosition).getBoard() != this.getBoard();
+        return proveSpecialMove(oldPos, newPosition) != this.getBoard();
     }
 
-    public Game checkSpecialCond (Position oldPos, Position newPosition, ChessPlayer current, Piece piece){
-            Game newgame = proveSpecialMove(this, oldPos, newPosition);
+    public Board checkSpecialCond (Position oldPos, Position newPosition, ChessPlayer current, Piece piece){
+            Board newboard = proveSpecialMove( oldPos, newPosition);
             if (gameVersion.getCheckval() != null) {
-                if (gameVersion.getCheckval().isInCheck(newgame.getBoard(), current.getColor())) {
-                    return this;
+                if (gameVersion.getCheckval().isInCheck(newboard, current.getColor())) {
+                    return board;
                 }
             }
             if (piece.isFirstMove()) {
                 Piece piece1 = new Piece(piece.getName(), piece.getColor(), piece.getMovements(), piece.getId(), false);
                 Position newPos = new Position(newPosition.getX(), newPosition.getY(), piece1);
-                Board table = newgame.getBoard().move(oldPos, newPos, piece1);
-                return new Game(chessPlayers, table, gameVersion);
+                Board table = newboard.move(oldPos, newPos, piece1);
+                return table;
             }
             nextTurn();
-            return newgame;
+            return newboard;
     }
     @Override
     public List<Piece> getPiecies() {
@@ -119,14 +118,14 @@ public class Game implements gameInterface {
         return gameVersion.getCheckval();
     }
 
-    public Game proveSpecialMove(Game game, Position oldPos, Position newPos) {
+    public Board proveSpecialMove(Position oldPos, Position newPos) {
         for (specialMovementValidator spec: gameVersion.getSpecialMovementValidators()) {
-            Game newgame = spec.validateMove(game, oldPos, newPos);
-            if (newgame.getBoard() != game.getBoard()) {
-                return newgame;
+            Board newBoard = spec.validateMove(board, oldPos, newPos);
+            if (newBoard!= board) {
+                return newBoard;
             }
         }
-        return this;
+        return board;
     }
     public GameVersion getGameVersion() {
         return gameVersion;
