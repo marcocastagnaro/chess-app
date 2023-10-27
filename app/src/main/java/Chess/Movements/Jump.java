@@ -1,8 +1,8 @@
 package Chess.Movements;
 
-import Classic.Board;
-import Classic.Position;
-import Classic.Interfaces.movementValidator;
+import Common.Board;
+import Common.Position;
+import Common.Interfaces.movementValidator;
 
 public class Jump implements movementValidator {
     int xmov;

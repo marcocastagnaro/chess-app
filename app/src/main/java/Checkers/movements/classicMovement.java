@@ -1,8 +1,8 @@
 package Checkers.movements;
 
-import Classic.Board;
-import Classic.Position;
-import Classic.Interfaces.movementValidator;
+import Common.Board;
+import Common.Position;
+import Common.Interfaces.movementValidator;
 
 public class classicMovement implements movementValidator {
     int xpos;
@@ -17,16 +17,20 @@ public class classicMovement implements movementValidator {
         int x = oldPos.getX() - newPos.getX();
         int y = oldPos.getY() - newPos.getY();
 
-        if (y == 1 || y == -1 && Math.abs(x) == 1) {
+        if ( Math.abs(y) == Math.abs(x)) {
             //solo hacer que se pueda mover para adelante
-            if (x >0){
-                return x ==xpos;
-            }
-            else{
-                return Math.abs(x) == xneg;
-            }
+            return moveVal(x);
         }
         return false;
+    }
+
+    private boolean moveVal(int x) {
+        if (x >0){
+            return x == xpos;
+        }
+        else{
+            return Math.abs(x) == xneg;
+        }
     }
 
     @Override

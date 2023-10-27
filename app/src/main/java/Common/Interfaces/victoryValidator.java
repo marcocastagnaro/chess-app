@@ -1,7 +1,7 @@
-package Classic.Interfaces;
+package Common.Interfaces;
 
-import Classic.Board;
-import Classic.ChessPlayer;
+import Common.Board;
+import Common.ChessPlayer;
 
 import java.util.List;
 

@@ -1,9 +1,8 @@
 package Chess;
 
-import Classic.*;
-import Classic.Interfaces.gameInterface;
-import Classic.Interfaces.specialMovementValidator;
-import Classic.victory.checkValidator;
+import Common.*;
+import Common.Interfaces.specialMovementValidator;
+import Common.victory.checkValidator;
 
 import java.util.List;
 import java.util.Objects;
@@ -44,7 +43,7 @@ public class Game implements gameInterface {
                 return new Game(chessPlayers, table, gameVersion);
             }
             if (gameVersion.hasCheckValidator()) {
-                if (gameVersion.getCheckval().isInCheck(tablero, current.getColor())) {
+                if (gameVersion.getCheckval().validateMove(tablero, current.getColor())) {
                     return this;
                 }
             }
@@ -62,7 +61,7 @@ public class Game implements gameInterface {
     public Board checkSpecialCond (Position oldPos, Position newPosition, ChessPlayer current, Piece piece){
             Board newboard = proveSpecialMove( oldPos, newPosition);
             if (gameVersion.getCheckval() != null) {
-                if (gameVersion.getCheckval().isInCheck(newboard, current.getColor())) {
+                if (gameVersion.getCheckval().validateMove(newboard, current.getColor())) {
                     return board;
                 }
             }

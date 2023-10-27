@@ -1,9 +1,9 @@
 package Chess.tests;
 
 import Chess.*;
-import Classic.*;
-import Classic.Interfaces.victoryValidator;
-import Classic.victory.checkValidator;
+import Common.*;
+import Common.Interfaces.victoryValidator;
+import Common.victory.checkValidator;
 
 
 import java.util.ArrayList;

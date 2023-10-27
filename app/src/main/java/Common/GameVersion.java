@@ -1,11 +1,12 @@
-package Classic;
+package Common;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import Classic.Interfaces.specialMovementValidator;
-import Classic.Interfaces.victoryValidator;
-import Classic.victory.checkValidator;
+import Common.Interfaces.specialMovementValidator;
+import Common.Interfaces.victoryValidator;
+import Common.victory.checkValidator;
+import Common.victory.obligatoryMovement;
 
 
 public class GameVersion {
@@ -14,11 +15,14 @@ public class GameVersion {
     private final victoryValidator victoryInt;
     private List <specialMovementValidator> specialMovementValidators = new ArrayList<>();
 
+    private obligatoryMovement obligatory;
     public GameVersion(String version, victoryValidator victoryInt) {
         this.version = version;
         this.victoryInt = victoryInt;
     }
-
+    public void setObligatory (obligatoryMovement obligatory){
+        this.obligatory = obligatory;
+    }
     public void setCheckval(checkValidator checkval) {
         this.checkval = checkval;
     }
@@ -44,5 +48,11 @@ public class GameVersion {
 
     public String getVersion() {
         return version;
+    }
+    public boolean hasObligatory(){
+        return obligatory != null;
+    }
+    public obligatoryMovement getObligatory() {
+        return obligatory;
     }
 }

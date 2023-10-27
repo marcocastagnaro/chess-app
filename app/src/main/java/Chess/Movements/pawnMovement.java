@@ -1,10 +1,10 @@
 package Chess.Movements;
 
-import Classic.Board;
-import Classic.Piece;
-import Classic.Position;
-import Classic.Enums.Piecies;
-import Classic.Interfaces.movementValidator;
+import Common.Board;
+import Common.Piece;
+import Common.Position;
+import Common.Enums.Piecies;
+import Common.Interfaces.movementValidator;
 
 public class pawnMovement implements movementValidator {
     int xPos;

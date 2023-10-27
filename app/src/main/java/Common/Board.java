@@ -1,6 +1,6 @@
-package Classic;
+package Common;
 
-import Classic.Interfaces.boardInterface;
+import Common.Interfaces.boardInterface;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,13 +1,9 @@
 package edu.austral.dissis.chess;
 
-import Checkers.game.gameCheckers
 import Checkers.game.gameCheckersInterface
-import Chess.Game
-import Classic.Enums.Color
+import Common.Enums.Color
 import Connector.Connector
-import Classic.Interfaces.gameInterface
 import edu.austral.dissis.chess.MyMatches.Checkers
-import edu.austral.dissis.chess.MyMatches.MyGame
 import edu.austral.dissis.chess.gui.*
 import edu.austral.dissis.chess.gui.PlayerColor.BLACK
 import edu.austral.dissis.chess.gui.PlayerColor.WHITE
@@ -33,11 +29,11 @@ import edu.austral.dissis.chess.gui.PlayerColor.WHITE
             if (myGame.board == myNewGame.board) {
                 return InvalidMove("Invalid move")
             }
-//            if (myGame.validateVictory(myGame.chessPlayers, myGame.board)) {
-//                return GameOver(currentPlayer)
-//            }
+            if (myGame.validateVictory(myGame.chessPlayers, myGame.board)) {
+                return GameOver(currentPlayer)
+            }
             else{
-                currentPlayer = if (currentPlayer == WHITE) BLACK else WHITE
+                currentPlayer = getCurrentPlayer(myGame)
                 NewGameState(Connector.getPieces(myGame.board), currentPlayer)
             }
         }

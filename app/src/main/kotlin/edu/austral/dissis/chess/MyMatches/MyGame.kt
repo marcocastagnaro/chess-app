@@ -2,14 +2,14 @@ package edu.austral.dissis.chess.MyMatches
 
 import Chess.*
 import Chess.Movements.*
-import Classic.Enums.Color
-import Classic.Enums.Piecies
-import Classic.Interfaces.gameInterface
-import Classic.specialMove.RoqueKing
-import Classic.specialMove.coronacion
-import Classic.*
-import Classic.victory.checkMateValidator
-import Classic.victory.checkValidator
+import Common.Enums.Color
+import Common.Enums.Piecies
+import Chess.gameInterface
+import Common.specialMove.RoqueKing
+import Common.specialMove.coronacion
+import Common.*
+import Common.victory.checkMateValidator
+import Common.victory.checkValidator
 
 class MyGame() : gameInterface {
     private var board: Board = Board(8, 8)
@@ -19,7 +19,7 @@ class MyGame() : gameInterface {
     private val checkmateval : checkMateValidator =
         checkMateValidator(Piecies.KING)
     private val gameVersion : GameVersion =
-        GameVersion("Classic", checkmateval)
+        GameVersion("Common", checkmateval)
     private val roqueKing: RoqueKing =
         RoqueKing()
     private val coron: coronacion =

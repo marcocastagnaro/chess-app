@@ -1,8 +1,8 @@
 package Chess.Movements;
 
-import Classic.Board;
-import Classic.Position;
-import Classic.Interfaces.movementValidator;
+import Common.Board;
+import Common.Position;
+import Common.Interfaces.movementValidator;
 
 public class DiagonalMove implements movementValidator {
     int xPos;
@@ -21,37 +21,55 @@ public class DiagonalMove implements movementValidator {
     public boolean validateMove(Position oldPos, Position newPos) {
         int x = oldPos.getX() - newPos.getX(); //para la izq = neg para la der = pos
         int y = oldPos.getY() - newPos.getY(); //para abajo = pos para arriba neg
-        if (Math.abs(x) == Math.abs(y) && x <= xPos && x >= - xNeg && y <= yPos && y >= - yNeg) {
-            return true;
-        }
-        return false;
+        return Math.abs(x) == Math.abs(y) && x <= xPos && x >= -xNeg && y <= yPos && y >= -yNeg;
     }
 
     @Override
     public boolean obstacle(Position oldPos, Position newPos, Board board) {
         if (oldPos.getX() > newPos.getX() && oldPos.getY() > newPos.getY()) { //arriba izq
-            for (int i = 1; i < Math.abs(oldPos.getX() - newPos.getX()); i++) {
-                if (board.tienePieza(board.getBoard()[oldPos.getX() - i][oldPos.getY() - i])){
-                    return true;
-                }
-            }
-        } else if (oldPos.getX() > newPos.getX() && oldPos.getY() < newPos.getY()) { //arriba der
-            for (int i = 1; i < Math.abs(oldPos.getX() - newPos.getX()); i++) {
-                if (board.tienePieza(board.getBoard()[oldPos.getX() - i][oldPos.getY() + i])){
-                    return true;
-                }
-            }
+            return findObstacleLeftUp(oldPos, newPos, board);
+        }
+        else if (oldPos.getX() > newPos.getX() && oldPos.getY() < newPos.getY()) { //arriba der
+            return findObstacleRightUp(oldPos, newPos, board);
         } else if (oldPos.getX() < newPos.getX() && oldPos.getY() > newPos.getY()) { //abajo izq
-            for (int i = 1; i < Math.abs(oldPos.getX() - newPos.getX()); i++) {
-                if (board.tienePieza(board.getBoard()[oldPos.getX() + i][oldPos.getY() - i])){
-                    return true;
-                }
-            }
+            return finObstacleLeftDown(oldPos, newPos, board);
         } else if (oldPos.getX() < newPos.getX() && oldPos.getY() < newPos.getY()) { //abajo der
-            for (int i = 1; i < Math.abs(oldPos.getX() - newPos.getX()); i++) {
-                if (board.tienePieza(board.getBoard()[oldPos.getX() + i][oldPos.getY()+ i])){
-                    return true;
-                }
+            return findObstacleRightDown(oldPos, newPos, board);
+        }
+        return false;
+    }
+
+    private static boolean findObstacleRightDown(Position oldPos, Position newPos, Board board) {
+        for (int i = 1; i < Math.abs(oldPos.getX() - newPos.getX()); i++) {
+            if (board.tienePieza(board.getBoard()[oldPos.getX() + i][oldPos.getY()+ i])){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean finObstacleLeftDown(Position oldPos, Position newPos, Board board) {
+        for (int i = 1; i < Math.abs(oldPos.getX() - newPos.getX()); i++) {
+            if (board.tienePieza(board.getBoard()[oldPos.getX() + i][oldPos.getY() - i])){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean findObstacleRightUp(Position oldPos, Position newPos, Board board) {
+        for (int i = 1; i < Math.abs(oldPos.getX() - newPos.getX()); i++) {
+            if (board.tienePieza(board.getBoard()[oldPos.getX() - i][oldPos.getY() + i])){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean findObstacleLeftUp(Position oldPos, Position newPos, Board board) {
+        for (int i = 1; i < Math.abs(oldPos.getX() - newPos.getX()); i++) {
+            if (board.tienePieza(board.getBoard()[oldPos.getX() - i][oldPos.getY() - i])){
+                return true;
             }
         }
         return false;

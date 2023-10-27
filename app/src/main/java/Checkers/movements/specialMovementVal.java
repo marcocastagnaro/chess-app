@@ -1,56 +1,20 @@
 package Checkers.movements;
 
-import Classic.Board;
-import Classic.Interfaces.movementValidator;
-import Classic.Position;
+import Common.Board;
+import Common.Interfaces.specialMovementValidator;
+import Common.Piece;
+import Common.Position;
 
-public class specialMovementVal implements movementValidator {
-    int xpos;
-    int xneg;
-    public specialMovementVal(int xpos, int xneg){
-        this.xpos = xpos;
-        this.xneg = xneg;
-    }
+public class specialMovementVal implements specialMovementValidator{
+
     //clase para comprobar si puede hacer ek movimiento, devuelve un true pero no modifica nada al board.
-    @Override
-    public boolean validateMove(Position oldPos, Position newPos) {
-        int x = oldPos.getX() - newPos.getX();
-        int y = oldPos.getY() - newPos.getY();
-        if (Math.abs(x) == Math.abs(y)){
-            if (x>0){
-                return x == xpos;
+    public Board validateMove(Board board1, Position position, Position newPos) {
+
+            Board board2 = board1.copy();
+            Piece pieza = position.getPiece();
+            if (pieza.moveValidator(position, newPos, board2)) {
+                return board2;
             }
-            else {
-                return Math.abs(x) == xneg;
-            }
+            return board1;
         }
-        return false;
-    }
-
-    @Override
-    public boolean obstacle(Position oldPos, Position newPos, Board board) {
-        int x = oldPos.getX() - newPos.getX();
-        int y = oldPos.getY() - newPos.getY();
-
-        if (Math.abs(x) == 2 && Math.abs(y) == 2) {
-            int middleX = oldPos.getX() - x / 2;
-            int middleY = oldPos.getY() - y / 2;
-
-            if (x == xpos) {
-                // Comer hacia arriba (y positivo)
-                Position poss = board.getPosition(middleX, middleY);
-                if (poss != null && poss.hasPiece() && poss.getColor() != oldPos.getColor()) {
-                    return false;
-                }
-            } else if (Math.abs(x) == xneg) {
-                // Comer hacia abajo (y negativo)
-                Position poss = board.getPosition(middleX, middleY);
-                if (poss != null && poss.hasPiece() && poss.getColor() != oldPos.getColor()) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
 }

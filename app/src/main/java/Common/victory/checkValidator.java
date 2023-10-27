@@ -1,10 +1,10 @@
-package Classic.victory;
+package Common.victory;
 
-import Classic.Board;
-import Classic.Piece;
-import Classic.Position;
-import Classic.Enums.Color;
-import Classic.Enums.Piecies;
+import Common.Board;
+import Common.Piece;
+import Common.Position;
+import Common.Enums.Color;
+import Common.Enums.Piecies;
 
 import java.util.Objects;
 
@@ -31,7 +31,7 @@ public class checkValidator {
         }
         return false;
     }
-    public boolean isInCheck (Board board, Color color){ //al hacer el movimiento chequear si esta en jaque.
+    public boolean validateMove(Board board, Color color){ //al hacer el movimiento chequear si esta en jaque.
         for (int x=0; x < board.getRow(); x++){
             for (int y=0; y< board.getColumn(); y++){
                 if (board.getPiece (x,y) != null ) {

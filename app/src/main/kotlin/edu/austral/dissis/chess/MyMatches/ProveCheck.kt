@@ -2,14 +2,14 @@ package edu.austral.dissis.chess.MyMatches
 
 
 import Chess.*
-import Classic.*
+import Common.*
 import Chess.Movements.DiagonalMove
 import Chess.Movements.horizontalMove
 import Chess.Movements.straightMove
-import Classic.Enums.Color
-import Classic.Enums.Piecies
-import Classic.Interfaces.gameInterface
-import Classic.victory.eatAllPiecies
+import Common.Enums.Color
+import Common.Enums.Piecies
+import Chess.gameInterface
+import Common.victory.eatAllPiecies
 
 class ProveCheck() : gameInterface {
     private var board: Board = Board(4, 4)

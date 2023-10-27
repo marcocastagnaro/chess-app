@@ -2,14 +2,14 @@ package Chess.tests;
 
 import Chess.*;
 
-import Classic.ChessPlayer;
-import Classic.Piece;
-import Classic.Position;
-import Classic.Enums.Color;
-import Classic.Enums.Piecies;
+import Common.ChessPlayer;
+import Common.Piece;
+import Common.Position;
+import Common.Enums.Color;
+import Common.Enums.Piecies;
 import Chess.Movements.horizontalMove;
 import Chess.Movements.straightMove;
-import Classic.victory.checkMateValidator;
+import Common.victory.checkMateValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

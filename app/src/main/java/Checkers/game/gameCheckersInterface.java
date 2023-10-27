@@ -1,9 +1,9 @@
 package Checkers.game;
 
-import Classic.Board;
-import Classic.ChessPlayer;
-import Classic.Piece;
-import Classic.Position;
+import Common.Board;
+import Common.ChessPlayer;
+import Common.Piece;
+import Common.Position;
 
 import java.util.List;
 

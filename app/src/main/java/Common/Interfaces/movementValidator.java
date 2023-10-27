@@ -1,6 +1,6 @@
-package Classic.Interfaces;
-import Classic.Board;
-import Classic.Position;
+package Common.Interfaces;
+import Common.Board;
+import Common.Position;
 public interface movementValidator {
     public boolean validateMove(Position oldPos, Position newPos);
 

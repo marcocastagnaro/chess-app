@@ -1,8 +1,8 @@
-package Classic.Interfaces;
+package Common.Interfaces;
 
-import Classic.Board;
-import Classic.Piece;
-import Classic.Position;
+import Common.Board;
+import Common.Piece;
+import Common.Position;
 
 import java.util.List;
 

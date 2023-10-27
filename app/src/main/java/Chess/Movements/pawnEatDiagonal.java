@@ -1,11 +1,11 @@
 package Chess.Movements; // Asegúrate de que el paquete esté correctamente nombrado.
 
-import Classic.Board;
-import Classic.Piece;
-import Classic.Position;
-import Classic.Enums.Color;
-import Classic.Enums.Piecies;
-import Classic.Interfaces.movementValidator;
+import Common.Board;
+import Common.Piece;
+import Common.Position;
+import Common.Enums.Color;
+import Common.Enums.Piecies;
+import Common.Interfaces.movementValidator;
 
 import java.util.Objects;
 

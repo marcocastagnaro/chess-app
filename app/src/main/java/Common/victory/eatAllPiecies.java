@@ -1,10 +1,10 @@
-package Classic.victory;
+package Common.victory;
 
-import Classic.Board;
-import Classic.ChessPlayer;
-import Classic.Piece;
-import Classic.Enums.Color;
-import Classic.Interfaces.victoryValidator;
+import Common.Board;
+import Common.ChessPlayer;
+import Common.Piece;
+import Common.Enums.Color;
+import Common.Interfaces.victoryValidator;
 
 import java.util.List;
 

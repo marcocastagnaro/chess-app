@@ -1,5 +1,5 @@
 package Chess.Movements;
-import Classic.Position;
+import Common.Position;
 
 public class Movement {
     private Position oldPos;

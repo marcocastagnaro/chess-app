@@ -1,6 +1,6 @@
-package Classic;
+package Common;
 
-import Classic.Enums.Color;
+import Common.Enums.Color;
 
 public class ChessPlayer {
     private final String name;

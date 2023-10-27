@@ -1,9 +1,9 @@
-package Classic.Interfaces;
+package Common.Interfaces;
 
-import Classic.Board;
-import Classic.Position;
-import Classic.Enums.Color;
-import Classic.Enums.Piecies;
+import Common.Board;
+import Common.Position;
+import Common.Enums.Color;
+import Common.Enums.Piecies;
 
 import java.util.List;
 

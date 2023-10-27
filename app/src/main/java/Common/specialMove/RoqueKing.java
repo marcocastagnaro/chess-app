@@ -1,12 +1,11 @@
-package Classic.specialMove;
+package Common.specialMove;
 
-import Classic.Board;
-import Chess.Game;
-import Classic.Piece;
-import Classic.Position;
-import Classic.Enums.Piecies;
-import Classic.Interfaces.movementValidator;
-import Classic.Interfaces.specialMovementValidator;
+import Common.Board;
+import Common.Piece;
+import Common.Position;
+import Common.Enums.Piecies;
+import Common.Interfaces.movementValidator;
+import Common.Interfaces.specialMovementValidator;
 
 public class RoqueKing implements specialMovementValidator {
     @Override

@@ -1,14 +1,14 @@
 package Checkers.game;
 
-import Checkers.movements.obligatoryMovement;
 import Checkers.movements.specialMovementVal;
-import Classic.GameVersion;
-import Classic.Board;
-import Classic.ChessPlayer;
-import Classic.Interfaces.movementValidator;
-import Classic.Interfaces.specialMovementValidator;
-import Classic.Piece;
-import Classic.Position;
+import Common.GameVersion;
+import Common.Board;
+import Common.ChessPlayer;
+import Common.Interfaces.specialMovementValidator;
+import Common.Piece;
+import Common.Position;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -44,23 +44,57 @@ public class gameCheckers implements gameCheckersInterface {
     public gameCheckers move(Position oldPos, Position newPosition) {
         ChessPlayer current = getPlayerForCurrentTurn();
         Piece piece = oldPos.getPiece();
+        gameCheckers newboard = movement(oldPos, newPosition, current, piece);
+        if (newboard != null) return newboard;
+        return this;
+    }
+
+    @Nullable
+    private gameCheckers movement(Position oldPos, Position newPosition, ChessPlayer current, Piece piece) {
         if (Objects.equals(piece.getColor(), current.getColor())) {
-//            if (validSpecialMov(newPosition, oldPos)) {
-//                Board newboard = checkSpecialCond(oldPos, newPosition);
-//                return new gameCheckers(newboard, chessPlayers, gameVersion);
-//            }
+            gameCheckers newboard = specialMovements(oldPos, newPosition);
+            if (newboard != null) return newboard;
             Board tablero = current.movePiece(piece, newPosition, board);
-            if (tablero == board) {
-                return this;
-            }
-//            if (obligatoryMovement.validateMovement(tablero)) {
-//                return this;
-//            }
+            gameCheckers x = differentBoard(tablero);
+            if (x != null) return x;
+            gameCheckers tablero1 = obligatoryMove(oldPos, newPosition, current, tablero);
+            if (tablero1 != null) return tablero1;
             nextTurn();
             return new gameCheckers(tablero, chessPlayers, gameVersion);
         }
-        return this;
+        return null;
     }
+
+    @Nullable
+    private gameCheckers specialMovements(Position oldPos, Position newPosition) {
+        if (validSpecialMov(newPosition, oldPos)) {
+            Board newboard = checkSpecialCond(oldPos, newPosition);
+            return new gameCheckers(newboard, chessPlayers, gameVersion);
+        }
+        return null;
+    }
+
+    @Nullable
+    private gameCheckers differentBoard(Board tablero) {
+        if (tablero == board) {
+            return this;
+        }
+        return null;
+    }
+
+    @Nullable
+    private gameCheckers obligatoryMove(Position oldPos, Position newPosition, ChessPlayer current, Board tablero) {
+        if(gameVersion.hasObligatory()){
+            if (gameVersion.getObligatory().hasAnotherMove(tablero, oldPos, tablero.getPosition(newPosition.getX(), newPosition.getY())) != tablero){
+                return new gameCheckers(tablero, chessPlayers, gameVersion);
+            }
+            if (gameVersion.getObligatory().validateMove(tablero, current.getColor(), oldPos) != tablero) {
+                return this;
+            }
+        }
+        return null;
+    }
+
     private boolean validSpecialMov(Position newPosition, Position oldPos) {
         return proveSpecialMove( oldPos, newPosition) != this.getBoard();
     }
@@ -71,17 +105,34 @@ public class gameCheckers implements gameCheckersInterface {
         return newboard;
     }
     public Board proveSpecialMove(Position oldPos, Position newPos) {
+        specialMovementVal special = null;
+        special = getSpecialMovementVal(special);
         for (specialMovementValidator spec: gameVersion.getSpecialMovementValidators()) {
-            Piece piece = oldPos.getPiece();
-            if (piece.moveValidator(oldPos, newPos, board)) {
+            assert special != null;
+            if (special.validateMove(board, oldPos, newPos) != board && spec != special) {
                     Board newBoard = spec.validateMove(board, oldPos, newPos);
-                    if (newBoard != board) {
-                        return newBoard;
-                    }
-                }
+                if (changes(newBoard)) return newBoard;
             }
+        }
         return board;
     }
+
+    private specialMovementVal getSpecialMovementVal(specialMovementVal special) {
+        for (specialMovementValidator spec: gameVersion.getSpecialMovementValidators()) {
+            if (spec instanceof specialMovementVal){
+                special = (specialMovementVal) spec;
+            }
+        }
+        return special;
+    }
+
+    private boolean changes(Board newBoard) {
+        if (newBoard != board) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public List<ChessPlayer> getChessPlayers() {
         return chessPlayers;

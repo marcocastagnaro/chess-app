@@ -1,9 +1,9 @@
-package Classic;
+package Common;
 
-import Classic.Enums.Color;
-import Classic.Enums.Piecies;
-import Classic.Interfaces.movementValidator;
-import Classic.Interfaces.pieceInterface;
+import Common.Enums.Color;
+import Common.Enums.Piecies;
+import Common.Interfaces.movementValidator;
+import Common.Interfaces.pieceInterface;
 
 import java.util.List;
 
