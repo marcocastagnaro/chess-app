@@ -1,14 +1,14 @@
 package edu.austral.dissis.chess;
 
-import Checkers.game.gameCheckersInterface
-import Common.Enums.Color
-import Connector.Connector
+import root.common.Enums.Color
+import root.common.Connector.Connector
 import edu.austral.dissis.chess.MyMatches.Checkers
 import edu.austral.dissis.chess.gui.*
 import edu.austral.dissis.chess.gui.PlayerColor.BLACK
 import edu.austral.dissis.chess.gui.PlayerColor.WHITE
+import root.checkers.game.gameCheckersInterface
 
- class MyChess: GameEngine {
+class MyChess: GameEngine {
     private var myGame: gameCheckersInterface = Checkers()
     private var currentPlayer = getCurrentPlayer(myGame)
 

@@ -1,15 +1,17 @@
 package edu.austral.dissis.chess.MyMatches
 
 
-import Chess.*
-import Common.*
-import Chess.Movements.DiagonalMove
-import Chess.Movements.horizontalMove
-import Chess.Movements.straightMove
-import Common.Enums.Color
-import Common.Enums.Piecies
-import Chess.gameInterface
-import Common.victory.eatAllPiecies
+
+import root.chess.Game
+import root.chess.Movements.DiagonalMove
+import root.chess.Movements.horizontalMove
+import root.chess.Movements.straightMove
+import root.chess.gameInterface
+import root.common.Enums.Color
+import root.common.Enums.Piecies
+import root.common.*
+
+import root.common.victory.eatAllPiecies
 
 class ProveCheck() : gameInterface {
     private var board: Board = Board(4, 4)
@@ -23,13 +25,16 @@ class ProveCheck() : gameInterface {
 
 
     init {
-        val player1 = ChessPlayer("Player 1", Color.WHITE)
+        val player1 =
+            ChessPlayer("Player 1", Color.WHITE)
         playersList.add(player1)
-        val player2 = ChessPlayer("Player 2", Color.BLACK)
+        val player2 =
+            ChessPlayer("Player 2", Color.BLACK)
         playersList.add(player2)
         player1.changeTurn()
     }
-    var game: Game = Game(playersList, board, gameVersion)
+    var game: Game =
+        Game(playersList, board, gameVersion)
 
     init {
         val positions: MutableList<Position> = mutableListOf()

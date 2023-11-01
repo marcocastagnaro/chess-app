@@ -1,26 +1,43 @@
 package edu.austral.dissis.chess.MyMatches
 
-import Checkers.game.gameCheckers
-import Checkers.game.gameCheckersInterface
-import Checkers.movements.classicMovement
-import Checkers.movements.eatMovement
-import Checkers.movements.specialMovementVal
-import Common.*
-import Common.Enums.Color
-import Common.Enums.Piecies
-import Common.specialMove.coronacion
-import Common.victory.eatAllPiecies
-import Common.victory.obligatoryMovement
+
+import root.checkers.game.gameCheckers
+import root.checkers.game.gameCheckersInterface
+import root.checkers.movements.classicMovement
+import root.checkers.movements.eatMovement
+import root.checkers.movements.specialMovementVal
+import root.common.*
+import root.common.Enums.Color
+import root.common.Enums.Piecies
+import root.common.specialMove.coronacion
+import root.common.victory.eatAllPiecies
+import root.common.victory.obligatoryMovement
 
 class Checkers () : gameCheckersInterface {
     private var board: Board = Board(8, 8)
     private val playersList: MutableList<ChessPlayer> = ArrayList()
-    private val coron: coronacion = coronacion(Piecies.PAWN, Piece(Piecies.QUEEN, Color.WHITE, listOf(classicMovement(1,1), eatMovement(2, 2))))
-    private val validMove : specialMovementVal = specialMovementVal()
-    private val victoryMode: eatAllPiecies = eatAllPiecies()
-    private val gameVersion : GameVersion = GameVersion("Common", victoryMode)
-    val player1 = ChessPlayer("Player 1", Color.WHITE)
-    val player2 = ChessPlayer("Player 2", Color.BLACK)
+    private val coron: coronacion =
+        coronacion(
+            Piecies.PAWN,
+            Piece(
+                Piecies.QUEEN,
+                Color.WHITE,
+                listOf(
+                    classicMovement(1, 1),
+                    eatMovement(2, 2)
+                )
+            )
+        )
+    private val validMove : specialMovementVal =
+        specialMovementVal()
+    private val victoryMode: eatAllPiecies =
+        eatAllPiecies()
+    private val gameVersion : GameVersion =
+        GameVersion("root/common", victoryMode)
+    val player1 =
+        ChessPlayer("Player 1", Color.WHITE)
+    val player2 =
+        ChessPlayer("Player 2", Color.BLACK)
 
     init {
         playersList.add(player1)
@@ -30,7 +47,8 @@ class Checkers () : gameCheckersInterface {
         gameVersion.addSpecialMovementValidators(validMove)
         gameVersion.setObligatory(obligatoryMovement(2))
     }
-    var game: gameCheckers = gameCheckers(board,playersList, gameVersion, player1)
+    var game: gameCheckers =
+        gameCheckers(board, playersList, gameVersion, player1)
 
     init {
         val positions: MutableList<Position> = mutableListOf()
@@ -42,14 +60,30 @@ class Checkers () : gameCheckersInterface {
 
                 // Inicializa las posiciones iniciales de las damas negras en las primeras 3 filas
                 if (row < 3 && cellColor == Color.BLACK) {
-                    positions.add(Position(row, col, Piece(Piecies.PAWN, Color.BLACK, listOf(classicMovement(0,1),
-                        eatMovement(0, 2)))))
+                    positions.add(
+                        Position(
+                            row, col, Piece(
+                                Piecies.PAWN, Color.BLACK, listOf(
+                                    classicMovement(0, 1),
+                                    eatMovement(0, 2)
+                                )
+                            )
+                        )
+                    )
                 }
 
                 // Inicializa las posiciones iniciales de las damas blancas en las últimas 3 filas
                 if (row >= board.row - 3 && cellColor == Color.BLACK) {
-                    positions.add(Position(row, col, Piece(Piecies.PAWN, Color.WHITE, listOf(classicMovement(1,0),
-                        eatMovement(2, 0)))))
+                    positions.add(
+                        Position(
+                            row, col, Piece(
+                                Piecies.PAWN, Color.WHITE, listOf(
+                                    classicMovement(1, 0),
+                                    eatMovement(2, 0)
+                                )
+                            )
+                        )
+                    )
 
                 }
             }
@@ -69,7 +103,7 @@ class Checkers () : gameCheckersInterface {
         return board
     }
 
-    override fun move( oldPos: Position?, newPos: Position?): gameCheckers {
+    override fun move(oldPos: Position?, newPos: Position?): gameCheckers {
         return game.move(oldPos, newPos)
     }
 

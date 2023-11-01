@@ -1,15 +1,16 @@
 package edu.austral.dissis.chess.MyMatches
 
-import Chess.*
-import Chess.Movements.*
-import Common.Enums.Color
-import Common.Enums.Piecies
-import Chess.gameInterface
-import Common.specialMove.RoqueKing
-import Common.specialMove.coronacion
-import Common.*
-import Common.victory.checkMateValidator
-import Common.victory.checkValidator
+import root.chess.Game
+import root.chess.Movements.*
+import root.chess.gameInterface
+import root.common.Enums.Color
+import root.common.Enums.Piecies
+import root.common.specialMove.RoqueKing
+import root.common.specialMove.coronacion
+import root.common.*
+
+import root.common.victory.checkMateValidator
+import root.common.victory.checkValidator
 
 class MyGame() : gameInterface {
     private var board: Board = Board(8, 8)
@@ -19,7 +20,7 @@ class MyGame() : gameInterface {
     private val checkmateval : checkMateValidator =
         checkMateValidator(Piecies.KING)
     private val gameVersion : GameVersion =
-        GameVersion("Common", checkmateval)
+        GameVersion("root/common", checkmateval)
     private val roqueKing: RoqueKing =
         RoqueKing()
     private val coron: coronacion =
@@ -35,8 +36,10 @@ class MyGame() : gameInterface {
                 )
             )
         )
-    val player1 = ChessPlayer("Player 1", Color.WHITE)
-    val player2 = ChessPlayer("Player 2", Color.BLACK)
+    val player1 =
+        ChessPlayer("Player 1", Color.WHITE)
+    val player2 =
+        ChessPlayer("Player 2", Color.BLACK)
 
 
 
@@ -49,7 +52,8 @@ class MyGame() : gameInterface {
 
 
     }
-    var game: Game = Game(playersList, board, gameVersion, player1)
+    var game: Game =
+        Game(playersList, board, gameVersion, player1)
 
     init {
         val positions: MutableList<Position> = mutableListOf()
@@ -57,24 +61,30 @@ class MyGame() : gameInterface {
             positions.add(
                 Position(
                     6, i, Piece(
-                        Piecies.PAWN, Color.WHITE, listOf(
+                        Piecies.PAWN,
+                        Color.WHITE,
+                        listOf(
                             pawnMovement(
                                 0, 1, 0, 0, 2,
                                 pawnEatDiagonal(0, 1, 0, 0)
                             )
-                        ), "$i${6}"
+                        ),
+                        "$i${6}"
                     )
                 )
             )
             positions.add(
                 Position(
                     1, i, Piece(
-                        Piecies.PAWN, Color.BLACK, listOf(
+                        Piecies.PAWN,
+                        Color.BLACK,
+                        listOf(
                             pawnMovement(
                                 1, 0, 0, 0, 2,
                                 pawnEatDiagonal(1, 0, 0, 0)
                             )
-                        ), "$i${1}"
+                        ),
+                        "$i${1}"
                     )
                 )
             )
@@ -141,10 +151,13 @@ class MyGame() : gameInterface {
             Position(
                 7, 1,
                 Piece(
-                    Piecies.KNIGHT, Color.WHITE, listOf(
+                    Piecies.KNIGHT,
+                    Color.WHITE,
+                    listOf(
                         Jump(1, 2),
                         Jump(2, 1)
-                    ), "K1"
+                    ),
+                    "K1"
                 )
             )
         )
@@ -152,10 +165,13 @@ class MyGame() : gameInterface {
             Position(
                 7, 6,
                 Piece(
-                    Piecies.KNIGHT, Color.WHITE, listOf(
+                    Piecies.KNIGHT,
+                    Color.WHITE,
+                    listOf(
                         Jump(1, 2),
                         Jump(2, 1)
-                    ), "K2"
+                    ),
+                    "K2"
                 )
             )
         )
@@ -163,10 +179,13 @@ class MyGame() : gameInterface {
             Position(
                 0, 1,
                 Piece(
-                    Piecies.KNIGHT, Color.BLACK, listOf(
+                    Piecies.KNIGHT,
+                    Color.BLACK,
+                    listOf(
                         Jump(1, 2),
                         Jump(2, 1)
-                    ), "K3"
+                    ),
+                    "K3"
                 )
             )
         )
@@ -174,10 +193,13 @@ class MyGame() : gameInterface {
             Position(
                 0, 6,
                 Piece(
-                    Piecies.KNIGHT, Color.BLACK, listOf(
+                    Piecies.KNIGHT,
+                    Color.BLACK,
+                    listOf(
                         Jump(1, 2),
                         Jump(2, 1)
-                    ), "K4"
+                    ),
+                    "K4"
                 )
             )
         )
