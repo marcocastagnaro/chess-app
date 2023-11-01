@@ -40,8 +40,8 @@ class MyGame() : gameInterface {
         ChessPlayer("Player 1", Color.WHITE)
     val player2 =
         ChessPlayer("Player 2", Color.BLACK)
-
-
+    val customizeTurn =
+        Turn()
 
     init {
             playersList.add(player1)
@@ -53,7 +53,7 @@ class MyGame() : gameInterface {
 
     }
     var game: Game =
-        Game(playersList, board, gameVersion, player1)
+        Game(playersList, board, gameVersion, player1, customizeTurn)
 
     init {
         val positions: MutableList<Position> = mutableListOf()

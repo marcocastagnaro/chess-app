@@ -1,5 +1,6 @@
 package root.checkers.movements;
 
+import root.chess.Movements.DiagonalMove;
 import root.common.Board;
 import root.common.Interfaces.movementValidator;
 import root.common.Position;
@@ -11,28 +12,18 @@ public class eatMovement implements movementValidator {
         this.xpos = xpos;
         this.xneg = xneg;
     }
+    DiagonalMove diagonalMove = new DiagonalMove(xpos, xneg,2,2);
     @Override
     public boolean validateMove(Position oldPos, Position newPos) {
-        int x = oldPos.getX() - newPos.getX();
-        int y = oldPos.getY() - newPos.getY();
-        if (Math.abs(x) == Math.abs(y)){
-            if (x>0){
-                return x == xpos;
-            }
-            else {
-                return Math.abs(x) == xneg;
-            }
-        }
-        return false;
+        return diagonalMove.validateMove(oldPos, newPos);
     }
+
     @Override
     public boolean obstacle(Position oldPos, Position newPos, Board board) {
         int x = oldPos.getX() - newPos.getX();
         int y = oldPos.getY() - newPos.getY();
 
-        if (movementCorrect(oldPos, newPos, board, x, y)) return false;
-
-        return true;
+        return !movementCorrect(oldPos, newPos, board, x, y);
     }
 
     private boolean movementCorrect(Position oldPos, Position newPos, Board board, int x, int y) {
@@ -42,11 +33,11 @@ public class eatMovement implements movementValidator {
 
             if (x == xpos && !newPos.hasPiece()) {
                 Position poss = board.getPosition(middleX, middleY);
-                if (moveandeat(oldPos, board, middleX, middleY, poss)) return true;
+                return moveandeat(oldPos, board, middleX, middleY, poss);
             }
             else if (Math.abs(x) == xneg && !newPos.hasPiece()){
                 Position poss = board.getPosition(middleX, middleY);
-                if (moveandeat(oldPos, board, middleX, middleY, poss)) return true;
+                return moveandeat(oldPos, board, middleX, middleY, poss);
             }
         }
         return false;

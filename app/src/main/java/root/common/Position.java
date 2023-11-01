@@ -35,5 +35,8 @@ public class Position {
     public Color getColor (){
         return piece.getColor();
     }
+    public Position delta(Position newpos){
+        return new Position(newpos.getX() - this.getX(), newpos.getY() - this.getY());
+    }
 
 }

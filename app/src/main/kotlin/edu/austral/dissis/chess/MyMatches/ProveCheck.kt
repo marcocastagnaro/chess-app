@@ -22,6 +22,8 @@ class ProveCheck() : gameInterface {
     eatAllPiecies()
     private val gameVersion : GameVersion =
         GameVersion("EAT ALL PIECIES", gameend)
+    private val customizeTurn =
+        Turn()
 
 
     init {
@@ -34,7 +36,7 @@ class ProveCheck() : gameInterface {
         player1.changeTurn()
     }
     var game: Game =
-        Game(playersList, board, gameVersion)
+        Game(playersList, board, gameVersion, customizeTurn)
 
     init {
         val positions: MutableList<Position> = mutableListOf()

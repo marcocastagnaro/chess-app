@@ -6,7 +6,7 @@ import root.common.Position;
 
 import java.util.List;
 
-public interface boardInterface {
+public interface board {
     public Board movePiece(Position oldPosition, Position newPosition, Piece piece);
     public int getRow();
 

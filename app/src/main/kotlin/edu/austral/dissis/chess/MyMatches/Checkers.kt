@@ -2,7 +2,7 @@ package edu.austral.dissis.chess.MyMatches
 
 
 import root.checkers.game.gameCheckers
-import root.checkers.game.gameCheckersInterface
+import root.checkers.game.gameCheckersinterface
 import root.checkers.movements.classicMovement
 import root.checkers.movements.eatMovement
 import root.checkers.movements.specialMovementVal
@@ -13,7 +13,7 @@ import root.common.specialMove.coronacion
 import root.common.victory.eatAllPiecies
 import root.common.victory.obligatoryMovement
 
-class Checkers () : gameCheckersInterface {
+class Checkers () : gameCheckersinterface {
     private var board: Board = Board(8, 8)
     private val playersList: MutableList<ChessPlayer> = ArrayList()
     private val coron: coronacion =
@@ -38,7 +38,8 @@ class Checkers () : gameCheckersInterface {
         ChessPlayer("Player 1", Color.WHITE)
     val player2 =
         ChessPlayer("Player 2", Color.BLACK)
-
+    val customizeTurn =
+    Turn()
     init {
         playersList.add(player1)
         playersList.add(player2)
@@ -48,7 +49,7 @@ class Checkers () : gameCheckersInterface {
         gameVersion.setObligatory(obligatoryMovement(2))
     }
     var game: gameCheckers =
-        gameCheckers(board, playersList, gameVersion, player1)
+        gameCheckers(board, playersList, gameVersion, player1, customizeTurn)
 
     init {
         val positions: MutableList<Position> = mutableListOf()

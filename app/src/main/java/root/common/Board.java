@@ -1,12 +1,12 @@
 package root.common;
 
-import root.common.Interfaces.boardInterface;
+import root.common.Interfaces.board;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Board implements boardInterface {
+public class Board implements board {
     private Position[][] tablero;
 
     private int row;

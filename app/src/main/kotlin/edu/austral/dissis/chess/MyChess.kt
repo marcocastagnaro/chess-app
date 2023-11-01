@@ -6,10 +6,10 @@ import edu.austral.dissis.chess.MyMatches.Checkers
 import edu.austral.dissis.chess.gui.*
 import edu.austral.dissis.chess.gui.PlayerColor.BLACK
 import edu.austral.dissis.chess.gui.PlayerColor.WHITE
-import root.checkers.game.gameCheckersInterface
+import root.checkers.game.gameCheckersinterface
 
 class MyChess: GameEngine {
-    private var myGame: gameCheckersInterface = Checkers()
+    private var myGame: gameCheckersinterface = Checkers()
     private var currentPlayer = getCurrentPlayer(myGame)
 
     override fun applyMove(move: Move): MoveResult {
@@ -52,7 +52,7 @@ class MovePrinter : PieceMovedListener {
         println(to)
     }
 }
-public fun getCurrentPlayer (myGame: gameCheckersInterface): PlayerColor{
+public fun getCurrentPlayer (myGame: gameCheckersinterface): PlayerColor{
     for (i in 0 until myGame.getChessPlayers().size) {
         if (myGame.getChessPlayers()[i].turn) {
             return if (myGame.getChessPlayers()[i].color == Color.WHITE) WHITE else BLACK

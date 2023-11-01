@@ -5,6 +5,7 @@ import root.chess.Coordinates;
 import root.chess.Game;
 import root.common.*;
 
+import root.common.Interfaces.turn;
 import root.common.Interfaces.victoryValidator;
 import root.common.victory.checkValidator;
 
@@ -24,7 +25,8 @@ public class testMovements {
         }
         GameVersion gameVersion = new GameVersion("1", vic);
         gameVersion.setCheckval(check);
-        return new Game(chessPlayers, board, gameVersion);
+        turn cusTurn = new Turn();
+        return new Game(chessPlayers, board, gameVersion, chessPlayers.get(0), cusTurn);
     }
 
     static Position getPositionfromGame(int row, int column, Game game) {

@@ -5,29 +5,33 @@ import root.common.GameVersion;
 import root.common.Board;
 import root.common.ChessPlayer;
 import root.common.Interfaces.specialMovementValidator;
+import root.common.Interfaces.turn;
 import root.common.Piece;
 import root.common.Position;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
-public class gameCheckers implements root.checkers.game.gameCheckersInterface {
-    Board board;
-    List<ChessPlayer> chessPlayers;
-    GameVersion gameVersion;
+public class gameCheckers implements gameCheckersinterface {
+    private Board board;
+    private List<ChessPlayer> chessPlayers;
+    private GameVersion gameVersion;
+    private turn customizeTurn;
 
-    public gameCheckers(Board board, List<ChessPlayer> chessPlayers, GameVersion gameVersion, ChessPlayer initialPlayer) {
+    public gameCheckers(Board board, List<ChessPlayer> chessPlayers, GameVersion gameVersion, ChessPlayer initialPlayer, turn customizeTurn) {
         this.board = board;
         this.chessPlayers = chessPlayers;
         this.gameVersion = gameVersion;
+        this.customizeTurn = customizeTurn;
         initialPlayer.changeTurn();
     }
 
-    public gameCheckers(Board board, List<ChessPlayer> chessPlayers, GameVersion gameVersion) {
+    public gameCheckers(Board board, List<ChessPlayer> chessPlayers, GameVersion gameVersion, turn customizeTurn) {
         this.board = board;
         this.chessPlayers = chessPlayers;
         this.gameVersion = gameVersion;
+        this.customizeTurn = customizeTurn;
     }
 
     @Override
@@ -42,66 +46,71 @@ public class gameCheckers implements root.checkers.game.gameCheckersInterface {
 
     @Override
     public gameCheckers move(Position oldPos, Position newPosition) {
-        ChessPlayer current = getPlayerForCurrentTurn();
+        ChessPlayer current = customizeTurn.getCurrent(chessPlayers);
         Piece piece = oldPos.getPiece();
-        gameCheckers newboard = movement(oldPos, newPosition, current, piece);
-        if (newboard != null) return newboard;
-        return this;
+        Optional<gameCheckers> newboardOpt = movement(oldPos, newPosition, current, piece);
+
+        return newboardOpt.orElse(this);
+
     }
 
-    @Nullable
-    private gameCheckers movement(Position oldPos, Position newPosition, ChessPlayer current, Piece piece) {
+
+    private Optional<gameCheckers> movement(Position oldPos, Position newPosition, ChessPlayer current, Piece piece) {
         if (Objects.equals(piece.getColor(), current.getColor())) {
-            gameCheckers newboard = specialMovements(oldPos, newPosition);
-            if (newboard != null) return newboard;
+            Optional<gameCheckers> newboard = specialMovements(oldPos, newPosition);
+            if (newboard.isPresent()) return newboard;
+
             Board tablero = current.movePiece(piece, newPosition, board);
-            gameCheckers x = differentBoard(tablero);
-            if (x != null) return x;
-            gameCheckers tablero1 = obligatoryMove(oldPos, newPosition, current, tablero);
-            if (tablero1 != null) return tablero1;
-            nextTurn();
-            return new gameCheckers(tablero, chessPlayers, gameVersion);
+            Optional<gameCheckers> x = differentBoard(tablero);
+            if (x.isPresent()) return x;
+
+            Optional<gameCheckers> tablero1 = obligatoryMove(oldPos, newPosition, current, tablero);
+            if (tablero1.isPresent()) return tablero1;
+
+            customizeTurn.nextTurn(chessPlayers);
+            return Optional.of(new gameCheckers(tablero, chessPlayers, gameVersion, customizeTurn));
         }
-        return null;
+        return Optional.empty();
     }
 
-    @Nullable
-    private gameCheckers specialMovements(Position oldPos, Position newPosition) {
+
+    private Optional<gameCheckers> specialMovements(Position oldPos, Position newPosition) {
         if (validSpecialMov(newPosition, oldPos)) {
-            Board newboard = checkSpecialCond(oldPos, newPosition);
-            return new gameCheckers(newboard, chessPlayers, gameVersion);
+            Board newboard = makeSpecialMove(oldPos, newPosition);
+            return Optional.of(new gameCheckers(newboard, chessPlayers, gameVersion, customizeTurn));
         }
-        return null;
+        return Optional.empty();
     }
 
-    @Nullable
-    private gameCheckers differentBoard(Board tablero) {
+
+    private Optional<gameCheckers> differentBoard(Board tablero) {
         if (tablero == board) {
-            return this;
+            return Optional.of(this);
         }
-        return null;
+        return Optional.empty();
     }
 
-    @Nullable
-    private gameCheckers obligatoryMove(Position oldPos, Position newPosition, ChessPlayer current, Board tablero) {
-        if(gameVersion.hasObligatory()){
-            if (gameVersion.getObligatory().hasAnotherMove(tablero, oldPos, tablero.getPosition(newPosition.getX(), newPosition.getY())) != tablero){
-                return new gameCheckers(tablero, chessPlayers, gameVersion);
+
+    private Optional<gameCheckers> obligatoryMove(Position oldPos, Position newPosition, ChessPlayer current, Board tablero) {
+        if (gameVersion.hasObligatory()) {
+            if (gameVersion.getObligatory().hasAnotherMove(tablero, oldPos, tablero.getPosition(newPosition.getX(), newPosition.getY())) != tablero) {
+                return Optional.of(new gameCheckers(tablero, chessPlayers, gameVersion, customizeTurn));
             }
             if (gameVersion.getObligatory().validateMove(tablero, current.getColor(), oldPos) != tablero) {
-                return this;
+                return Optional.of(this);
             }
         }
-        return null;
+        return Optional.empty();
     }
+
 
     private boolean validSpecialMov(Position newPosition, Position oldPos) {
         return proveSpecialMove( oldPos, newPosition) != this.getBoard();
     }
 
-    public Board checkSpecialCond (Position oldPos, Position newPosition){
+    public Board makeSpecialMove(Position oldPos, Position newPosition){
         Board newboard = proveSpecialMove( oldPos, newPosition);
-        nextTurn();
+        customizeTurn.nextTurn(chessPlayers);
         return newboard;
     }
     public Board proveSpecialMove(Position oldPos, Position newPos) {
@@ -127,10 +136,7 @@ public class gameCheckers implements root.checkers.game.gameCheckersInterface {
     }
 
     private boolean changes(Board newBoard) {
-        if (newBoard != board) {
-            return true;
-        }
-        return false;
+        return newBoard != board;
     }
 
     @Override
@@ -141,23 +147,5 @@ public class gameCheckers implements root.checkers.game.gameCheckersInterface {
     @Override
     public boolean validateVictory(List<ChessPlayer> chessPlayer, Board board) {
         return gameVersion.getVictoryInt().validateVictory(chessPlayer, board);
-    }
-
-    public ChessPlayer getPlayerForCurrentTurn() {
-        return chessPlayers.stream().filter(ChessPlayer::getTurn).findFirst().get();
-    }
-    private void nextTurn() {
-        for (int i = 0; i <= chessPlayers.toArray().length - 1; i++) {
-            if (chessPlayers.get(i).getTurn()) {
-                chessPlayers.get(i).changeTurn();
-                if (i + 1 == chessPlayers.toArray().length) {
-                    chessPlayers.get(0).changeTurn();
-                    break;
-                } else {
-                    chessPlayers.get(i + 1).changeTurn();
-                    break;
-                }
-            }
-        }
     }
 }
