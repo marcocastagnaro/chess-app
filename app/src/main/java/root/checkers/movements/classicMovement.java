@@ -8,11 +8,13 @@ import root.common.Interfaces.movementValidator;
 public class classicMovement implements movementValidator {
     int xpos;
     int xneg;
+    DiagonalMove diagonalMove;
     public classicMovement(int xpos, int xneg ) {
         this.xpos = xpos;
         this.xneg = xneg;
+        diagonalMove = new DiagonalMove(xpos, xneg,1,1);
+
     }
-    DiagonalMove diagonalMove = new DiagonalMove(xpos, xneg,1,1);
     @Override
     public boolean validateMove(Position oldPos, Position newPos) {
         return diagonalMove.validateMove(oldPos, newPos);

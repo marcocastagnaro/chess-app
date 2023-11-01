@@ -30,12 +30,12 @@ public class Game implements root.chess.gameInterface {
     public Game move(Position newPosition, Position oldPos) {
         ChessPlayer current = customizeTurn.getCurrent(chessPlayers);
         Piece piece = oldPos.getPiece();
-        if (Objects.equals(piece.getColor(), current.getColor())) {
+        if (validTurn(current, piece)) {
             if (validSpecialMov(newPosition, oldPos)) {
                 Board newboard = checkSpecialCond(oldPos,newPosition,current,piece);
                 return new Game(chessPlayers, newboard, gameVersion, customizeTurn);
             }
-            Board tablero = current.movePiece(piece, newPosition, board);
+            Board tablero = current.movePiece(oldPos, newPosition, board);
             if (tablero == board) {
                 return this;
             }
@@ -55,6 +55,10 @@ public class Game implements root.chess.gameInterface {
             return new Game(chessPlayers, tablero, gameVersion, customizeTurn);
         }
         return this;
+    }
+
+    private static boolean validTurn(ChessPlayer current, Piece piece) {
+        return Objects.equals(piece.getColor(), current.getColor());
     }
 
     private boolean validSpecialMov(Position newPosition, Position oldPos) {
@@ -108,12 +112,5 @@ public class Game implements root.chess.gameInterface {
             }
         }
         return board;
-    }
-    public GameVersion getGameVersion() {
-        return gameVersion;
-    }
-
-    public turn getTurn() {
-        return customizeTurn;
     }
 }

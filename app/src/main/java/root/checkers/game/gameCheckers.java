@@ -56,11 +56,11 @@ public class gameCheckers implements gameCheckersinterface {
 
 
     private Optional<gameCheckers> movement(Position oldPos, Position newPosition, ChessPlayer current, Piece piece) {
-        if (Objects.equals(piece.getColor(), current.getColor())) {
+        if (validTurn(current, piece)) {
             Optional<gameCheckers> newboard = specialMovements(oldPos, newPosition);
             if (newboard.isPresent()) return newboard;
 
-            Board tablero = current.movePiece(piece, newPosition, board);
+            Board tablero = current.movePiece( oldPos,newPosition, board);
             Optional<gameCheckers> x = differentBoard(tablero);
             if (x.isPresent()) return x;
 
@@ -71,6 +71,10 @@ public class gameCheckers implements gameCheckersinterface {
             return Optional.of(new gameCheckers(tablero, chessPlayers, gameVersion, customizeTurn));
         }
         return Optional.empty();
+    }
+
+    private static boolean validTurn(ChessPlayer current, Piece piece) {
+        return Objects.equals(piece.getColor(), current.getColor());
     }
 
 

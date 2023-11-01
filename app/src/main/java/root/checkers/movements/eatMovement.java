@@ -8,11 +8,12 @@ import root.common.Position;
 public class eatMovement implements movementValidator {
     int xpos;
     int xneg;
+    DiagonalMove diagonalMove;
     public eatMovement(int xpos, int xneg){
         this.xpos = xpos;
         this.xneg = xneg;
+        diagonalMove = new DiagonalMove(xpos, xneg,2,2);
     }
-    DiagonalMove diagonalMove = new DiagonalMove(xpos, xneg,2,2);
     @Override
     public boolean validateMove(Position oldPos, Position newPos) {
         return diagonalMove.validateMove(oldPos, newPos);

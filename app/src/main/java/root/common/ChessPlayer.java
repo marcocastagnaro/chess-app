@@ -28,9 +28,9 @@ public class ChessPlayer {
     }
 
 
-    public Board movePiece (Piece piece, Position newPosition, Board board) {
-        Position oldPosition = board.getPositionWithPiece(piece);
-        return board.movePiece(oldPosition, newPosition, piece);
+    public Board movePiece (Position oldPos, Position newPosition, Board board) {
+        Piece piece = oldPos.getPiece();
+        return board.movePiece(oldPos, newPosition, piece);
     }
 
 }

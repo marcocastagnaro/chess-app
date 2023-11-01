@@ -56,13 +56,17 @@ public class Board implements board {
 
     public Board movePiece(Position oldPosition, Position newPosition, Piece piece) {
         if (newPosition.hasPiece()) {
-            if (!Objects.equals(newPosition.getPiece().getColor(), piece.getColor())) {
+            if (differentTeams(newPosition, piece)) {
                 return move(oldPosition, newPosition, piece);
             }
         } else if (!newPosition.hasPiece()) {
             return move(oldPosition, newPosition, piece);
         }
         return this;
+    }
+
+    private static boolean differentTeams(Position newPosition, Piece piece) {
+        return !Objects.equals(newPosition.getPiece().getColor(), piece.getColor());
     }
 
     public Board move(Position oldPosition, Position newPosition, Piece piece) {
