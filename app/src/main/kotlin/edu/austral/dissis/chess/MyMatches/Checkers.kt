@@ -29,7 +29,7 @@ class Checkers () : gameCheckersinterface {
             )
         )
     private val validMove : specialMovementVal =
-        specialMovementVal()
+        specialMovementVal(2,2)
     private val victoryMode: eatAllPiecies =
         eatAllPiecies()
     private val gameVersion : GameVersion =
@@ -44,7 +44,6 @@ class Checkers () : gameCheckersinterface {
         playersList.add(player1)
         playersList.add(player2)
         gameVersion.addSpecialMovementValidators(coron)
-//        gameVersion.addSpecialMovementValidators(obligt)
         gameVersion.addSpecialMovementValidators(validMove)
         gameVersion.setObligatory(obligatoryMovement(2))
     }
@@ -65,8 +64,8 @@ class Checkers () : gameCheckersinterface {
                         Position(
                             row, col, Piece(
                                 Piecies.PAWN, Color.BLACK, listOf(
-                                    classicMovement(0, 1),
-                                    eatMovement(0, 2)
+                                    classicMovement(1, 0),
+                                    eatMovement(2, 0)
                                 )
                             )
                         )
@@ -79,8 +78,8 @@ class Checkers () : gameCheckersinterface {
                         Position(
                             row, col, Piece(
                                 Piecies.PAWN, Color.WHITE, listOf(
-                                    classicMovement(1, 0),
-                                    eatMovement(2, 0)
+                                    classicMovement(0, 1),
+                                    eatMovement(0, 2)
                                 )
                             )
                         )
