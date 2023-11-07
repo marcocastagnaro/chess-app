@@ -1,16 +1,18 @@
 package edu.austral.dissis.chess.MyMatches
 
-import root.chess.Game
+import root.common.Game
 import root.chess.Movements.*
-import root.chess.gameInterface
+import root.chess.ChessTurn
+import root.common.Interfaces.gameInterface
 import root.common.Enums.Color
 import root.common.Enums.Piecies
-import root.common.specialMove.RoqueKing
-import root.common.specialMove.coronacion
+import root.common.specialRule.RoqueKing
+import root.common.specialRule.coronacion
 import root.common.*
+import root.common.Interfaces.validators
 
 import root.common.victory.checkMateValidator
-import root.common.victory.checkValidator
+import root.chess.checkValidator
 
 class MyGame() : gameInterface {
     private var board: Board = Board(8, 8)
@@ -19,8 +21,9 @@ class MyGame() : gameInterface {
         checkValidator(Piecies.KING)
     private val checkmateval : checkMateValidator =
         checkMateValidator(Piecies.KING)
+    private val validator: MutableList<validators> = ArrayList()
     private val gameVersion : GameVersion =
-        GameVersion("root/common", checkmateval)
+        GameVersion("root/common", checkmateval, validator)
     private val roqueKing: RoqueKing =
         RoqueKing()
     private val coron: coronacion =
@@ -41,19 +44,19 @@ class MyGame() : gameInterface {
     val player2 =
         ChessPlayer("Player 2", Color.BLACK)
     val customizeTurn =
-        Turn()
+        ChessTurn()
 
     init {
             playersList.add(player1)
             playersList.add(player2)
-        gameVersion.setCheckval(checkval)
+        validator.add(checkval)
         gameVersion.addSpecialMovementValidators(roqueKing)
         gameVersion.addSpecialMovementValidators(coron)
 
 
     }
     var game: Game =
-        Game(playersList, board, gameVersion, player1, customizeTurn)
+        Game(board,playersList, gameVersion, player1, customizeTurn)
 
     init {
         val positions: MutableList<Position> = mutableListOf()

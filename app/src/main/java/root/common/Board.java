@@ -71,14 +71,20 @@ public class Board implements board {
 
     public Board move(Position oldPosition, Position newPosition, Piece piece) {
         if (piece.moveValidator(oldPosition, newPosition, this)) {
+            Piece piece1 = pieceFirstMove(piece);
             Board newTablero = this.copy();
             newTablero.getBoard()[oldPosition.getX()][oldPosition.getY()] = new Position(oldPosition.getX(),oldPosition.getY());
-            newTablero.getBoard()[newPosition.getX()][newPosition.getY()] = new Position(newPosition.getX(),newPosition.getY(), piece);
+            newTablero.getBoard()[newPosition.getX()][newPosition.getY()] = new Position(newPosition.getX(),newPosition.getY(), piece1);
             return newTablero;
         }
         return this;
     }
-
+    private Piece pieceFirstMove (Piece piece){
+        if (piece.isFirstMove()){
+            return new Piece(piece.getName(),piece.getColor(),piece.getMovements(), piece.getId(), false);
+        }
+        return piece;
+    }
 
     public int getRow() {
         return row;

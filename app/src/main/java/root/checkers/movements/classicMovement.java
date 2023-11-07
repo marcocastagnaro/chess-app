@@ -22,6 +22,9 @@ public class classicMovement implements movementValidator {
     }
     @Override
     public boolean obstacle(Position oldPos, Position newPos, Board board) {
-        return diagonalMove.obstacle(oldPos, newPos, board);
+        if (!newPos.hasPiece()) {
+            return diagonalMove.obstacle(oldPos, newPos, board);
+        }
+        return true;
     }
 }

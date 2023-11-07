@@ -1,6 +1,8 @@
-package root.common.victory;
+package root.chess;
 
 import root.common.Board;
+import root.common.Game;
+import root.common.Interfaces.validators;
 import root.common.Piece;
 import root.common.Position;
 import root.common.Enums.Color;
@@ -8,7 +10,7 @@ import root.common.Enums.Piecies;
 
 import java.util.Objects;
 
-public class checkValidator {
+public class checkValidator implements validators {
     private Piecies name;
 
     public checkValidator(Piecies name) {
@@ -44,5 +46,13 @@ public class checkValidator {
             }
         }
         return false;
+    }
+
+    @Override
+    public Game validateMove(Game game, Board board1, Color color, Position newPos, Position oldPos) {
+        if (validateMove(board1, color)){
+            return new Game(board1, game.getChessPlayers(), game.getGameVersion(),game.getCustomizeTurn());
+        }
+        return game;
     }
 }

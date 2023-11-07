@@ -2,12 +2,13 @@ package root.chess.tests;
 
 
 import root.chess.Coordinates;
-import root.chess.Game;
+import root.common.Game;
+import root.chess.ChessTurn;
 import root.common.*;
 
 import root.common.Interfaces.turn;
 import root.common.Interfaces.victoryValidator;
-import root.common.victory.checkValidator;
+import root.chess.checkValidator;
 
 
 import java.util.ArrayList;
@@ -23,10 +24,10 @@ public class testMovements {
         for (Position posicion : posiciones) {
             board.getBoard()[posicion.getX()][posicion.getY()] = posicion;
         }
-        GameVersion gameVersion = new GameVersion("1", vic);
-        gameVersion.setCheckval(check);
-        turn cusTurn = new Turn();
-        return new Game(chessPlayers, board, gameVersion, chessPlayers.get(0), cusTurn);
+        GameVersion gameVersion = new GameVersion("1", vic, null);
+//        gameVersion.setCheckval(check);
+        turn cusTurn = new ChessTurn();
+        return new Game( board, chessPlayers, gameVersion, chessPlayers.get(0), cusTurn);
     }
 
     static Position getPositionfromGame(int row, int column, Game game) {

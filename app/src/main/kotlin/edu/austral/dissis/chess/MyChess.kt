@@ -3,13 +3,14 @@ package edu.austral.dissis.chess;
 import root.common.Enums.Color
 import root.common.Connector.Connector
 import edu.austral.dissis.chess.MyMatches.Checkers
+import edu.austral.dissis.chess.MyMatches.MyGame
 import edu.austral.dissis.chess.gui.*
 import edu.austral.dissis.chess.gui.PlayerColor.BLACK
 import edu.austral.dissis.chess.gui.PlayerColor.WHITE
-import root.checkers.game.gameCheckersinterface
+import root.common.Interfaces.gameInterface
 
 class MyChess: GameEngine {
-    private var myGame: gameCheckersinterface = Checkers()
+    private var myGame: gameInterface = Checkers();
     private var currentPlayer = getCurrentPlayer(myGame)
 
     override fun applyMove(move: Move): MoveResult {
@@ -25,7 +26,7 @@ class MyChess: GameEngine {
             InvalidMove("There is a piece in (${move.to.row}, ${move.to.column})")
         else {
             val myNewGame = myGame
-            myGame = myGame.move(movement.oldPos, movement.newPos)
+            myGame = myGame.move(  movement.oldPos, movement.newPos)
             if (myGame.board == myNewGame.board) {
                 return InvalidMove("Invalid move")
             }
@@ -38,8 +39,6 @@ class MyChess: GameEngine {
             }
         }
     }
-
-
     override fun init(): InitialState {
         return InitialState(Connector.adaptBoard(myGame.board),(Connector.getPieces(myGame.board)),WHITE)
     }
@@ -52,7 +51,7 @@ class MovePrinter : PieceMovedListener {
         println(to)
     }
 }
-public fun getCurrentPlayer (myGame: gameCheckersinterface): PlayerColor{
+public fun getCurrentPlayer (myGame: gameInterface): PlayerColor{
     for (i in 0 until myGame.getChessPlayers().size) {
         if (myGame.getChessPlayers()[i].turn) {
             return if (myGame.getChessPlayers()[i].color == Color.WHITE) WHITE else BLACK

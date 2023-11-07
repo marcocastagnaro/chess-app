@@ -1,41 +1,37 @@
-package root.common.specialMove;
+package root.common.specialRule;
 
 import root.common.Board;
 import root.common.Piece;
 import root.common.Position;
 import root.common.Enums.Piecies;
 import root.common.Interfaces.movementValidator;
-import root.common.Interfaces.specialMovementValidator;
+import root.common.Interfaces.specialRules;
 
-public class RoqueKing implements specialMovementValidator {
+public class RoqueKing implements specialRules {
     @Override
     public Board validateMove(Board board, Position inicial, Position finalPosition) {
         int y = finalPosition.getY() - inicial.getY();
         int x = finalPosition.getX() - inicial.getX();
         Piece king = board.getPosition(inicial.getX(), inicial.getY()).getPiece();
-//        if (game.getGameVersion().getCheckval().isInCheck(game.getBoard(), king.getColor())){
-//            return game;
-//        }
-        for (movementValidator mov : king.getMovements()){
-            if(mov.obstacle(inicial, finalPosition, board)){
-                return board;
+
+        if (king != null) {
+            for (movementValidator mov : king.getMovements()) {
+                if (mov.obstacle(inicial, finalPosition, board)) {
+                    return board;
+                }
             }
-        }
-        if (x ==0 && king.getName() == Piecies.KING && Math.abs(y) == 2 && king.isFirstMove()){
-            Board board1 = board.copy();
-            if (y > 0) {
-                return castleKing(board1, inicial, finalPosition, 1);
-            } else {
-                return castleKing(board1, inicial, finalPosition, -2);
+            if (x == 0 && king.getName() == Piecies.KING && Math.abs(y) == 2 && king.isFirstMove()) {
+                Board board1 = board.copy();
+                if (y > 0) {
+                    return castleKing(board1, inicial, finalPosition, 1);
+                } else {
+                    return castleKing(board1, inicial, finalPosition, -2);
+                }
             }
         }
 
         return board;
     }
-
-
-
-
     private Board castleKing(Board board, Position inicial, Position finalPosition, int direction) {
         Position towerPosition = new Position(inicial.getX(), finalPosition.getY() + direction + 1);
         Piece tower = board.getPosition(towerPosition.getX(), towerPosition.getY()).getPiece();

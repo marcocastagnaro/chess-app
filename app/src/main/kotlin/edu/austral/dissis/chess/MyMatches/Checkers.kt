@@ -1,19 +1,21 @@
 package edu.austral.dissis.chess.MyMatches
 
 
-import root.checkers.game.gameCheckers
-import root.checkers.game.gameCheckersinterface
+import root.checkers.game.checkersTurn
 import root.checkers.movements.classicMovement
+import root.checkers.movements.eatMov
 import root.checkers.movements.eatMovement
-import root.checkers.movements.specialMovementVal
 import root.common.*
 import root.common.Enums.Color
 import root.common.Enums.Piecies
-import root.common.specialMove.coronacion
+import root.common.specialRule.coronacion
 import root.common.victory.eatAllPiecies
-import root.common.victory.obligatoryMovement
+import root.checkers.movements.obligatoryValidator
+import root.common.Game
+import root.common.Interfaces.gameInterface
+import root.common.Interfaces.validators
 
-class Checkers () : gameCheckersinterface {
+class Checkers () : gameInterface {
     private var board: Board = Board(8, 8)
     private val playersList: MutableList<ChessPlayer> = ArrayList()
     private val coron: coronacion =
@@ -28,28 +30,29 @@ class Checkers () : gameCheckersinterface {
                 )
             )
         )
-    private val validMove : specialMovementVal =
-        specialMovementVal()
+//    private val eat : eatMov = eatMov(2,2);
+
+    private val obligatoryMovement: obligatoryValidator =
+        obligatoryValidator(2)
     private val victoryMode: eatAllPiecies =
         eatAllPiecies()
-    private val gameVersion : GameVersion =
-        GameVersion("root/common", victoryMode)
+    private val validator: MutableList<validators> = ArrayList()
+    private val gameVersion : GameVersion = GameVersion("root/common", victoryMode, validator)
     val player1 =
         ChessPlayer("Player 1", Color.WHITE)
     val player2 =
         ChessPlayer("Player 2", Color.BLACK)
     val customizeTurn =
-    Turn()
+        checkersTurn(2)
     init {
         playersList.add(player1)
         playersList.add(player2)
         gameVersion.addSpecialMovementValidators(coron)
-//        gameVersion.addSpecialMovementValidators(obligt)
-        gameVersion.addSpecialMovementValidators(validMove)
-        gameVersion.setObligatory(obligatoryMovement(2))
+        validator.add(obligatoryMovement)
+
     }
-    var game: gameCheckers =
-        gameCheckers(board, playersList, gameVersion, player1, customizeTurn)
+    var game: Game =
+        Game(board, playersList, gameVersion, player1, customizeTurn)
 
     init {
         val positions: MutableList<Position> = mutableListOf()
@@ -104,7 +107,7 @@ class Checkers () : gameCheckersinterface {
         return board
     }
 
-    override fun move(oldPos: Position?, newPos: Position?): gameCheckers {
+    override fun move(oldPos: Position?, newPos: Position?): Game {
         return game.move(oldPos, newPos)
     }
 

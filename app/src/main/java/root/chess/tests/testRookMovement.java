@@ -2,7 +2,7 @@ package root.chess.tests;
 
 
 import root.chess.Coordinates;
-import root.chess.Game;
+import root.common.Game;
 import root.chess.Movements.horizontalMove;
 import root.chess.Movements.straightMove;
 import root.common.ChessPlayer;

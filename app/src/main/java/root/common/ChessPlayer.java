@@ -10,6 +10,11 @@ public class ChessPlayer {
         this.color = color;
         this.name = name;
     }
+    public ChessPlayer(String name, Color color, boolean turn) {
+        this.color = color;
+        this.name = name;
+        this.turn = turn;
+    }
     public boolean pieceBelongsToPlayer (Piece piece){
         return piece.getColor() == color;
     }
@@ -20,8 +25,8 @@ public class ChessPlayer {
     public boolean getTurn(){
         return turn;
     }
-    public void changeTurn(){
-        turn = !turn;
+    public ChessPlayer changeTurn(){
+        return new ChessPlayer(name, color, !turn);
     }
     public Color getColor() {
         return color;

@@ -3,45 +3,35 @@ package root.common;
 import java.util.ArrayList;
 import java.util.List;
 
-import root.common.Interfaces.specialMovementValidator;
+import root.common.Interfaces.specialRules;
+import root.common.Interfaces.validators;
 import root.common.Interfaces.victoryValidator;
-import root.common.victory.checkValidator;
-import root.common.victory.obligatoryMovement;
 
 
 public class GameVersion {
     private final String version;
-    private checkValidator checkval;
     private final victoryValidator victoryInt;
-    private List <specialMovementValidator> specialMovementValidators = new ArrayList<>();
+    private List <specialRules> rules = new ArrayList<>();
 
-    private obligatoryMovement obligatory;
-    public GameVersion(String version, victoryValidator victoryInt) {
+    private List<validators> validator;
+    public GameVersion(String version, victoryValidator victoryInt, List<validators> validator) {
         this.version = version;
         this.victoryInt = victoryInt;
-    }
-    public void setObligatory (obligatoryMovement obligatory){
-        this.obligatory = obligatory;
-    }
-    public void setCheckval(checkValidator checkval) {
-        this.checkval = checkval;
+        this.validator = validator;
     }
 
-    public List<specialMovementValidator> getSpecialMovementValidators() {
-        return specialMovementValidators;
+    public List<validators> getValidator() {
+        return validator;
     }
 
-    public void addSpecialMovementValidators(specialMovementValidator specialMovementVal){
-        this.specialMovementValidators.add(specialMovementVal);
-    }
-    public boolean hasCheckValidator(){
-        return checkval != null;
+
+    public List<specialRules> getRules() {
+        return rules;
     }
 
-    public checkValidator getCheckval() {
-        return checkval;
+    public void addSpecialMovementValidators(specialRules specialMovementVal){
+        this.rules.add(specialMovementVal);
     }
-
     public victoryValidator getVictoryInt() {
         return victoryInt;
     }
@@ -49,10 +39,8 @@ public class GameVersion {
     public String getVersion() {
         return version;
     }
-    public boolean hasObligatory(){
-        return obligatory != null;
-    }
-    public obligatoryMovement getObligatory() {
-        return obligatory;
+
+    public List<validators> getValidators() {
+        return validator;
     }
 }

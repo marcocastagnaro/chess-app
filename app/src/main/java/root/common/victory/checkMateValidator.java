@@ -1,5 +1,6 @@
 package root.common.victory;
 
+import root.chess.checkValidator;
 import root.common.Board;
 import root.common.ChessPlayer;
 import root.common.Interfaces.victoryValidator;

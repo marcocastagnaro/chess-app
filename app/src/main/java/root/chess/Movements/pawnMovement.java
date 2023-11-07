@@ -54,7 +54,7 @@ public class pawnMovement implements movementValidator {
         int y = oldPos.getY() - newPos.getY();
         Piece piece = oldPos.getPiece();
         if (piece.getName() == Piecies.PAWN){
-            if (y == 0 && Math.abs(x) == this.firstMove && piece.isFirstMove() || x ==0 && Math.abs(y) == this.firstMove && piece.isFirstMove() ) {
+            if (y == 0 && Math.abs(x) == this.firstMove && piece.isFirstMove() && !newPos.hasPiece() ) {
                 return true;
             }
         }
