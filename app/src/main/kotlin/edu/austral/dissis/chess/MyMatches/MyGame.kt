@@ -13,6 +13,7 @@ import root.common.Interfaces.validators
 
 import root.common.victory.checkMateValidator
 import root.chess.checkValidator
+import root.common.Interfaces.victoryValidator
 
 class MyGame() : gameInterface {
     private var board: Board = Board(8, 8)
@@ -22,8 +23,9 @@ class MyGame() : gameInterface {
     private val checkmateval : checkMateValidator =
         checkMateValidator(Piecies.KING)
     private val validator: MutableList<validators> = ArrayList()
+    private val victoryMode : MutableList<victoryValidator> = ArrayList()
     private val gameVersion : GameVersion =
-        GameVersion("root/common", checkmateval, validator)
+        GameVersion("root/common", victoryMode, validator)
     private val roqueKing: RoqueKing =
         RoqueKing()
     private val coron: coronacion =
@@ -52,7 +54,7 @@ class MyGame() : gameInterface {
         validator.add(checkval)
         gameVersion.addSpecialMovementValidators(roqueKing)
         gameVersion.addSpecialMovementValidators(coron)
-
+        victoryMode.add(checkmateval)
 
     }
     var game: Game =

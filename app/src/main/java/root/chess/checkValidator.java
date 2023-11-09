@@ -22,15 +22,13 @@ public class checkValidator implements validators {
         for (int x = 0; x < board.getRow(); x++) {
             for (int y = 0; y < board.getColumn(); y++) {
                 Position possiblePos = board.getPosition(x,y);
-                if (possiblePos.hasPiece()){
-                    if (possiblePos.getColor() != piece.getColor() && possiblePos.getPiece().getName() == name){
+                if (possiblePos.hasPiece() && possiblePos.getColor() != piece.getColor() && possiblePos.getPiece().getName() == name){
                         if (piece.moveValidator(posAct, possiblePos, board)){
                             return true;
                         }
                     }
                 }
             }
-        }
         return false;
     }
     public boolean validateMove(Board board, Color color){ //al hacer el movimiento chequear si esta en jaque.
@@ -56,3 +54,15 @@ public class checkValidator implements validators {
         return game;
     }
 }
+
+
+//interfaces importantes: Cliente.  Mandar un mensaje SOLO al server. Conectarse y cerrrar la conexion.
+//Server --> EMPEZAR A ESCUCHAR UN PUERTO.Detenerse (liberar el puerto). Send message (mandar un mensaje). Hcaer un broadcast (se lo manda a todos los clientes)
+//Message listener (interfaz importante) --> dos o tres implementaciones.
+//Serverconnection listener --> Listener de la conexion. Cuando se conecta un cliente, cuando se desconecta un cliente.
+//Message --> Type y payload(una clase concreta, instancia).
+//ServerBuilder -->
+//ClientBuilder -->
+
+//primero crear servidor y settear tdos los lsiteners que queremos.
+//creas un cliente, le setteas el puetrto y losm,listeneers. Build.

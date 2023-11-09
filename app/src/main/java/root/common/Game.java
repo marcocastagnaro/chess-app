@@ -1,9 +1,6 @@
 package root.common;
 import root.chess.ChessTurn;
-import root.common.Interfaces.gameInterface;
-import root.common.Interfaces.specialRules;
-import root.common.Interfaces.turn;
-import root.common.Interfaces.validators;
+import root.common.Interfaces.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -86,7 +83,12 @@ public class Game implements gameInterface {
 
     @Override
     public boolean validateVictory(List<ChessPlayer> chessPlayer, Board board) {
-        return gameVersion.getVictoryInt().validateVictory(chessPlayer, board);
+        for (victoryValidator valid: gameVersion.getVictoryInt()){
+            if (valid.validateVictory(chessPlayer,board)){
+                return true;
+            }
+        }
+        return false;
     }
 
     public GameVersion getGameVersion() {

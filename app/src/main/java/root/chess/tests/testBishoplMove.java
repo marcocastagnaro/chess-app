@@ -33,7 +33,7 @@ public class testBishoplMove {
         List<Position> posiciones = List.of(
                 position1
         );
-        game = tests.gameInicializer(8, 8, chessPlayers, posiciones, new checkMateValidator(Piecies.KING), null);
+        game = tests.gameInicializer(8, 8, chessPlayers, posiciones, List.of(new checkMateValidator(Piecies.KING)), null);
     }
     @Test
     public void testbishopvalidmove() {

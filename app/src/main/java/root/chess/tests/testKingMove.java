@@ -35,7 +35,7 @@ public class testKingMove {
                 position
         );
 
-        game = tests.gameInicializer(8, 8, chessPlayers, posiciones,new checkMateValidator(Piecies.KING), null);
+        game = tests.gameInicializer(8, 8, chessPlayers, posiciones,List.of(new checkMateValidator(Piecies.KING)), null);
     }
     @Test
     public void testkingvalidmove (){

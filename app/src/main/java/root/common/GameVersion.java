@@ -10,11 +10,11 @@ import root.common.Interfaces.victoryValidator;
 
 public class GameVersion {
     private final String version;
-    private final victoryValidator victoryInt;
+    private final List <victoryValidator> victoryInt;
     private List <specialRules> rules = new ArrayList<>();
 
     private List<validators> validator;
-    public GameVersion(String version, victoryValidator victoryInt, List<validators> validator) {
+    public GameVersion(String version, List <victoryValidator> victoryInt, List<validators> validator) {
         this.version = version;
         this.victoryInt = victoryInt;
         this.validator = validator;
@@ -32,7 +32,7 @@ public class GameVersion {
     public void addSpecialMovementValidators(specialRules specialMovementVal){
         this.rules.add(specialMovementVal);
     }
-    public victoryValidator getVictoryInt() {
+    public List <victoryValidator> getVictoryInt() {
         return victoryInt;
     }
 

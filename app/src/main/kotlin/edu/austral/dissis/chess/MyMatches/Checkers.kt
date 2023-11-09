@@ -2,6 +2,7 @@ package edu.austral.dissis.chess.MyMatches
 
 
 import root.checkers.game.checkersTurn
+import root.checkers.game.noMoveVictory
 import root.checkers.movements.classicMovement
 import root.checkers.movements.eatMov
 import root.checkers.movements.eatMovement
@@ -14,6 +15,7 @@ import root.checkers.movements.obligatoryValidator
 import root.common.Game
 import root.common.Interfaces.gameInterface
 import root.common.Interfaces.validators
+import root.common.Interfaces.victoryValidator
 
 class Checkers () : gameInterface {
     private var board: Board = Board(8, 8)
@@ -34,8 +36,10 @@ class Checkers () : gameInterface {
 
     private val obligatoryMovement: obligatoryValidator =
         obligatoryValidator(2)
-    private val victoryMode: eatAllPiecies =
+    private val eatAll: eatAllPiecies =
         eatAllPiecies()
+    private val noMov : noMoveVictory = noMoveVictory()
+    private val victoryMode : MutableList<victoryValidator> = ArrayList()
     private val validator: MutableList<validators> = ArrayList()
     private val gameVersion : GameVersion = GameVersion("root/common", victoryMode, validator)
     val player1 =
@@ -49,6 +53,8 @@ class Checkers () : gameInterface {
         playersList.add(player2)
         gameVersion.addSpecialMovementValidators(coron)
         validator.add(obligatoryMovement)
+        victoryMode.add(eatAll)
+        victoryMode.add(noMov)
 
     }
     var game: Game =

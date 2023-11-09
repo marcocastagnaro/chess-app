@@ -40,7 +40,7 @@ public class testCheck {
         checkMateValidator checkmate = new checkMateValidator(Piecies.KING);
         checkValidator check = new checkValidator(Piecies.KING);
 
-        oldgame = testMov.gameInicializer(8,8, chessPlayers,posiciones, checkmate, check);
+        oldgame = testMov.gameInicializer(8,8, chessPlayers,posiciones, List.of(checkmate), check);
     }
 
     @Test
