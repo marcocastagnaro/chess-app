@@ -4,7 +4,6 @@ package edu.austral.dissis.chess.MyMatches
 import root.checkers.game.checkersTurn
 import root.checkers.game.noMoveVictory
 import root.checkers.movements.classicMovement
-import root.checkers.movements.eatMov
 import root.checkers.movements.eatMovement
 import root.common.*
 import root.common.Enums.Color

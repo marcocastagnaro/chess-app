@@ -8,8 +8,9 @@ import edu.austral.ingsis.clientserver.Message
 import edu.austral.ingsis.clientserver.netty.client.NettyClientBuilder
 import java.net.InetSocketAddress
 
-class Client(private val gameView: GameView) {
+class Client(private val gameView: GameView, /*private val color: PlayerColor*/) {
     private lateinit var client: Client
+
     fun start() {
         client = build()
         client.connect()
@@ -19,6 +20,11 @@ class Client(private val gameView: GameView) {
     fun handleMove (payload: Move){
         client.send(Message("move", payload))
     }
+//    fun checkTurn () : boolean{
+//        if (c){
+//            return true
+//        }
+//    }
     private fun build() : Client {
         return NettyClientBuilder.createDefault()
             .withAddress(InetSocketAddress(8080))

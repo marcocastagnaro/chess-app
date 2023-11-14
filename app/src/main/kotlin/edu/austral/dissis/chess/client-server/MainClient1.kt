@@ -19,7 +19,6 @@ class client1  :  Application() {
     init {
         client.start()
     }
-
     override fun start(primaryStage: Stage) {
         primaryStage.title = "Client1"
         primaryStage.scene = Scene(root)
