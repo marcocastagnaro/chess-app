@@ -3,13 +3,13 @@ package root.chess.tests;
 
 import root.chess.Coordinates;
 import root.common.Game;
-import root.chess.Movements.DiagonalMove;
-import root.chess.Movements.straightMove;
-import root.common.ChessPlayer;
+import root.common.classicMovements.DiagonalMove;
+import root.common.classicMovements.StraightMove;
+import root.common.Player;
 import root.common.Piece;
 import root.common.Position;
 import root.common.Enums.Color;
-import root.common.Enums.Piecies;
+import root.common.Enums.Pieces;
 import root.common.victory.checkMateValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,15 +25,15 @@ public class testBishoplMove {
     @BeforeEach
     void setUp() {
         tests = new testMovements();
-        ChessPlayer chessPlayer1 = new ChessPlayer("Jugador 1", Color.WHITE);
-        List<ChessPlayer> chessPlayers = List.of(chessPlayer1);
-        chessPlayer1.changeTurn();
-        whiteBishop = new Piece(Piecies.BISHOP, Color.WHITE, List.of(new DiagonalMove(7,7,7,7)),"1");
+        Player player1 = new Player("Jugador 1", Color.WHITE);
+        List<Player> players = List.of(player1);
+        player1.changeTurn();
+        whiteBishop = new Piece(Pieces.BISHOP, Color.WHITE, List.of(new DiagonalMove(7,7,7,7)),"1");
         Position position1 = new Position(2, 2, whiteBishop);
         List<Position> posiciones = List.of(
                 position1
         );
-        game = tests.gameInicializer(8, 8, chessPlayers, posiciones, List.of(new checkMateValidator(Piecies.KING)), null);
+        game = tests.gameInicializer(8, 8, players, posiciones, List.of(new checkMateValidator(Pieces.KING)));
     }
     @Test
     public void testbishopvalidmove() {
@@ -60,12 +60,12 @@ public class testBishoplMove {
                 new Coordinates(4, 0)
 
         );
-        straightMove move = new straightMove(1, 0);
-        Position whitePawn = new Position(1, 1, new Piece(Piecies.PAWN, Color.WHITE, List.of(move),"2"));
+        StraightMove move = new StraightMove(1, 0);
+        Position whitePawn = new Position(1, 1, new Piece(Pieces.PAWN, Color.WHITE, List.of(move),"2"));
         game.getBoard().getBoard()[whitePawn.getX()][whitePawn.getY()] = whitePawn;
-        Position whitePawn2 = new Position(1, 3, new Piece(Piecies.PAWN, Color.WHITE, List.of(move),"3"));
+        Position whitePawn2 = new Position(1, 3, new Piece(Pieces.PAWN, Color.WHITE, List.of(move),"3"));
         game.getBoard().getBoard()[whitePawn2.getX()][whitePawn2.getY()] = whitePawn2;
-        Position whitePawn3 = new Position(4, 0, new Piece(Piecies.PAWN, Color.WHITE, List.of(move),"4"));
+        Position whitePawn3 = new Position(4, 0, new Piece(Pieces.PAWN, Color.WHITE, List.of(move),"4"));
         game.getBoard().getBoard()[whitePawn3.getX()][whitePawn3.getY()] = whitePawn3;
         testMovements.assertOccupiedMoves(possibleMoves, game, whiteBishop, position);
     }

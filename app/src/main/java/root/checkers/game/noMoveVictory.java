@@ -1,8 +1,7 @@
 package root.checkers.game;
 
-import javafx.geometry.Pos;
 import root.common.Board;
-import root.common.ChessPlayer;
+import root.common.Player;
 import root.common.Enums.Color;
 import root.common.Interfaces.victoryValidator;
 import root.common.Piece;
@@ -41,9 +40,9 @@ public class noMoveVictory implements victoryValidator {
     }
 
     @Override
-    public boolean validateVictory(List<ChessPlayer> chessPlayer, Board board) {
-        for (ChessPlayer chessPlayer1: chessPlayer){
-            if (!hasMovements(board, chessPlayer1.getColor())){
+    public boolean validateVictory(List<Player> player, Board board) {
+        for (Player player1 : player){
+            if (!hasMovements(board, player1.getColor())){
                 return true;
             }
         }

@@ -3,10 +3,10 @@ package root.chess.Movements;
 import root.common.Board;
 import root.common.Piece;
 import root.common.Position;
-import root.common.Enums.Piecies;
+import root.common.Enums.Pieces;
 import root.common.Interfaces.movementValidator;
 
-public class pawnMovement implements movementValidator {
+public class PawnMovement implements movementValidator {
     int xPos;
     int xNeg;
     int yPos;
@@ -14,7 +14,7 @@ public class pawnMovement implements movementValidator {
     movementValidator specialmov;
     int firstMove;
 
-    public pawnMovement (int xPos, int xNeg, int yPos, int yNeg, int firstMove, movementValidator specialmov){
+    public PawnMovement(int xPos, int xNeg, int yPos, int yNeg, int firstMove, movementValidator specialmov){
         this.xPos = xPos;
         this.xNeg = xNeg;
         this.yNeg = yNeg;
@@ -27,7 +27,7 @@ public class pawnMovement implements movementValidator {
         int x = oldPos.getX() - newPos.getX();
         int y = oldPos.getY() - newPos.getY();
 
-        if (oldPos.getPiece().getName() == Piecies.PAWN) {
+        if (oldPos.getPiece().getName() == Pieces.PAWN) {
             if ( pawnFirstMove(oldPos, newPos) ) {
                 return true;
             }
@@ -53,7 +53,7 @@ public class pawnMovement implements movementValidator {
         int x = oldPos.getX() - newPos.getX();
         int y = oldPos.getY() - newPos.getY();
         Piece piece = oldPos.getPiece();
-        if (piece.getName() == Piecies.PAWN){
+        if (piece.getName() == Pieces.PAWN){
             if (y == 0 && Math.abs(x) == this.firstMove && piece.isFirstMove() && !newPos.hasPiece() ) {
                 return true;
             }

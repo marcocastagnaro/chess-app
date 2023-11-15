@@ -1,4 +1,4 @@
-package root.chess.Movements;
+package root.common.classicMovements;
 
 import root.common.Board;
 import root.common.Position;

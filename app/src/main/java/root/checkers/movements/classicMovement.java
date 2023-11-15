@@ -1,6 +1,6 @@
 package root.checkers.movements;
 
-import root.chess.Movements.DiagonalMove;
+import root.common.classicMovements.DiagonalMove;
 import root.common.Board;
 import root.common.Position;
 import root.common.Interfaces.movementValidator;

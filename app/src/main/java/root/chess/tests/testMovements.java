@@ -8,7 +8,6 @@ import root.common.*;
 
 import root.common.Interfaces.turn;
 import root.common.Interfaces.victoryValidator;
-import root.chess.checkValidator;
 
 
 import java.util.ArrayList;
@@ -19,15 +18,14 @@ import static org.junit.jupiter.api.Assertions.*;
 public class testMovements {
 
     //crear clase piecefactory --> crear piezas
-    public Game gameInicializer(int row, int column, List<ChessPlayer> chessPlayers, List<Position> posiciones, List<victoryValidator> vic, checkValidator check) {
+    public Game gameInicializer(int row, int column, List<Player> players, List<Position> posiciones, List<victoryValidator> vic) {
         Board board = new Board(row, column);
         for (Position posicion : posiciones) {
             board.getBoard()[posicion.getX()][posicion.getY()] = posicion;
         }
-        GameVersion gameVersion = new GameVersion("1", vic, null);
-//        gameVersion.setCheckval(check);
+        GameVersion gameVersion = new GameVersion("1", vic, null, null);
         turn cusTurn = new ChessTurn();
-        return new Game( board, chessPlayers, gameVersion, chessPlayers.get(0), cusTurn);
+        return new Game( board, players, gameVersion, players.get(0), cusTurn);
     }
 
     static Position getPositionfromGame(int row, int column, Game game) {

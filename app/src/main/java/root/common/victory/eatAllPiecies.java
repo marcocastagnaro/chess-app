@@ -1,7 +1,7 @@
 package root.common.victory;
 
 import root.common.Board;
-import root.common.ChessPlayer;
+import root.common.Player;
 import root.common.Piece;
 import root.common.Enums.Color;
 import root.common.Interfaces.victoryValidator;
@@ -23,9 +23,9 @@ public class eatAllPiecies implements victoryValidator {
         return false;
     }
     @Override
-    public boolean validateVictory(List<ChessPlayer> chessPlayer, Board board) {
-        for (ChessPlayer chessPlayer1: chessPlayer){
-                if (!hasPiecies(board, chessPlayer1.getColor())){
+    public boolean validateVictory(List<Player> player, Board board) {
+        for (Player player1 : player){
+                if (!hasPiecies(board, player1.getColor())){
                     return true;
                 }
             }

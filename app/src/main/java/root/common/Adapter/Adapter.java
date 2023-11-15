@@ -1,17 +1,17 @@
-package root.common.Connector;
+package root.common.Adapter;
 
-import root.chess.Movements.Movement;
+import root.common.classicMovements.Movement;
 import root.common.Board;
 import root.common.Piece;
 import root.common.Enums.Color;
-import root.common.Enums.Piecies;
+import root.common.Enums.Pieces;
 import edu.austral.dissis.chess.gui.*;
 import edu.austral.dissis.chess.gui.Position;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Connector {
+public class Adapter {
     public static BoardSize adaptBoard(Board board){
         return new BoardSize(board.getRow(), board.getColumn());
     }
@@ -35,7 +35,7 @@ public class Connector {
 
         return piezas;
     }
-    private static String adaptName(Piecies name){
+    private static String adaptName(Pieces name){
 
         return switch (name) {
             case PAWN -> "pawn";

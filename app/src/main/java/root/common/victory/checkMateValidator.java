@@ -1,27 +1,27 @@
 package root.common.victory;
 
-import root.chess.checkValidator;
+import root.chess.Movements.checkValidator;
 import root.common.Board;
-import root.common.ChessPlayer;
+import root.common.Player;
 import root.common.Interfaces.victoryValidator;
 import root.common.Piece;
 import root.common.Position;
 import root.common.Enums.Color;
-import root.common.Enums.Piecies;
+import root.common.Enums.Pieces;
 
 import java.util.List;
 
 public class checkMateValidator implements victoryValidator {
 
-    Piecies name;
+    Pieces name;
 
-    public checkMateValidator(Piecies name) {
+    public checkMateValidator(Pieces name) {
         this.name = name;
     }
 
-    public boolean isInCheckmate(ChessPlayer chessPlayer,Board board){
+    public boolean isInCheckmate(Player player, Board board){
         checkValidator checkval= new checkValidator(name);
-        Piece piece = findPiece(chessPlayer.getColor(), name, board);
+        Piece piece = findPiece(player.getColor(), name, board);
         if (piece != null){
         for (int x = 0; x < board.getRow(); x++) {
             for (int y = 0; y < board.getColumn(); y++) {
@@ -69,7 +69,7 @@ public class checkMateValidator implements victoryValidator {
         return false;
     }
 
-    public Piece findPiece(Color color, Piecies name, Board board) {
+    public Piece findPiece(Color color, Pieces name, Board board) {
         Piece king = null;
         for(int x = 0; x<board.getRow();x++) {
             for (int y = 0; y < board.getColumn(); y++) {
@@ -79,7 +79,7 @@ public class checkMateValidator implements victoryValidator {
         return king;
     }
 
-    private static Piece getPiece(Color color, Piecies name, Board board, Piece king, int x, int y) {
+    private static Piece getPiece(Color color, Pieces name, Board board, Piece king, int x, int y) {
         if (board.getBoard()[x][y].getPiece() != null) {
             if (board.getBoard()[x][y].getPiece().getName() == name && board.getBoard()[x][y].getPiece().getColor() == color) {
                 king = board.getBoard()[x][y].getPiece();
@@ -89,18 +89,18 @@ public class checkMateValidator implements victoryValidator {
     }
 
     @Override
-    public boolean validateVictory(List <ChessPlayer> chessPlayer, Board board) {
+    public boolean validateVictory(List <Player> player, Board board) {
         checkValidator checkval = new checkValidator(name);
-        for (ChessPlayer chessPlayer1 : chessPlayer) {
-            if (playerWin(board, checkval, chessPlayer1)) return true;
+        for (Player player1 : player) {
+            if (playerWin(board, checkval, player1)) return true;
         }
         return false;
 
     }
 
-    private boolean playerWin(Board board, checkValidator checkval, ChessPlayer chessPlayer1) {
-        if (checkval.validateMove(board, chessPlayer1.getColor())){
-            if (isInCheckmate(chessPlayer1, board)) {
+    private boolean playerWin(Board board, checkValidator checkval, Player player1) {
+        if (checkval.validateMove(board, player1.getColor())){
+            if (isInCheckmate(player1, board)) {
                 return true;
             }
         }

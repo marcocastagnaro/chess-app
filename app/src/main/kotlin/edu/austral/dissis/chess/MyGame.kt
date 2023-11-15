@@ -1,28 +1,28 @@
 package edu.austral.dissis.chess;
 
 import root.common.Enums.Color
-import root.common.Connector.Connector
-import edu.austral.dissis.chess.MyMatches.Checkers
-import edu.austral.dissis.chess.MyMatches.MyGame
+import root.common.Adapter.Adapter
 import edu.austral.dissis.chess.gui.*
 import edu.austral.dissis.chess.gui.PlayerColor.BLACK
 import edu.austral.dissis.chess.gui.PlayerColor.WHITE
 import root.common.Interfaces.gameInterface
+import root.common.factory.game_factory
 
 class MyChess: GameEngine {
-    private var myGame: gameInterface = Checkers();
+    private var myGame: gameInterface = game_factory.create_normal_game_checkers();
+//    private var myGame: gameInterface = game_factory.create_normal_game_chess();
     private var currentPlayer = getCurrentPlayer(myGame)
 
     override fun applyMove(move: Move): MoveResult {
-        val movement = Connector.toMovement(move, myGame.board)
+        val movement = Adapter.toMovement(move, myGame.board)
         val fromPiece = movement.oldPos.piece
         val toPiece = movement.newPos.piece
 
         return if (fromPiece == null)
             InvalidMove("No piece in (${move.from.row}, ${move.from.column})")
-        else if (Connector.adaptColour(fromPiece.color) != currentPlayer)
+        else if (Adapter.adaptColour(fromPiece.color) != currentPlayer)
             InvalidMove("Piece does not belong to the current player")
-        else if (toPiece != null && Connector.adaptColour(toPiece.color) == currentPlayer)
+        else if (toPiece != null && Adapter.adaptColour(toPiece.color) == currentPlayer)
             InvalidMove("There is a piece in (${move.to.row}, ${move.to.column})")
         else {
             val myNewGame = myGame
@@ -35,12 +35,12 @@ class MyChess: GameEngine {
             }
             else{
                 currentPlayer = getCurrentPlayer(myGame)
-                NewGameState(Connector.getPieces(myGame.board), currentPlayer)
+                NewGameState(Adapter.getPieces(myGame.board), currentPlayer)
             }
         }
     }
     override fun init(): InitialState {
-        return InitialState(Connector.adaptBoard(myGame.board),(Connector.getPieces(myGame.board)),WHITE)
+        return InitialState(Adapter.adaptBoard(myGame.board),(Adapter.getPieces(myGame.board)),WHITE)
     }
 }
 class MovePrinter : PieceMovedListener {

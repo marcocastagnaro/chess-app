@@ -2,15 +2,15 @@ package root.common;
 
 import root.common.Enums.Color;
 
-public class ChessPlayer {
+public class Player {
     private final String name;
     boolean turn = false;
     Color color;
-    public ChessPlayer(String name, Color color) {
+    public Player(String name, Color color) {
         this.color = color;
         this.name = name;
     }
-    public ChessPlayer(String name, Color color, boolean turn) {
+    public Player(String name, Color color, boolean turn) {
         this.color = color;
         this.name = name;
         this.turn = turn;
@@ -25,8 +25,8 @@ public class ChessPlayer {
     public boolean getTurn(){
         return turn;
     }
-    public ChessPlayer changeTurn(){
-        return new ChessPlayer(name, color, !turn);
+    public Player changeTurn(){
+        return new Player(name, color, !turn);
     }
     public Color getColor() {
         return color;

@@ -1,4 +1,4 @@
-package root.chess;
+package root.chess.Movements;
 
 import root.common.Board;
 import root.common.Game;
@@ -6,14 +6,14 @@ import root.common.Interfaces.validators;
 import root.common.Piece;
 import root.common.Position;
 import root.common.Enums.Color;
-import root.common.Enums.Piecies;
+import root.common.Enums.Pieces;
 
 import java.util.Objects;
 
 public class checkValidator implements validators {
-    private Piecies name;
+    private Pieces name;
 
-    public checkValidator(Piecies name) {
+    public checkValidator(Pieces name) {
         this.name = name;
     }
 

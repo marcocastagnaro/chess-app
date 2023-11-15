@@ -1,13 +1,13 @@
-package root.chess.Movements;
+package root.common.classicMovements;
 
 import root.common.Board;
 import root.common.Position;
 import root.common.Interfaces.movementValidator;
 
-public class horizontalMove implements movementValidator {
+public class HorizontalMove implements movementValidator {
     int yPos;
     int yNeg;
-    public horizontalMove (int yPos, int yNeg){
+    public HorizontalMove(int yPos, int yNeg){
         this.yPos = yPos;
         this.yNeg = yNeg;
     }

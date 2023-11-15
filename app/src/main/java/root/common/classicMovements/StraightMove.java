@@ -1,13 +1,13 @@
-package root.chess.Movements;
+package root.common.classicMovements;
 
 import root.common.Board;
 import root.common.Position;
 import root.common.Interfaces.movementValidator;
 
-public class straightMove implements movementValidator {
+public class StraightMove implements movementValidator {
     int xPos;
     int xNeg;
-    public straightMove (int xPos, int xNeg){
+    public StraightMove(int xPos, int xNeg){
         this.xPos = xPos;
         this.xNeg = xNeg;
     }

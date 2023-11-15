@@ -1,9 +1,9 @@
-package root.common.specialRule;
+package root.chess.Movements;
 
 import root.common.Board;
 import root.common.Piece;
 import root.common.Position;
-import root.common.Enums.Piecies;
+import root.common.Enums.Pieces;
 import root.common.Interfaces.movementValidator;
 import root.common.Interfaces.specialRules;
 
@@ -20,7 +20,7 @@ public class RoqueKing implements specialRules {
                     return board;
                 }
             }
-            if (x == 0 && king.getName() == Piecies.KING && Math.abs(y) == 2 && king.isFirstMove()) {
+            if (x == 0 && king.getName() == Pieces.KING && Math.abs(y) == 2 && king.isFirstMove()) {
                 Board board1 = board.copy();
                 if (y > 0) {
                     return castleKing(board1, inicial, finalPosition, 1);
@@ -36,7 +36,7 @@ public class RoqueKing implements specialRules {
         Position towerPosition = new Position(inicial.getX(), finalPosition.getY() + direction + 1);
         Piece tower = board.getPosition(towerPosition.getX(), towerPosition.getY()).getPiece();
 
-        if (tower.getName() == Piecies.ROOK && tower.isFirstMove()){
+        if (tower.getName() == Pieces.ROOK && tower.isFirstMove()){
             Piece newKing = (board.getPosition(inicial.getX(), inicial.getY()).getPiece());
 
             board.getBoard()[inicial.getX()][inicial.getY()] = new Position(inicial.getX(), inicial.getY());

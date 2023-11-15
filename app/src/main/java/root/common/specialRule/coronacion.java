@@ -4,13 +4,13 @@ import root.common.Board;
 import root.common.Piece;
 import root.common.Position;
 import root.common.Enums.Color;
-import root.common.Enums.Piecies;
+import root.common.Enums.Pieces;
 import root.common.Interfaces.specialRules;
 
 public class coronacion implements specialRules {
-    Piecies name;
+    Pieces name;
     Piece piece;
-    public coronacion (Piecies name, Piece piece){
+    public coronacion (Pieces name, Piece piece){
         this.name = name;
         this.piece = piece;
     }

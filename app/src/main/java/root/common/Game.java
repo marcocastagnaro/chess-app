@@ -1,5 +1,4 @@
 package root.common;
-import root.chess.ChessTurn;
 import root.common.Interfaces.*;
 
 import java.util.List;
@@ -7,28 +6,28 @@ import java.util.Objects;
 
 public class Game implements gameInterface {
     private Board board;
-    private List<ChessPlayer> chessPlayers;
+    private List<Player> players;
     private final GameVersion gameVersion;
     private final turn customizeTurn;
 
-    public Game(Board board, List<ChessPlayer> chessPlayers, GameVersion gameVersion, ChessPlayer initialPlayer, turn customizeTurn) {
+    public Game(Board board, List<Player> players, GameVersion gameVersion, Player initialPlayer, turn customizeTurn) {
         this.board = board;
-        this.chessPlayers = firstTurn(initialPlayer, chessPlayers);
+        this.players = firstTurn(initialPlayer, players);
         this.gameVersion = gameVersion;
         this.customizeTurn = customizeTurn;
     }
 
-    public Game(Board board, List<ChessPlayer> chessPlayers, GameVersion gameVersion, turn customizeTurn) {
+    public Game(Board board, List<Player> players, GameVersion gameVersion, turn customizeTurn) {
         this.board = board;
-        this.chessPlayers = chessPlayers;
+        this.players = players;
         this.gameVersion = gameVersion;
         this.customizeTurn = customizeTurn;
     }
-    private List<ChessPlayer> firstTurn(ChessPlayer initial, List<ChessPlayer> chessPlayers){
-        List<ChessPlayer> newList = chessPlayers;
-        for (int i=0; i<chessPlayers.size(); i++){
-            if (chessPlayers.get(i).getColor() == initial.getColor()){
-                newList.set(i,new ChessPlayer(chessPlayers.get(i).getName(), chessPlayers.get(i).getColor(), true));
+    private List<Player> firstTurn(Player initial, List<Player> players){
+        List<Player> newList = players;
+        for (int i = 0; i< players.size(); i++){
+            if (players.get(i).getColor() == initial.getColor()){
+                newList.set(i,new Player(players.get(i).getName(), players.get(i).getColor(), true));
             }
         }
         return newList;
@@ -40,7 +39,7 @@ public class Game implements gameInterface {
 
     @Override
     public Game move(Position oldPos, Position newPosition) {
-        ChessPlayer current = customizeTurn.getCurrent(chessPlayers);
+        Player current = customizeTurn.getCurrent(players);
         Piece piece = oldPos.getPiece();
         if (validTurn(current, piece)) {
             Board tablero = current.movePiece( oldPos,newPosition, board);
@@ -48,7 +47,7 @@ public class Game implements gameInterface {
             for (specialRules spec: gameVersion.getRules()){
                 if (spec.validateMove(tablero,oldPos, newPosition) != tablero){
                     Board board1 = spec.validateMove(tablero, oldPos, newPosition);
-                    return new Game(board1, changeTurn(this.chessPlayers, tablero, tablero.getPosition(oldPos.getX(), oldPos.getY()), tablero.getPosition(newPosition.getX(), newPosition.getY())), gameVersion, customizeTurn);
+                    return new Game(board1, changeTurn(this.players, tablero, tablero.getPosition(oldPos.getX(), oldPos.getY()), tablero.getPosition(newPosition.getX(), newPosition.getY())), gameVersion, customizeTurn);
                 }
             }
             if (tablero == board) return this;
@@ -58,21 +57,21 @@ public class Game implements gameInterface {
                     return this; //si encuentra un nuevo game (un nuevo movimiento) devuelvo el tablero de antes
                 }
             }
-            return new Game(tablero, changeTurn(this.chessPlayers, tablero,  tablero.getPosition(oldPos.getX(), oldPos.getY()), tablero.getPosition(newPosition.getX(), newPosition.getY())), gameVersion, customizeTurn);
+            return new Game(tablero, changeTurn(this.players, tablero,  tablero.getPosition(oldPos.getX(), oldPos.getY()), tablero.getPosition(newPosition.getX(), newPosition.getY())), gameVersion, customizeTurn);
         }
         return this;
     }
-    private List<ChessPlayer> changeTurn (List <ChessPlayer> chessPlayer, Board board, Position oldPos, Position newPos){
-        return customizeTurn.nextTurn(chessPlayer, board, oldPos, newPos);
+    private List<Player> changeTurn (List <Player> player, Board board, Position oldPos, Position newPos){
+        return customizeTurn.nextTurn(player, board, oldPos, newPos);
     }
 
 
-    private static boolean validTurn(ChessPlayer current, Piece piece) {
+    private static boolean validTurn(Player current, Piece piece) {
         return Objects.equals(piece.getColor(), current.getColor());
     }
     @Override
-    public List<ChessPlayer> getChessPlayers() {
-        return chessPlayers;
+    public List<Player> getChessPlayers() {
+        return players;
     }
 
     public List<Piece> getPiecies() {
@@ -82,9 +81,9 @@ public class Game implements gameInterface {
 
 
     @Override
-    public boolean validateVictory(List<ChessPlayer> chessPlayer, Board board) {
+    public boolean validateVictory(List<Player> player, Board board) {
         for (victoryValidator valid: gameVersion.getVictoryInt()){
-            if (valid.validateVictory(chessPlayer,board)){
+            if (valid.validateVictory(player,board)){
                 return true;
             }
         }

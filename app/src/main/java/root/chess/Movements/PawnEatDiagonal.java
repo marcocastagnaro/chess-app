@@ -4,19 +4,19 @@ import root.common.Board;
 import root.common.Piece;
 import root.common.Position;
 import root.common.Enums.Color;
-import root.common.Enums.Piecies;
+import root.common.Enums.Pieces;
 import root.common.Interfaces.movementValidator;
 
 import java.util.Objects;
 
-public class pawnEatDiagonal implements movementValidator { // Convenio: Nombre de clase en CamelCase.
+public class PawnEatDiagonal implements movementValidator { // Convenio: Nombre de clase en CamelCase.
 
     private int xPos;
     private int xNeg;
     private int yPos;
     private int yNeg;
 
-    public pawnEatDiagonal(int xPos, int xNeg, int yPos, int yNeg) { // Nombre del constructor en CamelCase.
+    public PawnEatDiagonal(int xPos, int xNeg, int yPos, int yNeg) { // Nombre del constructor en CamelCase.
         this.xPos = xPos;
         this.xNeg = xNeg;
         this.yNeg = yNeg;
@@ -28,7 +28,7 @@ public class pawnEatDiagonal implements movementValidator { // Convenio: Nombre 
         int y = oldPos.getY() - newPos.getY();
         Piece piece = oldPos.getPiece();
         Piece piece2 = newPos.getPiece();
-        if (piece.getName() == Piecies.PAWN) {
+        if (piece.getName() == Pieces.PAWN) {
             if (Math.abs(x) == 1 && Math.abs(y) == 1) {
                 if (piece.getColor() == Color.WHITE && x > 0) {
                     return validateDiagon(piece, piece2);
