@@ -53,8 +53,7 @@ public class board_factory {
             for (int j = 0; j < 8; j++) {
                 // White pieces
                 if ((i + j) % 2 == 0 && i < 3) {
-                    positions.add(new Position(i, j, new Piece(Pieces.PAWN, Color.BLACK,
-                            List.of(new classicMovement(0, 1), new eatMovement(0, 2)),
+                    positions.add(new Position(i, j, new Piece(Pieces.PAWN, Color.BLACK, List.of(new classicMovement(0, 1), new eatMovement(0, 2)),
                             "W" + i + j)));
                 }
                 // Black pieces

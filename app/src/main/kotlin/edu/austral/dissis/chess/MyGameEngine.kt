@@ -9,11 +9,11 @@ import root.common.Interfaces.gameInterface
 import root.factory.game_factory
 
 class MyGame: GameEngine {
-//    private var myGame: gameInterface = game_factory.create_normal_game_checkers();
+    private var myGame: gameInterface = game_factory.create_normal_game_checkers();
 //    private var myGame: gameInterface = game_factory.create_alterantive_game_chess()
 //    private var myGame: gameInterface = game_factory.create_extensive_game_chess()
 //    private var myGame: gameInterface = game_factory.create_extensive_checkers()
-        private var myGame: gameInterface = game_factory.create_normal_game_chess();
+//        private var myGame: gameInterface = game_factory.create_normal_game_chess();
     private var currentPlayer = getCurrentPlayer(myGame)
 
     override fun applyMove(move: Move): MoveResult {

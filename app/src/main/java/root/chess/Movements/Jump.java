@@ -8,13 +8,15 @@ public class Jump implements movementValidator {
     int xmov;
     int ymov; //cuantos movimientos se puede mover en x y cuantos se puede mover en y
   //  int dif;
+  movementValidator specialmov;
+
     public Jump (int xmov, int ymov){
         this.xmov = xmov;
         this.ymov = ymov;
     }
 
     @Override
-    public boolean validateMove(Position oldPos, Position newPos,) {
+    public boolean validateMove(Position oldPos, Position newPos) {
         int x = oldPos.getX() - newPos.getX();
         int y = oldPos.getY() - newPos.getY();
             if (Math.abs(x) == xmov && Math.abs(y) == ymov){

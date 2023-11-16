@@ -10,5 +10,4 @@ class Sendmove (private var client: edu.austral.dissis.chess.`client-server`.Cli
     override fun handleMove(move: Move) {
         client.handleMove(move)
     }
-
 }
