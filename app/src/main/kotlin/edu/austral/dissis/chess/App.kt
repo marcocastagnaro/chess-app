@@ -3,16 +3,36 @@
  */
 package edu.austral.dissis.chess
 
+import edu.austral.dissis.chess.MyMatches.Checkers
+import edu.austral.dissis.chess.MyMatches.MyGame
 import edu.austral.dissis.chess.gui.*
+import edu.austral.ingsis.clientserver.netty.server.NettyServerBuilder
 import javafx.application.Application
+import javafx.application.Application.launch
+import javafx.scene.Scene
+import javafx.stage.Stage
 
 
 fun main() {
-    Application.launch(MyChessGameApplication::class.java)
+    launch(MyChessGameApplication::class.java)
 }
 
-class MyChessGameApplication : AbstractChessGameApplication() {
+class MyChessGameApplication : Application() {
 
-    override val gameEngine: GameEngine = MyChess();
-    override val imageResolver: ImageResolver = CachedImageResolver(DefaultImageResolver())
+    private val gameEngine = MyChess()
+    //    private val gameEngine = Mychess()
+    private val imageResolver = CachedImageResolver(DefaultImageResolver())
+
+    companion object {
+        const val GameTitle = "Chess"
+    }
+
+    override fun start(primaryStage: Stage) {
+        primaryStage.title = GameTitle
+
+        val root = createGameViewFrom(gameEngine, imageResolver)
+        primaryStage.scene = Scene(root)
+
+        primaryStage.show()
+    }
 }

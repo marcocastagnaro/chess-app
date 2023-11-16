@@ -46,4 +46,7 @@ public class game_factory {
         Board board = board_factory.createNormalCheckersBoard();
         return new Game(board,playersList, gameVersion, playersList.get(0), customizeTurn);
     }
+=======
+public class game_factory {
+>>>>>>> origin/server-client
 }

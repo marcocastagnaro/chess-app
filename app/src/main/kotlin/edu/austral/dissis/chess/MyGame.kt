@@ -26,29 +26,28 @@ class MyChess: GameEngine {
             InvalidMove("There is a piece in (${move.to.row}, ${move.to.column})")
         else {
             val myNewGame = myGame
-            myGame = myGame.move(  movement.oldPos, movement.newPos)
+            myGame = myGame.move(movement.oldPos, movement.newPos)
             if (myGame.board == myNewGame.board) {
                 return InvalidMove("Invalid move")
             }
             if (myGame.validateVictory(myGame.chessPlayers, myGame.board)) {
                 return GameOver(currentPlayer)
-            }
-            else{
+            } else {
                 currentPlayer = getCurrentPlayer(myGame)
                 NewGameState(Adapter.getPieces(myGame.board), currentPlayer)
             }
         }
     }
+
     override fun init(): InitialState {
-        return InitialState(Adapter.adaptBoard(myGame.board),(Adapter.getPieces(myGame.board)),WHITE)
+        return InitialState(Adapter.adaptBoard(myGame.board), (Adapter.getPieces(myGame.board)), WHITE)
     }
-}
-class MovePrinter : PieceMovedListener {
-    override fun onMovePiece(from: Position, to: Position) {
-        print("Move: from ")
-        print(from)
-        print(" to ")
-        println(to)
+
+    public fun getWinner(): PlayerColor {
+        if (myGame.validateVictory(myGame.chessPlayers, myGame.board)) {
+            return getCurrentPlayer(myGame)
+        }
+        return WHITE
     }
 }
 public fun getCurrentPlayer (myGame: gameInterface): PlayerColor{
