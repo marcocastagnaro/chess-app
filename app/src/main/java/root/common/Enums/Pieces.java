@@ -1,5 +1,5 @@
 package root.common.Enums;
 
 public enum Pieces {
-    PAWN, ROOK, KNIGHT, BISHOP, QUEEN, KING, CHANCELLOR
+    PAWN, ROOK, KNIGHT, BISHOP, QUEEN, KING, CHANCELLOR, ARCHBISHOP
 }

@@ -1,15 +1,14 @@
 package edu.austral.dissis.chess.`client-server`
 
 import com.fasterxml.jackson.core.type.TypeReference
-import edu.austral.dissis.chess.MyChess
-import edu.austral.dissis.chess.MyMatches.MyGame
+import edu.austral.dissis.chess.MyGame
 import edu.austral.dissis.chess.`client-server`.listeners.*
 import edu.austral.dissis.chess.gui.*
 import edu.austral.ingsis.clientserver.Message
 import edu.austral.ingsis.clientserver.Server
 import edu.austral.ingsis.clientserver.ServerBuilder
 
-class Server (private val game: MyChess, private val builder : ServerBuilder, private val gameview: GameView) {
+class Server (private val game: MyGame, private val builder : ServerBuilder, private val gameview: GameView) {
 
     private lateinit var server: Server
     fun start() {

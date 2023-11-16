@@ -45,6 +45,7 @@ public class Adapter {
             case QUEEN -> "queen";
             case KING -> "king";
             case CHANCELLOR ->  "chancellor";
+            case ARCHBISHOP -> "archbishop";
             default -> "empty";
         };
     }

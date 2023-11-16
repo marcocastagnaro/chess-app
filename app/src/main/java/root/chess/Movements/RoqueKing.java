@@ -32,8 +32,8 @@ public class RoqueKing implements specialRules {
 
         return board;
     }
-    private Board castleKing(Board board, Position inicial, Position finalPosition, int direction) {
-        Position towerPosition = new Position(inicial.getX(), finalPosition.getY() + direction + 1);
+    private Board castleKing(Board board, Position inicial, Position finalPosition, int dir) {
+        Position towerPosition = new Position(inicial.getX(), finalPosition.getY() + dir + 1);
         Piece tower = board.getPosition(towerPosition.getX(), towerPosition.getY()).getPiece();
 
         if (tower.getName() == Pieces.ROOK && tower.isFirstMove()){
@@ -41,7 +41,7 @@ public class RoqueKing implements specialRules {
 
             board.getBoard()[inicial.getX()][inicial.getY()] = new Position(inicial.getX(), inicial.getY());
             board.getBoard()[finalPosition.getX()][finalPosition.getY()] = new Position(finalPosition.getX(), finalPosition.getY(), newKing);
-            if ( direction > 0){
+            if ( dir > 0){
                 Position position = new Position(inicial.getX(), finalPosition.getY() - 1);
                 board.getBoard()[towerPosition.getX()][towerPosition.getY()] = new Position(towerPosition.getX(), towerPosition.getY());
                 board.getBoard()[position.getX()][position.getY()] = new Position(position.getX(), position.getY(), tower);

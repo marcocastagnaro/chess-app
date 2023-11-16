@@ -13,7 +13,6 @@ public class ChessTurn implements root.common.Interfaces.turn{
         for (int i = 0; i <= players.toArray().length - 1; i++) {
             if (players.get(i).getTurn()) {
                 newList.set(i, players.get(i).changeTurn());
-                players.get(i).changeTurn();
                 if (i + 1 == players.toArray().length) {
                     newList.set(0, players.get(0).changeTurn());
                     break;

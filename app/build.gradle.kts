@@ -16,8 +16,8 @@ repositories {
         url = uri("https://maven.pkg.github.com/austral-ingsis/chess-ui")
         url = uri("https://maven.pkg.github.com/austral-ingsis/simple-client-server")
         credentials {
-            username = ""
-            password = ""
+            username = "marcocastagnaro"
+            password = "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"
         }
     }
 }

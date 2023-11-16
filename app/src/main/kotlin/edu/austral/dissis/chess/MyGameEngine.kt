@@ -6,11 +6,14 @@ import edu.austral.dissis.chess.gui.*
 import edu.austral.dissis.chess.gui.PlayerColor.BLACK
 import edu.austral.dissis.chess.gui.PlayerColor.WHITE
 import root.common.Interfaces.gameInterface
-import root.common.factory.game_factory
+import root.factory.game_factory
 
-class MyChess: GameEngine {
-    private var myGame: gameInterface = game_factory.create_normal_game_checkers();
-//    private var myGame: gameInterface = game_factory.create_normal_game_chess();
+class MyGame: GameEngine {
+//    private var myGame: gameInterface = game_factory.create_normal_game_checkers();
+//    private var myGame: gameInterface = game_factory.create_alterantive_game_chess()
+//    private var myGame: gameInterface = game_factory.create_extensive_game_chess()
+//    private var myGame: gameInterface = game_factory.create_extensive_checkers()
+        private var myGame: gameInterface = game_factory.create_normal_game_chess();
     private var currentPlayer = getCurrentPlayer(myGame)
 
     override fun applyMove(move: Move): MoveResult {
@@ -43,9 +46,11 @@ class MyChess: GameEngine {
         return InitialState(Adapter.adaptBoard(myGame.board), (Adapter.getPieces(myGame.board)), WHITE)
     }
 
+
     public fun getWinner(): PlayerColor {
         if (myGame.validateVictory(myGame.chessPlayers, myGame.board)) {
-            return getCurrentPlayer(myGame)
+            if (currentPlayer == WHITE) BLACK
+            else WHITE
         }
         return WHITE
     }

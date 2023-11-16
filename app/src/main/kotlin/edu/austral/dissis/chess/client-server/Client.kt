@@ -58,6 +58,7 @@ class Client(private val gameView: GameView, /*private val color: PlayerColor*/)
     fun handleInvalidmove(payload: InvalidMove){
         gameView.handleMoveResult(payload)
     }
+
     fun handleGameOver (payload: GameOver){
         gameView.handleMoveResult(payload)
     }

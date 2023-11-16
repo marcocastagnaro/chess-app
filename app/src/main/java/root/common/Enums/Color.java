@@ -1,5 +1,5 @@
 package root.common.Enums;
 
 public enum Color {
-    BLACK, WHITE
+    BLACK, WHITE, BlUE, RED
 }

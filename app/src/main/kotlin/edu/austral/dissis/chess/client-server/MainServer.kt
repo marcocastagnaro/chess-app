@@ -1,12 +1,9 @@
 package edu.austral.dissis.chess.`client-server`
 
-import edu.austral.dissis.chess.MyChess
-import edu.austral.dissis.chess.MyChessGameApplication
-import edu.austral.dissis.chess.MyMatches.MyGame
+import edu.austral.dissis.chess.MyGame
 import edu.austral.dissis.chess.gui.CachedImageResolver
 import edu.austral.dissis.chess.gui.DefaultImageResolver
 import edu.austral.dissis.chess.gui.GameView
-import edu.austral.ingsis.clientserver.ServerBuilder
 import edu.austral.ingsis.clientserver.netty.server.NettyServerBuilder
 import javafx.application.Application
 import javafx.application.Application.launch
@@ -18,7 +15,7 @@ fun main() {
 }
 
 class ChessGameApplication : Application() {
-    private val gameEngine = MyChess()
+    private val gameEngine = MyGame()
     private val imageResolver = CachedImageResolver(DefaultImageResolver())
     private val root = GameView(imageResolver)
     private val server = NettyServerBuilder.createDefault()
@@ -38,6 +35,4 @@ class ChessGameApplication : Application() {
 
         primaryStage.show()
     }
-
-
 }
