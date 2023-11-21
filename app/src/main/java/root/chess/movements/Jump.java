@@ -1,14 +1,13 @@
-package root.chess.Movements;
+package root.chess.movements;
 
 import root.common.Board;
 import root.common.Position;
-import root.common.Interfaces.movementValidator;
+import root.common.Interfaces.MovementValidator;
 
-public class Jump implements movementValidator {
+public class Jump implements MovementValidator {
     int xmov;
     int ymov; //cuantos movimientos se puede mover en x y cuantos se puede mover en y
-  //  int dif;
-  movementValidator specialmov;
+
 
     public Jump (int xmov, int ymov){
         this.xmov = xmov;
@@ -19,11 +18,7 @@ public class Jump implements movementValidator {
     public boolean validateMove(Position oldPos, Position newPos) {
         int x = oldPos.getX() - newPos.getX();
         int y = oldPos.getY() - newPos.getY();
-            if (Math.abs(x) == xmov && Math.abs(y) == ymov){
-                //if (Math.abs(x) - Math.abs(y) == dif || Math.abs(y) - Math.abs(x) == dif) {
-                    return true;
-            }
-            return false;
+        return Math.abs(x) == xmov && Math.abs(y) == ymov;
     }
 
     @Override

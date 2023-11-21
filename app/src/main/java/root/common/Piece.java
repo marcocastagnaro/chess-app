@@ -1,34 +1,34 @@
 package root.common;
 
-import root.common.Enums.Color;
-import root.common.Enums.Pieces;
-import root.common.Interfaces.movementValidator;
-import root.common.Interfaces.pieceInterface;
+import root.common.enums.Color;
+import root.common.enums.Pieces;
+import root.common.Interfaces.MovementValidator;
+import root.common.Interfaces.PieceInterface;
 
 import java.util.List;
 
-public class Piece implements pieceInterface {
+public class Piece implements PieceInterface {
     private Pieces name;
     private Color color;
-    private List<movementValidator> movements;
+    private List<MovementValidator> movements;
     private String id;
 
     private boolean firstMove;
-    public Piece(Pieces name, Color color, List<movementValidator> movements, String id) {
+    public Piece(Pieces name, Color color, List<MovementValidator> movements, String id) {
         this.name = name;
         this.color = color;
         this.movements = movements;
         firstMove= true;
         this.id = id;
     }
-    public Piece(Pieces name, Color color, List<movementValidator> movements) {
+    public Piece(Pieces name, Color color, List<MovementValidator> movements) {
         this.name = name;
         this.color = color;
         this.movements = movements;
         firstMove= true;
         this.id = String.valueOf(hashCode());
     }
-    public Piece(Pieces name, Color color, List<movementValidator> movements, String id, boolean firstMove) {
+    public Piece(Pieces name, Color color, List<MovementValidator> movements, String id, boolean firstMove) {
         this.name = name;
         this.color = color;
         this.movements = movements;
@@ -59,7 +59,7 @@ public class Piece implements pieceInterface {
         return id;
     }
 
-    public List<movementValidator> getMovements() {
+    public List<MovementValidator> getMovements() {
         return movements;
     }
 

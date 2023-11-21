@@ -3,13 +3,13 @@ package root.checkers.movements;
 import root.common.classicMovements.DiagonalMove;
 import root.common.Board;
 import root.common.Position;
-import root.common.Interfaces.movementValidator;
+import root.common.Interfaces.MovementValidator;
 
-public class classicMovement implements movementValidator {
+public class ClassicMovement implements MovementValidator {
     int xpos;
     int xneg;
     DiagonalMove diagonalMove;
-    public classicMovement(int xpos, int xneg ) {
+    public ClassicMovement(int xpos, int xneg ) {
         this.xpos = xpos;
         this.xneg = xneg;
         diagonalMove = new DiagonalMove(xpos, xneg,1,1);

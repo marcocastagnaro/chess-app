@@ -3,12 +3,12 @@ package root.common.victory;
 import root.common.Board;
 import root.common.Player;
 import root.common.Piece;
-import root.common.Enums.Color;
-import root.common.Interfaces.victoryValidator;
+import root.common.enums.Color;
+import root.common.Interfaces.VictoryValidator;
 
 import java.util.List;
 
-public class eatAllPiecies implements victoryValidator {
+public class EatAllPiecies implements VictoryValidator {
     public boolean hasPiecies (Board board, Color color){
         for (int x =0; x<board.getRow(); x ++){
             for (int y =0; y<board.getColumn(); y++){

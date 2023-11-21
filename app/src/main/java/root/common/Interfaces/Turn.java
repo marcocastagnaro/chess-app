@@ -6,7 +6,7 @@ import root.common.Position;
 
 import java.util.List;
 
-public interface turn {
+public interface Turn {
     public List<Player> nextTurn(List<Player> players, Board board, Position oldpos, Position newpos);
     public Player getCurrent(List<Player> players);
 

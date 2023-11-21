@@ -1,4 +1,4 @@
-package root.common.Enums;
+package root.common.enums;
 
 public enum Color {
     BLACK, WHITE, BlUE, RED

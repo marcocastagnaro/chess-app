@@ -1,37 +1,41 @@
 package root.common;
 import root.common.Interfaces.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Game implements gameInterface {
+public class Game implements GameInterface {
     private Board board;
     private List<Player> players;
     private final GameVersion gameVersion;
-    private final turn customizeTurn;
+    private final Turn customizeTurn;
 
-    public Game(Board board, List<Player> players, GameVersion gameVersion, Player initialPlayer, turn customizeTurn) {
+    public Game(Board board, List<Player> players, GameVersion gameVersion, Player initialPlayer, Turn customizeTurn) {
         this.board = board;
         this.players = firstTurn(initialPlayer, players);
         this.gameVersion = gameVersion;
         this.customizeTurn = customizeTurn;
     }
 
-    public Game(Board board, List<Player> players, GameVersion gameVersion, turn customizeTurn) {
+    public Game(Board board, List<Player> players, GameVersion gameVersion, Turn customizeTurn) {
         this.board = board;
         this.players = players;
         this.gameVersion = gameVersion;
         this.customizeTurn = customizeTurn;
     }
-    private List<Player> firstTurn(Player initial, List<Player> players){
-        List<Player> newList = players;
-        for (int i = 0; i< players.size(); i++){
-            if (players.get(i).getColor() == initial.getColor()){
-                newList.set(i,new Player(players.get(i).getName(), players.get(i).getColor(), true));
+    private List<Player> firstTurn(Player initial, List<Player> players) {
+        List<Player> newList = new ArrayList<>();
+        for (Player player : players) {
+            if (player.getColor() == initial.getColor()) {
+                newList.add(new Player(player.getName(), player.getColor(), true));
+            } else {
+                newList.add(player); //si no es el primer jugador, lo agrego normal
             }
         }
         return newList;
     }
+
 
     public Board getBoard() {
         return board;
@@ -44,7 +48,7 @@ public class Game implements gameInterface {
         if (validTurn(current, piece)) {
             Board tablero = current.movePiece( oldPos,newPosition, board);
 
-            for (specialRules spec: gameVersion.getRules()){
+            for (SpecialRules spec: gameVersion.getRules()){
                 if (spec.validateMove(tablero,oldPos, newPosition) != tablero){
                     Board board1 = spec.validateMove(tablero, oldPos, newPosition);
                     return new Game(board1, changeTurn(this.players, tablero, tablero.getPosition(oldPos.getX(), oldPos.getY()), tablero.getPosition(newPosition.getX(), newPosition.getY())), gameVersion, customizeTurn);
@@ -52,7 +56,7 @@ public class Game implements gameInterface {
             }
             if (tablero == board) return this;
 
-            for (validators val: gameVersion.getValidators()){
+            for (Validators val: gameVersion.getValidators()){
                 if (val.validateMove(this, tablero, current.getColor(), newPosition, oldPos) != this){
                     return this; //si encuentra un nuevo game (un nuevo movimiento) devuelvo el tablero de antes
                 }
@@ -82,7 +86,7 @@ public class Game implements gameInterface {
 
     @Override
     public boolean validateVictory(List<Player> player, Board board) {
-        for (victoryValidator valid: gameVersion.getVictoryInt()){
+        for (VictoryValidator valid: gameVersion.getVictoryInt()){
             if (valid.validateVictory(player,board)){
                 return true;
             }
@@ -94,7 +98,7 @@ public class Game implements gameInterface {
         return gameVersion;
     }
 
-    public turn getCustomizeTurn() {
+    public Turn getCustomizeTurn() {
         return customizeTurn;
     }
 }

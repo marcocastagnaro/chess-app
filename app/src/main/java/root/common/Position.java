@@ -1,6 +1,6 @@
 package root.common;
 
-import root.common.Enums.Color;
+import root.common.enums.Color;
 
 public class Position {
     private final int x;

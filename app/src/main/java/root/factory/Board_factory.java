@@ -1,11 +1,11 @@
 package root.factory;
 
-import root.checkers.movements.classicMovement;
-import root.checkers.movements.eatMovement;
+import root.checkers.movements.ClassicMovement;
+import root.checkers.movements.EatMovement;
 import root.common.*;
-import root.common.Enums.Color;
-import root.common.Enums.Pieces;
-import root.chess.Movements.*;
+import root.common.enums.Color;
+import root.common.enums.Pieces;
+import root.chess.movements.*;
 import root.common.classicMovements.DiagonalMove;
 import root.common.classicMovements.HorizontalMove;
 import root.common.classicMovements.StraightMove;
@@ -13,7 +13,7 @@ import root.common.classicMovements.StraightMove;
 import java.util.ArrayList;
 import java.util.List;
 
-public class board_factory {
+public class Board_factory {
 
     public static Board create_normal_board_chess(){
         Board board = new Board(8,8);
@@ -53,13 +53,13 @@ public class board_factory {
             for (int j = 0; j < 8; j++) {
                 // White pieces
                 if ((i + j) % 2 == 0 && i < 3) {
-                    positions.add(new Position(i, j, new Piece(Pieces.PAWN, Color.BLACK, List.of(new classicMovement(0, 1), new eatMovement(0, 2)),
+                    positions.add(new Position(i, j, new Piece(Pieces.PAWN, Color.BLACK, List.of(new ClassicMovement(0, 1), new EatMovement(0, 2)),
                             "W" + i + j)));
                 }
                 // Black pieces
                 else if ((i + j) % 2 == 0 && i > 4) {
                     positions.add(new Position(i, j, new Piece(Pieces.PAWN, Color.WHITE,
-                            List.of(new classicMovement(1,0 ), new eatMovement(2, 0)),
+                            List.of(new ClassicMovement(1,0 ), new EatMovement(2, 0)),
                             "B" + i + j)));
                 }
             }
@@ -141,13 +141,13 @@ public class board_factory {
                     // White pieces
                     if ((i + j) % 2 == 0 && i > 8) {
                         positions.add(new Position(i, j, new Piece(Pieces.PAWN, Color.WHITE,
-                                List.of(new classicMovement(1, 0), new eatMovement(2, 0)),
+                                List.of(new ClassicMovement(1, 0), new EatMovement(2, 0)),
                                 "W" + i + j)));
                     }
                     // Black pieces
                     else if ((i + j) % 2 == 0 && i < 3) {
                         positions.add(new Position(i, j, new Piece(Pieces.PAWN, Color.BLACK,
-                                List.of(new classicMovement(0, 1), new eatMovement(0, 2)),
+                                List.of(new ClassicMovement(0, 1), new EatMovement(0, 2)),
                                 "B" + i + j)));
                     }
                 }

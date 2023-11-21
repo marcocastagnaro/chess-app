@@ -1,19 +1,19 @@
 package edu.austral.dissis.chess;
 
-import root.common.Enums.Color
-import root.common.Adapter.Adapter
+import root.common.enums.Color
+import root.common.adapter.Adapter
 import edu.austral.dissis.chess.gui.*
 import edu.austral.dissis.chess.gui.PlayerColor.BLACK
 import edu.austral.dissis.chess.gui.PlayerColor.WHITE
-import root.common.Interfaces.gameInterface
-import root.factory.game_factory
+import root.common.Interfaces.GameInterface
+import root.factory.Game_factory
 
 class MyGame: GameEngine {
-    private var myGame: gameInterface = game_factory.create_normal_game_checkers();
-//    private var myGame: gameInterface = game_factory.create_alterantive_game_chess()
-//    private var myGame: gameInterface = game_factory.create_extensive_game_chess()
-//    private var myGame: gameInterface = game_factory.create_extensive_checkers()
-//        private var myGame: gameInterface = game_factory.create_normal_game_chess();
+//    private var myGame: GameInterface = game_factory.create_normal_game_checkers();
+//    private var myGame: GameInterface = game_factory.create_alterantive_game_chess()
+//    private var myGame: GameInterface = game_factory.create_extensive_game_chess()
+//    private var myGame: GameInterface = game_factory.create_extensive_checkers()
+        private var myGame: GameInterface = Game_factory.create_normal_game_chess();
     private var currentPlayer = getCurrentPlayer(myGame)
 
     override fun applyMove(move: Move): MoveResult {
@@ -55,7 +55,7 @@ class MyGame: GameEngine {
         return WHITE
     }
 }
-public fun getCurrentPlayer (myGame: gameInterface): PlayerColor{
+public fun getCurrentPlayer (myGame: GameInterface): PlayerColor{
     for (i in 0 until myGame.getChessPlayers().size) {
         if (myGame.getChessPlayers()[i].turn) {
             return if (myGame.getChessPlayers()[i].color == Color.WHITE) WHITE else BLACK

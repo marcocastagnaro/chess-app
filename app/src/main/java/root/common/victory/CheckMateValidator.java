@@ -1,50 +1,52 @@
 package root.common.victory;
 
-import root.chess.Movements.checkValidator;
+import root.chess.movements.CheckValidator;
 import root.common.Board;
 import root.common.Player;
-import root.common.Interfaces.victoryValidator;
+import root.common.Interfaces.VictoryValidator;
 import root.common.Piece;
 import root.common.Position;
-import root.common.Enums.Color;
-import root.common.Enums.Pieces;
+import root.common.enums.Color;
+import root.common.enums.Pieces;
 
 import java.util.List;
 
-public class checkMateValidator implements victoryValidator {
+public class CheckMateValidator implements VictoryValidator {
 
     Pieces name;
 
-    public checkMateValidator(Pieces name) {
+    public CheckMateValidator(Pieces name) {
         this.name = name;
     }
 
     public boolean isInCheckmate(Player player, Board board){
-        checkValidator checkval= new checkValidator(name);
+        CheckValidator checkval= new CheckValidator(name);
         Piece piece = findPiece(player.getColor(), name, board);
         if (piece != null){
-        for (int x = 0; x < board.getRow(); x++) {
-            for (int y = 0; y < board.getColumn(); y++) {
-                Position possiblePos = board.getPosition(x,y);
-                Position posPiece = board.getPositionWithPiece(piece);
-                //Primero chequiamos si el rey se puede mover a los espacios adyacentes
-                    Board newBoard = board.movePiece(posPiece, possiblePos, piece);
-                    if (!possiblePos.equals(posPiece) && !checkval.validateMove(newBoard, piece.getColor())) {
-                        if (newBoard != board) {
-                            return false;
-                        }
-                    }
-                }
-
-                }
-            }
-        else { //por ahora devolvemos false si no existe el king para no tener problemas en los tests
-            return false;
+            if (kingHasMove(board, checkval, piece)) return false;
         }
         return !this.pieceInterceptsCheck(piece.getColor(), board);//Chequeamos si alguna pieza puede interceptar el jaque
     }
+
+    private static boolean kingHasMove(Board board, CheckValidator checkval, Piece piece) {
+        for (int x = 0; x < board.getRow(); x++) {
+            for (int y = 0; y < board.getColumn(); y++) {
+                Position possiblePos = board.getPosition(x, y);
+                Position posPiece = board.getPositionWithPiece(piece);
+                //Primero chequiamos si el rey se puede mover a los espacios adyacentes
+                Board newBoard = board.movePiece(posPiece, possiblePos, piece);
+                if (!possiblePos.equals(posPiece) && !checkval.validateMove(newBoard, piece.getColor())) {
+                    if (newBoard != board) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     public boolean pieceInterceptsCheck (Color color, Board board){
-        checkValidator checkval= new checkValidator(name);
+        CheckValidator checkval= new CheckValidator(name);
             for (int x=0; x < board.getRow(); x++){
                 for (int y=0; y< board.getColumn(); y++) {
                     Piece piece1 = board.getPiece(x, y);
@@ -56,7 +58,7 @@ public class checkMateValidator implements victoryValidator {
         return false;
     }
 
-    private static boolean pieceCanIntercepts(Board board, checkValidator checkval, Piece piece1) {
+    private static boolean pieceCanIntercepts(Board board, CheckValidator checkval, Piece piece1) {
         for (int x1 = 0; x1 < board.getRow(); x1++) {
             for (int y1 = 0; y1 < board.getColumn(); y1++) {
                 Position possiblePos = board.getBoard()[x1][y1];
@@ -90,7 +92,7 @@ public class checkMateValidator implements victoryValidator {
 
     @Override
     public boolean validateVictory(List <Player> player, Board board) {
-        checkValidator checkval = new checkValidator(name);
+        CheckValidator checkval = new CheckValidator(name);
         for (Player player1 : player) {
             if (playerWin(board, checkval, player1)) return true;
         }
@@ -98,7 +100,7 @@ public class checkMateValidator implements victoryValidator {
 
     }
 
-    private boolean playerWin(Board board, checkValidator checkval, Player player1) {
+    private boolean playerWin(Board board, CheckValidator checkval, Player player1) {
         if (checkval.validateMove(board, player1.getColor())){
             if (isInCheckmate(player1, board)) {
                 return true;

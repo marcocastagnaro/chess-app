@@ -2,9 +2,9 @@ package root.common.classicMovements;
 
 import root.common.Board;
 import root.common.Position;
-import root.common.Interfaces.movementValidator;
+import root.common.Interfaces.MovementValidator;
 
-public class StraightMove implements movementValidator {
+public class StraightMove implements MovementValidator {
     int xPos;
     int xNeg;
     public StraightMove(int xPos, int xNeg){
@@ -27,16 +27,26 @@ public class StraightMove implements movementValidator {
     @Override
     public boolean obstacle(Position oldPos, Position newPos, Board board) {
          if (oldPos.getX() > newPos.getX()){
-            for (int i=1; i < Math.abs(oldPos.getX()- newPos.getX());i++){
-                if (board.tienePieza(board.getBoard()[oldPos.getX() - i][oldPos.getY()])){
-                    return true;
-                }
+             return findObstacleDown(oldPos, newPos, board);
+         } else if (newPos.getX() > oldPos.getX()) {
+             return findObstacleUp(oldPos, newPos, board);
+         }
+        return false;
+    }
+
+    private static boolean findObstacleUp(Position oldPos, Position newPos, Board board) {
+        for (int i = 1; i< Math.abs (oldPos.getX()- newPos.getX()); i++){
+            if (board.hasPiece(board.getBoard()[oldPos.getX() + i][oldPos.getY()])){
+                return true;
             }
-        } else if (newPos.getX() > oldPos.getX()) {
-            for (int i =1 ; i< Math.abs (oldPos.getX()- newPos.getX()); i++){
-                if (board.tienePieza(board.getBoard()[oldPos.getX() + i][oldPos.getY()])){
-                    return true;
-                }
+        }
+        return false;
+    }
+
+    private static boolean findObstacleDown(Position oldPos, Position newPos, Board board) {
+        for (int i = 1; i < Math.abs(oldPos.getX()- newPos.getX()); i++){
+            if (board.hasPiece(board.getBoard()[oldPos.getX() - i][oldPos.getY()])){
+                return true;
             }
         }
         return false;

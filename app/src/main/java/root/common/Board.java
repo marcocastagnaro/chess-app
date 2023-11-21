@@ -1,12 +1,10 @@
 package root.common;
 
-import root.common.Interfaces.board;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Board implements board {
+public class Board implements root.common.Interfaces.Board {
     private Position[][] tablero;
 
     private int row;
@@ -50,7 +48,7 @@ public class Board implements board {
         return null;
     }
 
-    public boolean tienePieza(Position position) {
+    public boolean hasPiece(Position position) {
         return tablero[position.getX()][position.getY()].hasPiece();
     }
 

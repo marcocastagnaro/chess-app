@@ -1,13 +1,13 @@
 package root.chess;
 
 import root.common.Board;
-import root.common.Interfaces.turn;
+import root.common.Interfaces.Turn;
 import root.common.Player;
 import root.common.Position;
 
 import java.util.List;
 
-public class RandomTurn implements turn {
+public class RandomTurn implements Turn {
     @Override
     public List<Player> nextTurn(List<Player> players, Board board, Position oldpos, Position newpos) {
         List<Player> newList = players;

@@ -2,14 +2,14 @@ package root.checkers.movements;
 
 import root.common.classicMovements.DiagonalMove;
 import root.common.Board;
-import root.common.Interfaces.movementValidator;
+import root.common.Interfaces.MovementValidator;
 import root.common.Position;
 
-public class eatMovement implements movementValidator {
+public class EatMovement implements MovementValidator {
     int xpos;
     int xneg;
     DiagonalMove diagonalMove;
-    public eatMovement(int xpos, int xneg){
+    public EatMovement(int xpos, int xneg){
         this.xpos = xpos;
         this.xneg = xneg;
         diagonalMove = new DiagonalMove(xpos, xneg,2,2);
@@ -28,20 +28,26 @@ public class eatMovement implements movementValidator {
     }
 
     private boolean movementCorrect(Position oldPos, Position newPos, Board board, int x, int y) {
-        if (Math.abs(x) == 2 && Math.abs(y) == 2) {
-            int middleX = oldPos.getX() - x / 2;
-            int middleY = oldPos.getY() - y / 2;
+        int middleX = oldPos.getX() - x / 2;
+        int middleY = oldPos.getY() - y / 2;
 
-            if (x == xpos && !newPos.hasPiece()) {
-                Position poss = board.getPosition(middleX, middleY);
-                return moveandeat(oldPos, board, middleX, middleY, poss);
-            }
-            else if (Math.abs(x) == xneg && !newPos.hasPiece()){
-                Position poss = board.getPosition(middleX, middleY);
-                return moveandeat(oldPos, board, middleX, middleY, poss);
-            }
+        if (moveForward(newPos, x)) {
+            Position poss = board.getPosition(middleX, middleY);
+            return moveandeat(oldPos, board, middleX, middleY, poss);
+        }
+        else if (moveBackwords(newPos, x)) {
+            Position poss = board.getPosition(middleX, middleY);
+            return moveandeat(oldPos, board, middleX, middleY, poss);
         }
         return false;
+    }
+
+    private boolean moveBackwords(Position newPos, int x) {
+        return Math.abs(x) == xneg && !newPos.hasPiece();
+    }
+
+    private boolean moveForward(Position newPos, int x) {
+        return x == xpos && !newPos.hasPiece();
     }
 
     private static boolean moveandeat(Position oldPos, Board board, int middleX, int middleY, Position poss) {

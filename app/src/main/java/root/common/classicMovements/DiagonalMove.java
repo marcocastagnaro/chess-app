@@ -2,9 +2,9 @@ package root.common.classicMovements;
 
 import root.common.Board;
 import root.common.Position;
-import root.common.Interfaces.movementValidator;
+import root.common.Interfaces.MovementValidator;
 
-public class DiagonalMove implements movementValidator {
+public class DiagonalMove implements MovementValidator {
     int xPos;
     int xNeg;
     int yPos;
@@ -41,7 +41,7 @@ public class DiagonalMove implements movementValidator {
 
     private static boolean findObstacleRightDown(Position oldPos, Position newPos, Board board) {
         for (int i = 1; i < Math.abs(oldPos.getX() - newPos.getX()); i++) {
-            if (board.tienePieza(board.getBoard()[oldPos.getX() + i][oldPos.getY()+ i])){
+            if (board.hasPiece(board.getBoard()[oldPos.getX() + i][oldPos.getY()+ i])){
                 return true;
             }
         }
@@ -50,7 +50,7 @@ public class DiagonalMove implements movementValidator {
 
     private static boolean finObstacleLeftDown(Position oldPos, Position newPos, Board board) {
         for (int i = 1; i < Math.abs(oldPos.getX() - newPos.getX()); i++) {
-            if (board.tienePieza(board.getBoard()[oldPos.getX() + i][oldPos.getY() - i])){
+            if (board.hasPiece(board.getBoard()[oldPos.getX() + i][oldPos.getY() - i])){
                 return true;
             }
         }
@@ -59,7 +59,7 @@ public class DiagonalMove implements movementValidator {
 
     private static boolean findObstacleRightUp(Position oldPos, Position newPos, Board board) {
         for (int i = 1; i < Math.abs(oldPos.getX() - newPos.getX()); i++) {
-            if (board.tienePieza(board.getBoard()[oldPos.getX() - i][oldPos.getY() + i])){
+            if (board.hasPiece(board.getBoard()[oldPos.getX() - i][oldPos.getY() + i])){
                 return true;
             }
         }
@@ -68,7 +68,7 @@ public class DiagonalMove implements movementValidator {
 
     private static boolean findObstacleLeftUp(Position oldPos, Position newPos, Board board) {
         for (int i = 1; i < Math.abs(oldPos.getX() - newPos.getX()); i++) {
-            if (board.tienePieza(board.getBoard()[oldPos.getX() - i][oldPos.getY() - i])){
+            if (board.hasPiece(board.getBoard()[oldPos.getX() - i][oldPos.getY() - i])){
                 return true;
             }
         }

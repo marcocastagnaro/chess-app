@@ -8,9 +8,9 @@ import root.common.classicMovements.StraightMove;
 import root.common.Player;
 import root.common.Piece;
 import root.common.Position;
-import root.common.Enums.Color;
-import root.common.Enums.Pieces;
-import root.common.victory.checkMateValidator;
+import root.common.enums.Color;
+import root.common.enums.Pieces;
+import root.common.victory.CheckMateValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,11 +29,11 @@ public class testBishoplMove {
         List<Player> players = List.of(player1);
         player1.changeTurn();
         whiteBishop = new Piece(Pieces.BISHOP, Color.WHITE, List.of(new DiagonalMove(7,7,7,7)),"1");
-        Position position1 = new Position(2, 2, whiteBishop);
+        position = new Position(2, 2, whiteBishop);
         List<Position> posiciones = List.of(
-                position1
+                position
         );
-        game = tests.gameInicializer(8, 8, players, posiciones, List.of(new checkMateValidator(Pieces.KING)));
+        game = tests.gameInicializer(8, 8, players, posiciones, List.of(new CheckMateValidator(Pieces.KING)));
     }
     @Test
     public void testbishopvalidmove() {

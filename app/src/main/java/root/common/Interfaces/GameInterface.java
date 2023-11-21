@@ -8,7 +8,7 @@ import root.common.Position;
 
 import java.util.List;
 
-public interface gameInterface {
+public interface GameInterface {
     public List<Piece> getPiecies ();
     public Board getBoard();
     public Game move(Position oldPos, Position newpos);

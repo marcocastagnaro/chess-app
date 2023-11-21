@@ -6,8 +6,8 @@ import root.common.Game;
 import root.chess.ChessTurn;
 import root.common.*;
 
-import root.common.Interfaces.turn;
-import root.common.Interfaces.victoryValidator;
+import root.common.Interfaces.Turn;
+import root.common.Interfaces.VictoryValidator;
 
 
 import java.util.ArrayList;
@@ -18,13 +18,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class testMovements {
 
     //crear clase piecefactory --> crear piezas
-    public Game gameInicializer(int row, int column, List<Player> players, List<Position> posiciones, List<victoryValidator> vic) {
+    public Game gameInicializer(int row, int column, List<Player> players, List<Position> posiciones, List<VictoryValidator> vic) {
         Board board = new Board(row, column);
         for (Position posicion : posiciones) {
             board.getBoard()[posicion.getX()][posicion.getY()] = posicion;
         }
-        GameVersion gameVersion = new GameVersion("1", vic, null, null);
-        turn cusTurn = new ChessTurn();
+        GameVersion gameVersion = new GameVersion("1", vic, new ArrayList<>(), new ArrayList<>());
+        Turn cusTurn = new ChessTurn();
         return new Game( board, players, gameVersion, players.get(0), cusTurn);
     }
 
@@ -58,11 +58,11 @@ public class testMovements {
         }
         List <Position> notValidmoves = getNotValidMoves(possibleMoves, game, piece);
         for (Position targetPosition : possibleMoves) {
-            Game newgame = game.move(targetPosition, oldPos);
-            assertEquals(piece, newgame.getBoard().getBoard()[targetPosition.getX()][targetPosition.getY()].getPiece());
+            Game newgame = game.move(oldPos, targetPosition);
+            assertEquals(piece.getId(), newgame.getBoard().getPiece(targetPosition.getX(),targetPosition.getY()).getId());
         }
         for (Position notValidPosition : notValidmoves){
-            Game newgame = game.move(notValidPosition, oldPos);
+            Game newgame = game.move(oldPos, notValidPosition);
             assertNotSame(piece, newgame.getBoard().getBoard()[notValidPosition.getX()][notValidPosition.getY()].getPiece());
         }
     }
@@ -74,7 +74,7 @@ public class testMovements {
             possibleMoves.add(position);
         }
         for (Position targetPosition : possibleMoves) {
-            Game newgame = game.move(targetPosition, oldpos);
+            Game newgame = game.move(oldpos, targetPosition);
             assertNotSame(newgame.getBoard().getBoard()[targetPosition.getX()][targetPosition.getY()].getPiece(), piece);
         }
     }

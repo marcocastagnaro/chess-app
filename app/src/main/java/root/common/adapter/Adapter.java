@@ -1,10 +1,10 @@
-package root.common.Adapter;
+package root.common.adapter;
 
 import root.common.classicMovements.Movement;
 import root.common.Board;
 import root.common.Piece;
-import root.common.Enums.Color;
-import root.common.Enums.Pieces;
+import root.common.enums.Color;
+import root.common.enums.Pieces;
 import edu.austral.dissis.chess.gui.*;
 import edu.austral.dissis.chess.gui.Position;
 

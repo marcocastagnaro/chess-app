@@ -1,6 +1,6 @@
 package root.common;
 
-import root.common.Enums.Color;
+import root.common.enums.Color;
 
 public class Player {
     private final String name;
@@ -15,10 +15,6 @@ public class Player {
         this.name = name;
         this.turn = turn;
     }
-    public boolean pieceBelongsToPlayer (Piece piece){
-        return piece.getColor() == color;
-    }
-
     public String getName() {
         return name;
     }

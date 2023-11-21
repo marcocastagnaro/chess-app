@@ -8,9 +8,9 @@ import root.common.classicMovements.StraightMove;
 import root.common.Player;
 import root.common.Piece;
 import root.common.Position;
-import root.common.Enums.Color;
-import root.common.Enums.Pieces;
-import root.common.victory.checkMateValidator;
+import root.common.enums.Color;
+import root.common.enums.Pieces;
+import root.common.victory.CheckMateValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,7 +33,7 @@ public class testRookMovement {
         List<Position> posiciones = List.of(
 position        );
 
-        game = tests.gameInicializer(8, 8, players, posiciones,List.of(new checkMateValidator(Pieces.KING)));
+        game = tests.gameInicializer(8, 8, players, posiciones,List.of(new CheckMateValidator(Pieces.KING)));
     }
     @Test
     public void testRookMovement() {

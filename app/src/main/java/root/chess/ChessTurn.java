@@ -1,12 +1,13 @@
 package root.chess;
 
 import root.common.Board;
+import root.common.Interfaces.Turn;
 import root.common.Player;
 import root.common.Position;
 
 import java.util.List;
 
-public class ChessTurn implements root.common.Interfaces.turn{
+public class ChessTurn implements Turn {
 
     public List<Player> nextTurn(List<Player> players, Board board, Position oldPos, Position newPos){
         List<Player> newList = players;
@@ -24,10 +25,6 @@ public class ChessTurn implements root.common.Interfaces.turn{
         }
         return newList;
     }
-    public Player changeFirstTurn (Player player){
-        return new Player(player.getName(), player.getColor(), true);
-    }
-
     @Override
     public Player getCurrent(List<Player> players){
         return players.stream().filter(Player::getTurn).findFirst().get();
