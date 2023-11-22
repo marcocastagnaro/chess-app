@@ -19,7 +19,7 @@ import root.common.Interfaces.Validators;
 import root.common.Interfaces.VictoryValidator;
 import root.chess.movements.RoqueKing;
 import root.common.specialRule.Coronation;
-import root.common.victory.CheckMateValidator;
+import root.chess.movements.CheckMateValidator;
 import root.common.victory.EatAllPiecies;
 
 import java.util.ArrayList;

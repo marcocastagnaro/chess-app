@@ -28,7 +28,7 @@ public class PawnEatDiagonal implements MovementValidator { // Convenio: Nombre 
         int y = oldPos.getY() - newPos.getY();
         Piece piece = oldPos.getPiece();
         Piece piece2 = newPos.getPiece();
-        if (piece.getName() == Pieces.PAWN && Math.abs(x) == 1 && Math.abs(y) == 1) {
+        if (pawnEatsDiagonalValid(x, y, piece)) {
             if (piece.getColor() == Color.WHITE && x > 0) {
                 return validateDiagon(piece, piece2);
             } else if (piece.getColor() == Color.BLACK && x < 0) {
@@ -36,6 +36,10 @@ public class PawnEatDiagonal implements MovementValidator { // Convenio: Nombre 
             }
         }
         return false;
+    }
+
+    private static boolean pawnEatsDiagonalValid(int x, int y, Piece piece) {
+        return piece.getName() == Pieces.PAWN && Math.abs(x) == 1 && Math.abs(y) == 1;
     }
 
     public boolean validateDiagon(Piece piece, Piece piece2) {

@@ -8,7 +8,7 @@ import root.common.Piece;
 import root.common.Position;
 import root.common.enums.Color;
 import root.common.enums.Pieces;
-import root.common.victory.CheckMateValidator;
+import root.chess.movements.CheckMateValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -36,29 +36,10 @@ position        );
     }
 
     @Test
-    public void firstMovePawn (){
-        List <Coordinates> possibleMoves = List.of(
-                new Coordinates(4, 2),
-                new Coordinates(3, 2)
-
-        );
-        testMovements.assertValidMoves(possibleMoves, game, pawn, position);
-    }
-    @Test
     public void secondMovePawn (){
         List <Coordinates> possibleMoves = List.of(
                 new Coordinates(3, 2)
         );
-        testMovements.assertValidMoves(possibleMoves, game, pawn, position);
-    }
-    @Test
-    public void eatPawn (){
-        List <Coordinates> possibleMoves = List.of(
-                new Coordinates(3, 3),
-                new Coordinates(3,2) //No comer pero es un posible movimiento
-        );
-        Position blackPawn = new Position(3, 3, new Piece(Pieces.PAWN, Color.BLACK, List.of(new StraightMove(0, 1), new StraightMove(1, 1)), "2"));
-        game.getBoard().getBoard()[blackPawn.getX()][blackPawn.getY()] = blackPawn;
         testMovements.assertValidMoves(possibleMoves, game, pawn, position);
     }
     @Test

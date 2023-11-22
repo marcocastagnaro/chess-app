@@ -10,7 +10,7 @@ import root.common.Piece;
 import root.common.Position;
 import root.common.enums.Color;
 import root.common.enums.Pieces;
-import root.common.victory.CheckMateValidator;
+import root.chess.movements.CheckMateValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

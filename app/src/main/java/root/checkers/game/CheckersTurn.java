@@ -32,11 +32,10 @@ public class CheckersTurn implements Turn {
                 players.get(i).changeTurn();
                 if (i + 1 == players.toArray().length) {
                     newList.set(0, players.get(0).changeTurn());
-                    break;
                 } else {
                     newList.set(i+1, players.get(i + 1).changeTurn());
-                    break;
                 }
+                break;
             }
         }
     }
@@ -64,9 +63,7 @@ public class CheckersTurn implements Turn {
         Board newTablero;
         if (board1.getPosition(newPos.getX() - dif, newPos.getY() - dif) != null) {
             newTablero = board1.movePiece(newPos, board1.getPosition(newPos.getX() - dif, newPos.getY() - dif), piece);
-            if (newTablero != board1) {
-                return true;
-            }
+            return newTablero != board1;
         }
         return false;
     }

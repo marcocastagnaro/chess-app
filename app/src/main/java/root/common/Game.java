@@ -1,4 +1,5 @@
 package root.common;
+import org.jetbrains.annotations.Nullable;
 import root.common.Interfaces.*;
 
 import java.util.ArrayList;
@@ -48,15 +49,13 @@ public class Game implements GameInterface {
         if (validTurn(current, piece)) {
             Board tablero = current.movePiece( oldPos,newPosition, board);
             for (SpecialRules spec: gameVersion.getRules()){
-                if (spec.validateMove(tablero,oldPos, newPosition) != tablero){
-                    Board board1 = spec.validateMove(tablero, oldPos, newPosition);
-                    return new Game(board1, changeTurn(this.players, tablero, tablero.getPosition(oldPos.getX(), oldPos.getY()), tablero.getPosition(newPosition.getX(), newPosition.getY())), gameVersion, customizeTurn);
-                }
+                Game game1 = specialRule(oldPos, newPosition, tablero, spec);
+                if (game1 != this) return game1;
             }
             if (tablero == board) return this;
 
             for (Validators val: gameVersion.getValidators()){
-                if (val.validateMove(this, tablero, current.getColor(), newPosition, oldPos) != this){
+                if (validateValidator(oldPos, newPosition, current, tablero, val)){
                     return this; //si encuentra un nuevo game (un nuevo movimiento) devuelvo el tablero de antes
                 }
             }
@@ -64,6 +63,23 @@ public class Game implements GameInterface {
         }
         return this;
     }
+
+    private Game specialRule(Position oldPos, Position newPosition, Board tablero, SpecialRules spec) {
+        if (validRule(oldPos, newPosition, tablero, spec)){
+            Board board1 = spec.validateMove(tablero, oldPos, newPosition);
+            return new Game(board1, changeTurn(this.players, tablero, tablero.getPosition(oldPos.getX(), oldPos.getY()), tablero.getPosition(newPosition.getX(), newPosition.getY())), gameVersion, customizeTurn);
+        }
+        return this;
+    }
+
+    private boolean validateValidator(Position oldPos, Position newPosition, Player current, Board tablero, Validators val) {
+        return val.validateMove(this, tablero, current.getColor(), newPosition, oldPos) != this;
+    }
+
+    private boolean validRule(Position oldPos, Position newPosition, Board tablero, SpecialRules spec) {
+        return spec.validateMove(tablero, oldPos, newPosition) != tablero;
+    }
+
     private List<Player> changeTurn (List <Player> player, Board board, Position oldPos, Position newPos){
         return customizeTurn.nextTurn(player, board, oldPos, newPos);
     }

@@ -11,7 +11,7 @@ public class PawnMovement implements MovementValidator {
     int xNeg;
     int yPos;
     int yNeg;
-    MovementValidator specialmov;
+    MovementValidator eatMov;
     int firstMove;
 
     public PawnMovement(int xPos, int xNeg, int yPos, int yNeg, int firstMove, MovementValidator specialmov){
@@ -20,30 +20,45 @@ public class PawnMovement implements MovementValidator {
         this.yNeg = yNeg;
         this.yPos= yPos;
         this.firstMove = firstMove;
-        this.specialmov = specialmov;
+        this.eatMov = specialmov;
     }
     @Override
     public boolean validateMove(Position oldPos, Position newPos) {
-        int x = oldPos.getX() - newPos.getX();
-        int y = oldPos.getY() - newPos.getY();
+       Position delta = oldPos.delta(newPos);
 
-        if (oldPos.getPiece().getName() == Pieces.PAWN) {
-            if ( pawnFirstMove(oldPos, newPos) ) {
-                return true;
-            }
+        if (isAPawn(oldPos)) {
+            if (firstmove(oldPos, newPos)) return true;
             if (newPos.hasPiece()) {
-                return specialmov.validateMove(oldPos, newPos);
+                return eatMov.validateMove(oldPos, newPos);
             }
         }
-        if (y == 0){
-            if (x > 0){
-                return x <= xNeg;
-            } else if (x < 0){
-                return Math.abs(x) <= xPos;
+        if (delta.getY() == 0){
+            if (delta.getX() > 0){
+                return moveForward(delta);
+            }
+            else if (delta.getX() < 0){
+                return moveBackwards(delta);
             }
         }
         return false;
     }
+
+    private boolean moveBackwards(Position delta) {
+        return Math.abs(delta.getX()) <= xPos;
+    }
+
+    private boolean moveForward(Position delta) {
+        return delta.getX() <= xNeg;
+    }
+
+    private boolean firstmove(Position oldPos, Position newPos) {
+        return pawnFirstMove(oldPos, newPos);
+    }
+
+    private static boolean isAPawn(Position oldPos) {
+        return oldPos.getPiece().getName() == Pieces.PAWN;
+    }
+
     public boolean pawnFirstMove (Position oldPos, Position newPos){
         int x = oldPos.getX() - newPos.getX();
         int y = oldPos.getY() - newPos.getY();
@@ -63,16 +78,13 @@ public class PawnMovement implements MovementValidator {
         boolean obstacle = false;
         if (oldPos.getX() > newPos.getX()){
             if (findObstacleDown(oldPos, newPos, board)) return obstacle;
-        }
-        else if (newPos.getX() > oldPos.getX()) {
+        } else if (newPos.getX() > oldPos.getX()) {
             if (findobstacleUp(oldPos, newPos, board)) return true;
-        }
-        if (oldPos.getY() > newPos.getY()){
+        }if (oldPos.getY() > newPos.getY()){
             return findObstacleLeft(oldPos, newPos, board);
         } else if (newPos.getY() > oldPos.getY()) {
             return findobstacleRight(oldPos, newPos, board);
-        }
-        return false;
+        }return false;
     }
 
     private static boolean findobstacleRight(Position oldPos, Position newPos, Board board) {

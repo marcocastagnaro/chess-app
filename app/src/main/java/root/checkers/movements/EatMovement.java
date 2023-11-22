@@ -35,14 +35,14 @@ public class EatMovement implements MovementValidator {
             Position poss = board.getPosition(middleX, middleY);
             return moveandeat(oldPos, board, middleX, middleY, poss);
         }
-        else if (moveBackwords(newPos, x)) {
+        else if (moveBackwards(newPos, x)) {
             Position poss = board.getPosition(middleX, middleY);
             return moveandeat(oldPos, board, middleX, middleY, poss);
         }
         return false;
     }
 
-    private boolean moveBackwords(Position newPos, int x) {
+    private boolean moveBackwards(Position newPos, int x) {
         return Math.abs(x) == xneg && !newPos.hasPiece();
     }
 

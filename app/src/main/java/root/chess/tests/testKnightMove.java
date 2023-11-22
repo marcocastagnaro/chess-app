@@ -11,7 +11,7 @@ import root.common.Position;
 import root.common.enums.Color;
 import root.common.enums.Pieces;
 
-import root.common.victory.CheckMateValidator;
+import root.chess.movements.CheckMateValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -31,8 +31,7 @@ public class testKnightMove {
         player1.changeTurn();
         whiteHorse = new Piece(Pieces.KNIGHT, Color.WHITE, List.of(new Jump(2, 1), new Jump(1, 2)), "1");
         position = new Position(2, 2, whiteHorse);
-        List<Position> posiciones = List.of(
-position        );
+        List<Position> posiciones = List.of(position);
 
         game = tests.gameInicializer(8, 8, players, posiciones,List.of(new CheckMateValidator(Pieces.KING)));
     }

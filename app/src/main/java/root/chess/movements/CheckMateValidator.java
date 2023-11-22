@@ -1,4 +1,4 @@
-package root.common.victory;
+package root.chess.movements;
 
 import root.chess.movements.CheckValidator;
 import root.common.Board;
@@ -35,8 +35,8 @@ public class CheckMateValidator implements VictoryValidator {
                 Position posPiece = board.getPositionWithPiece(piece);
                 //Primero chequiamos si el rey se puede mover a los espacios adyacentes
                 Board newBoard = board.movePiece(posPiece, possiblePos, piece);
-                if (!possiblePos.equals(posPiece) && !checkval.validateMove(newBoard, piece.getColor())) {
-                    if (newBoard != board) {
+                if (isValidate(checkval, piece, possiblePos, posPiece, newBoard)) {
+                    if (newBoard != board) { //Si el rey se puede mover a un espacio adyacente, no esta en jaque mate
                         return true;
                     }
                 }
@@ -45,17 +45,23 @@ public class CheckMateValidator implements VictoryValidator {
         return false;
     }
 
+    private static boolean isValidate(CheckValidator checkval, Piece piece, Position possiblePos, Position posPiece, Board newBoard) {
+        return !possiblePos.equals(posPiece) && !checkval.validateMove(newBoard, piece.getColor());
+    }
+
     public boolean pieceInterceptsCheck (Color color, Board board){
         CheckValidator checkval= new CheckValidator(name);
-            for (int x=0; x < board.getRow(); x++){
-                for (int y=0; y< board.getColumn(); y++) {
+            for (int x=0; x < board.getRow(); x++) {
+                for (int y = 0; y < board.getColumn(); y++) {
                     Piece piece1 = board.getPiece(x, y);
-                    if (piece1 != null && piece1.getColor() == color) {
-                            if (pieceCanIntercepts(board, checkval, piece1)) return true;
-                        }
-                    }
+                    if (equalsColor(color, piece1) && (pieceCanIntercepts(board, checkval, piece1))) return true;
                 }
+            }
         return false;
+    }
+
+    private static boolean equalsColor(Color color, Piece piece1) {
+        return piece1 != null && piece1.getColor() == color;
     }
 
     private static boolean pieceCanIntercepts(Board board, CheckValidator checkval, Piece piece1) {
@@ -102,9 +108,7 @@ public class CheckMateValidator implements VictoryValidator {
 
     private boolean playerWin(Board board, CheckValidator checkval, Player player1) {
         if (checkval.validateMove(board, player1.getColor())){
-            if (isInCheckmate(player1, board)) {
-                return true;
-            }
+            return isInCheckmate(player1, board);
         }
         return false;
     }

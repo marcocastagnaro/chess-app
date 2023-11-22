@@ -46,11 +46,15 @@ public class CheckValidator implements Validators {
 
     private boolean findsCheck(Board board, Color color, int x, int y) {
         if (board.getPiece (x, y) != null ) {
-            if (!Objects.equals(board.getPiece(x, y).getColor(), color)) {
+            if (otherColor(board, color, x, y)) {
                 return this.pointTo(board.getPosition(x, y), board);
             }
         }
         return false;
+    }
+
+    private static boolean otherColor(Board board, Color color, int x, int y) {
+        return !Objects.equals(board.getPiece(x, y).getColor(), color);
     }
 
     @Override

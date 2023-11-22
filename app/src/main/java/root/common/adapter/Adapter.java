@@ -53,7 +53,6 @@ public class Adapter {
 
         root.common.Position fromPosition = board.getPosition(move.getFrom().getRow() -1 , move.getFrom().getColumn() -1 );
         root.common.Position toPosition = board.getPosition(move.getTo().getRow() -1 , move.getTo().getColumn() -1 );
-
         return new Movement(fromPosition, toPosition);
 
     }
