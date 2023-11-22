@@ -49,12 +49,15 @@ public class PawnMovement implements MovementValidator {
         int y = oldPos.getY() - newPos.getY();
         Piece piece = oldPos.getPiece();
         if (piece.getName() == Pieces.PAWN){
-            if (y == 0 && Math.abs(x) == this.firstMove && piece.isFirstMove() && !newPos.hasPiece() ) {
-                return true;
-            }
+            return validFirstMove(newPos, x, y, piece);
         }
         return false;
     }
+
+    private boolean validFirstMove(Position newPos, int x, int y, Piece piece) {
+        return y == 0 && Math.abs(x) == this.firstMove && piece.isFirstMove() && !newPos.hasPiece();
+    }
+
     @Override
     public boolean obstacle(Position oldPos, Position newPos, Board board) {
         boolean obstacle = false;
@@ -65,25 +68,29 @@ public class PawnMovement implements MovementValidator {
             if (findobstacleUp(oldPos, newPos, board)) return true;
         }
         if (oldPos.getY() > newPos.getY()){
-            if (findObstacleLeft(oldPos, newPos, board)) return true;
+            return findObstacleLeft(oldPos, newPos, board);
         } else if (newPos.getY() > oldPos.getY()) {
-            if (findobstacleRight(oldPos, newPos, board)) return true;
+            return findobstacleRight(oldPos, newPos, board);
         }
         return false;
     }
 
     private static boolean findobstacleRight(Position oldPos, Position newPos, Board board) {
         for (int i = 1; i< Math.abs (oldPos.getY()- newPos.getY()); i++){
-            if (board.hasPiece(board.getBoard()[oldPos.getX()][oldPos.getY() + i])){
+            if (hasPieceY(oldPos, board, i)){
                 return true;
             }
         }
         return false;
     }
 
+    private static boolean hasPieceY(Position oldPos, Board board, int i) {
+        return board.hasPiece(board.getBoard()[oldPos.getX()][oldPos.getY() + i]);
+    }
+
     private static boolean findObstacleLeft(Position oldPos, Position newPos, Board board) {
         for (int i = 1; i < Math.abs(oldPos.getY()- newPos.getY()); i++){
-            if (board.hasPiece(board.getBoard()[oldPos.getX()][oldPos.getY() - i])){
+            if (hasPieceY(oldPos, board, -i)){
                 return true;
             }
         }
@@ -92,18 +99,20 @@ public class PawnMovement implements MovementValidator {
 
     private static boolean findobstacleUp(Position oldPos, Position newPos, Board board) {
         for (int i = 1; i< Math.abs (oldPos.getX()- newPos.getX()); i++){
-            if (board.hasPiece(board.getBoard()[oldPos.getX() + i][oldPos.getY()])){
+            if (hasPieceX(oldPos, board, i)){
                 return true;
             }
         }
         return false;
     }
 
+    private static boolean hasPieceX(Position oldPos, Board board, int i) {
+        return board.hasPiece(board.getBoard()[oldPos.getX() + i][oldPos.getY()]);
+    }
+
     private static boolean findObstacleDown(Position oldPos, Position newPos, Board board) {
-        boolean obstacle;
         for (int i = 1; i < Math.abs(oldPos.getX()- newPos.getX()); i++){
-            if (board.hasPiece(board.getBoard()[oldPos.getX() - i][oldPos.getY()])){
-                obstacle = true;
+            if (hasPieceX(oldPos, board, -i)){
                 return true;
             }
         }

@@ -26,17 +26,33 @@ public class DiagonalMove implements MovementValidator {
 
     @Override
     public boolean obstacle(Position oldPos, Position newPos, Board board) {
-        if (oldPos.getX() > newPos.getX() && oldPos.getY() > newPos.getY()) { //arriba izq
+        if (upLeft(oldPos, newPos)) { //arriba izq
             return findObstacleLeftUp(oldPos, newPos, board);
         }
-        else if (oldPos.getX() > newPos.getX() && oldPos.getY() < newPos.getY()) { //arriba der
+        else if (upRight(oldPos, newPos)) { //arriba der
             return findObstacleRightUp(oldPos, newPos, board);
-        } else if (oldPos.getX() < newPos.getX() && oldPos.getY() > newPos.getY()) { //abajo izq
+        } else if (downLeft(oldPos, newPos)) { //abajo izq
             return finObstacleLeftDown(oldPos, newPos, board);
-        } else if (oldPos.getX() < newPos.getX() && oldPos.getY() < newPos.getY()) { //abajo der
+        } else if (downRight(oldPos, newPos)) { //abajo der
             return findObstacleRightDown(oldPos, newPos, board);
         }
         return false;
+    }
+
+    private static boolean downRight(Position oldPos, Position newPos) {
+        return oldPos.getX() < newPos.getX() && oldPos.getY() < newPos.getY();
+    }
+
+    private static boolean downLeft(Position oldPos, Position newPos) {
+        return oldPos.getX() < newPos.getX() && oldPos.getY() > newPos.getY();
+    }
+
+    private static boolean upLeft(Position oldPos, Position newPos) {
+        return oldPos.getX() > newPos.getX() && oldPos.getY() > newPos.getY();
+    }
+
+    private static boolean upRight(Position oldPos, Position newPos) {
+        return oldPos.getX() > newPos.getX() && oldPos.getY() < newPos.getY();
     }
 
     private static boolean findObstacleRightDown(Position oldPos, Position newPos, Board board) {

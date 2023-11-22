@@ -14,7 +14,6 @@ public class HorizontalMove implements MovementValidator {
     public boolean validateMove(Position oldPos, Position newPos) {
         int x = oldPos.getX() - newPos.getX();
         int y = oldPos.getY() - newPos.getY();
-
         if (x == 0){
             if (y > 0){
                 return y <= yPos;
@@ -37,19 +36,24 @@ public class HorizontalMove implements MovementValidator {
 
     private static boolean findObstacle2(Position oldPos, Position newPos, Board board) {
         for (int i = 1; i< Math.abs (oldPos.getY()- newPos.getY()); i++){
-            if (board.hasPiece(board.getBoard()[oldPos.getX()][oldPos.getY() + i])){
+            if (isHasPiece(oldPos, board, i)){
                 return true;
             }
         }
         return false;
     }
 
+    private static boolean isHasPiece(Position oldPos, Board board, int i) {
+        return board.hasPiece(board.getBoard()[oldPos.getX()][oldPos.getY() + i]);
+    }
+
     private static boolean findObstacle1(Position oldPos, Position newPos, Board board) {
         for (int i = 1; i < Math.abs(oldPos.getY()- newPos.getY()); i++){
-            if (board.hasPiece(board.getBoard()[oldPos.getX()][oldPos.getY() - i])){
+            if (isHasPiece(oldPos, board, -i)){
                 return true;
             }
         }
         return false;
     }
+
 }

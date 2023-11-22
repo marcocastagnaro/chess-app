@@ -47,7 +47,6 @@ public class Game implements GameInterface {
         Piece piece = oldPos.getPiece();
         if (validTurn(current, piece)) {
             Board tablero = current.movePiece( oldPos,newPosition, board);
-
             for (SpecialRules spec: gameVersion.getRules()){
                 if (spec.validateMove(tablero,oldPos, newPosition) != tablero){
                     Board board1 = spec.validateMove(tablero, oldPos, newPosition);

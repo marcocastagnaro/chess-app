@@ -36,16 +36,20 @@ public class StraightMove implements MovementValidator {
 
     private static boolean findObstacleUp(Position oldPos, Position newPos, Board board) {
         for (int i = 1; i< Math.abs (oldPos.getX()- newPos.getX()); i++){
-            if (board.hasPiece(board.getBoard()[oldPos.getX() + i][oldPos.getY()])){
+            if (isHasPiece(oldPos, board, i)){
                 return true;
             }
         }
         return false;
     }
 
+    private static boolean isHasPiece(Position oldPos, Board board, int i) {
+        return board.hasPiece(board.getBoard()[oldPos.getX() + i][oldPos.getY()]);
+    }
+
     private static boolean findObstacleDown(Position oldPos, Position newPos, Board board) {
         for (int i = 1; i < Math.abs(oldPos.getX()- newPos.getX()); i++){
-            if (board.hasPiece(board.getBoard()[oldPos.getX() - i][oldPos.getY()])){
+            if (isHasPiece(oldPos, board, -i)){
                 return true;
             }
         }
